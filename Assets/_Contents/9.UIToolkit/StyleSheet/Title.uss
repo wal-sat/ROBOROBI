@@ -1,0 +1,7 @@
+:root {
+}
+
+.title-menu__option {
+    margin-bottom: 4%;
+    font-size: 40px;
+}

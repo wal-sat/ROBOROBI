@@ -1,0 +1,31 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Commons.uss?fileID=7433441132597879392&amp;guid=2d8b3200cd670f543bacaad7e554f586&amp;type=3#Commons" />
+    <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Title.uss?fileID=7433441132597879392&amp;guid=6c48b7a33ccffba428160ea5d2dd7009&amp;type=3#Title" />
+    <ui:VisualElement name="RootElement" class="RootElement">
+        <ui:VisualElement name="title" style="height: 50%;">
+            <ui:Label text="Label" name="title__subtitle-text" class="text__normal" style="color: rgba(135, 78, 110, 0.9); font-size: 60px; align-self: center; margin-top: 50px; margin-bottom: 20px;">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:1aed80fe92dd5c34a98ae3220109e6ba" entry="Id(2682624790528)" />
+                </Bindings>
+            </ui:Label>
+            <Extension.UIElement.Image name="title__title-logo" image-texture="project://database/Assets/_Contents/2.Sprites/9.Localization/Japanese/TitleLogo_jp.png?fileID=2800000&amp;guid=30b0f20a027356647be06d749bddde05&amp;type=3#TitleLogo_jp" style="scale: 3 3; translate: 0 100%;" />
+        </ui:VisualElement>
+        <ui:VisualElement name="title-menu" style="height: 50%; align-items: center; justify-content: flex-end;">
+            <ui:Label text="Label" name="title-menu__start-option" class="text__option title-menu__option">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:1aed80fe92dd5c34a98ae3220109e6ba" entry="Id(3222737899520)" />
+                </Bindings>
+            </ui:Label>
+            <ui:Label text="Label" name="title-menu__setting-option" class="Text text__option title-menu__option">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:1aed80fe92dd5c34a98ae3220109e6ba" entry="Id(3473628581888)" />
+                </Bindings>
+            </ui:Label>
+            <ui:Label text="Label" name="title-menu__exit-option" class="Text text__option title-menu__option">
+                <Bindings>
+                    <UnityEngine.Localization.LocalizedString property="text" table="GUID:1aed80fe92dd5c34a98ae3220109e6ba" entry="Id(3604025298944)" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
