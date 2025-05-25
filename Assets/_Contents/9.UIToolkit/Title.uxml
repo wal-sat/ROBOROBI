@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Commons.uss?fileID=7433441132597879392&amp;guid=2d8b3200cd670f543bacaad7e554f586&amp;type=3#Commons" />
     <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Title.uss?fileID=7433441132597879392&amp;guid=6c48b7a33ccffba428160ea5d2dd7009&amp;type=3#Title" />
-    <ui:VisualElement name="RootElement" class="RootElement">
+    <ui:VisualElement name="root-element" class="RootElement root-element">
         <ui:VisualElement name="title" style="height: 50%;">
             <ui:Label text="Label" name="title__subtitle-text" class="text__normal" style="color: rgba(135, 78, 110, 0.9); font-size: 60px; align-self: center; margin-top: 50px; margin-bottom: 20px;">
                 <Bindings>

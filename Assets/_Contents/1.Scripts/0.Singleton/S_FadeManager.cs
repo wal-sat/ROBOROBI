@@ -1,23 +1,32 @@
+using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
+using UnityEngine.UIElements;
 
+[DefaultExecutionOrder(1)] // ... (1)
 public class S_FadeManager : Singleton<S_FadeManager>
 {
-    [SerializeField] CanvasGroup _blackPanelCanvasGroup;
-    
-    // ゲーム起動時にフェードインから始まる
-    private void Start()
+    private VisualElement _blackPanel;
+
+    public override void Awake()
     {
-        _blackPanelCanvasGroup.alpha = 1f;
-        FadeIn(1);
+        base.Awake();
+
+        var root = this.gameObject.GetComponent<UIDocument>().rootVisualElement;
+        _blackPanel = root.Q<VisualElement>("black-panel");
     }
 
-    public void FadeIn(float duration)
+    public void FadeIn(float duration = 1f)
     {
-        _blackPanelCanvasGroup.DOFade(0f, duration).SetEase(Ease.Linear);
+        _blackPanel.style.transitionDuration = new List<TimeValue> { new(duration, TimeUnit.Second) };
+        _blackPanel.AddToClassList("visible--disable");
     }
-    public void FadeOut(float duration)
+
+    public void FadeOut(float duration = 1f)
     {
-        _blackPanelCanvasGroup.DOFade(1f, duration).SetEase(Ease.Linear);
+        _blackPanel.style.transitionDuration = new List<TimeValue> { new(duration, TimeUnit.Second) };
+        _blackPanel.RemoveFromClassList("visible--disable");
     }
+
+    // (1)
+    // UIDocument周りの初期化の後にこのクラスのAwake()を実行するために、ExecutionOrderを1に設定している。
 }
