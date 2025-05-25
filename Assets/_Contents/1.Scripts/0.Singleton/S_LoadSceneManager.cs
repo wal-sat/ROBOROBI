@@ -2,24 +2,24 @@ using UnityEngine.SceneManagement;
 using Cysharp.Threading.Tasks;
 
 // Scene名を列挙する
-public enum SceneKind { Title, Stage0, Stage1, Ending }
+public enum SceneKind { Title }
 
-public class S_LoadSceneManager : Singleton<S_LoadSceneManager>
+public class S_LoadSceneManager : Singleton<S_LoadSceneManager>, IInputLockable
 {
-    private const float FADE_TIME = 1f;
+    private const float FadeTime = 1f;
 
-    public async void LoadScene(SceneKind sceneKind)
+    public async UniTaskVoid LoadScene(SceneKind sceneKind)
     {
-        S_InputSystemManager.instance.SetLockInputDictionary(this.gameObject, true);
-        S_FadeManager.instance.FadeOut(FADE_TIME);
+        S_InputSystemManager.Instance.SetInputLock(this, true);
+        S_FadeManager.Instance.FadeOut(FadeTime);
 
-        await UniTask.WaitForSeconds(FADE_TIME);
+        await UniTask.WaitForSeconds(FadeTime);
 
         SceneManager.LoadScene(sceneKind.ToString());
 
-        await UniTask.WaitForSeconds(FADE_TIME / 2);
+        await UniTask.WaitForSeconds(FadeTime / 2);
 
-        S_InputSystemManager.instance.SetLockInputDictionary(this.gameObject, false);
-        S_FadeManager.instance.FadeIn(FADE_TIME);
+        S_InputSystemManager.Instance.SetInputLock(this, false);
+        S_FadeManager.Instance.FadeIn(FadeTime);
     }
 }

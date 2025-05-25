@@ -24,18 +24,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "W",
+                    "name": "E",
                     "type": "Button",
-                    "id": "c4ea4658-298f-4adf-9100-b9f41afc1093",
+                    "id": "e95bc0cc-a069-4adf-b3a4-b116c04d96f4",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
-                    "name": "E",
+                    "name": "W",
                     "type": "Button",
-                    "id": "e95bc0cc-a069-4adf-b3a4-b116c04d96f4",
+                    "id": "c4ea4658-298f-4adf-9100-b9f41afc1093",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",

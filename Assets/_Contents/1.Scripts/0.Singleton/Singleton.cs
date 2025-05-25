@@ -3,17 +3,17 @@ using UnityEngine;
 [DefaultExecutionOrder(-101)] // ... (1)
 public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
-	public static T instance = default;
+	public static T Instance = default;
 
 	public virtual void Awake()
 	{
-		if (instance)
+		if (Instance)
 		{
 			Destroy(this.gameObject);
 			return;
 		}
 
-		instance = this as T;
+		Instance = this as T;
 
 		// 親要素があるとDontDestroyOnLoadが機能しないため、親要素を外す
 		this.gameObject.transform.parent = null;
@@ -22,7 +22,10 @@ public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
 
 	protected virtual void OnDestroy()
 	{
-		if (ReferenceEquals(this, instance)) instance = null;
+		if (ReferenceEquals(this, Instance))
+		{
+			Instance = null;
+		}
 	}
 }
 

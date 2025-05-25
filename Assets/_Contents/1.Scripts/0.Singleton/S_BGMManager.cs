@@ -7,16 +7,16 @@ using Cysharp.Threading.Tasks;
 
 public class S_BGMManager : Singleton<S_BGMManager>
 {
-    enum BGMStatus {  none, fadeIn, play, fadeOut, pause, stop }
+    enum BGMStatus {  None, FadeIn, Play, FadeOut, Pause, Stop }
 
     [Serializable] class BGMInfo
     {
-        [SerializeField] public string name;
-        [SerializeField] public AudioClip[] audioClip;
+        [SerializeField] public string Name;
+        [SerializeField] public AudioClip[] BGMClip;
 
         [HideInInspector] public AudioSource audioSource;
         [HideInInspector] public CancellationTokenSource cancellationTokenSource;
-        [HideInInspector] public BGMStatus status = BGMStatus.none;
+        [HideInInspector] public BGMStatus bgmStatus = BGMStatus.None;
         private int _clipIndex = 0;
         public int clipIndex
         {
@@ -24,9 +24,9 @@ public class S_BGMManager : Singleton<S_BGMManager>
             set
             {
                 _clipIndex = value;
-                if (_clipIndex >= audioClip.Length) _clipIndex = 0;
+                if (_clipIndex >= BGMClip.Length) _clipIndex = 0;
 
-                if (audioSource != null) audioSource.clip = audioClip[_clipIndex];
+                if (audioSource != null) audioSource.clip = BGMClip[_clipIndex];
             }
         }
 
@@ -36,18 +36,22 @@ public class S_BGMManager : Singleton<S_BGMManager>
         }
     }
 
-    [SerializeField] float MAX_VOLUME;
-    [SerializeField] List<BGMInfo> BGMList = new List<BGMInfo>();
+    [SerializeField] private float _maxBGMVolume;
+    [SerializeField] private List<BGMInfo> _bgmList = new List<BGMInfo>();
 
     private AudioSource[] _audioSourceList = new AudioSource[5];
-    private Dictionary<string, BGMInfo> _BGMDictionary = new Dictionary<string, BGMInfo>();
+    private Dictionary<string, BGMInfo> _bgmDictionary = new Dictionary<string, BGMInfo>();
     private float _volume;
  
     public override void Awake()
     {
         base.Awake();
 
-        for (int i = 0; i < BGMList.Count; ++i) _BGMDictionary.Add(BGMList[i].name, BGMList[i]);
+        for (int i = 0; i < _bgmList.Count; ++i)
+        {
+            _bgmDictionary.Add(_bgmList[i].Name, _bgmList[i]);
+        }
+    
         for (int i = 0; i < _audioSourceList.Length; ++i)
         {
             _audioSourceList[i] = gameObject.AddComponent<AudioSource>();
@@ -58,10 +62,11 @@ public class S_BGMManager : Singleton<S_BGMManager>
     }
     public void Update()
     {
-        foreach (var item in _BGMDictionary.Values)
+        foreach (var item in _bgmDictionary.Values)
         {
-            if (item.audioSource == null) continue;
-            if ( (item.status == BGMStatus.fadeIn || item.status == BGMStatus.play || item.status == BGMStatus.fadeOut) && item.IsFinished())
+            if (item.audioSource == null) { continue; }
+            
+            if ((item.bgmStatus == BGMStatus.FadeIn || item.bgmStatus == BGMStatus.Play || item.bgmStatus == BGMStatus.FadeOut) && item.IsFinished())
             {
                 item.clipIndex++;
                 item.audioSource.Play();
@@ -81,19 +86,24 @@ public class S_BGMManager : Singleton<S_BGMManager>
         {
             if (item != name) Stop(item, fadeTime);
         }
-        if (playingBGM.Any(x => x == name)) return;
+        if (playingBGM.Any(x => x == name)) { return; }
         
-        if (_BGMDictionary.TryGetValue(name, out var BGMInfo))
+        if (_bgmDictionary.TryGetValue(name, out var BGMInfo))
         {
-            if (BGMInfo.cancellationTokenSource != null) BGMInfo.cancellationTokenSource.Cancel();
+            if (BGMInfo.cancellationTokenSource != null)
+            {
+                BGMInfo.cancellationTokenSource.Cancel();
+            }
             BGMInfo.cancellationTokenSource = new CancellationTokenSource();
 
-            if (BGMInfo.status == BGMStatus.fadeOut || BGMInfo.status == BGMStatus.pause) {
+            if (BGMInfo.bgmStatus == BGMStatus.FadeOut || BGMInfo.bgmStatus == BGMStatus.Pause)
+            {
                 ResumeAsync(BGMInfo, fadeTime, BGMInfo.cancellationTokenSource.Token);
             }
-            else if (BGMInfo.status == BGMStatus.stop || BGMInfo.status == BGMStatus.none) {
+            else if (BGMInfo.bgmStatus == BGMStatus.Stop || BGMInfo.bgmStatus == BGMStatus.None)
+            {
                 BGMInfo.audioSource = GetUnusedAudioSource();
-                if (BGMInfo.audioSource == null) return;
+                if (BGMInfo.audioSource == null) { return; }
 
                 BGMInfo.clipIndex = BGMInfo.clipIndex;
                 PlayAsync(BGMInfo, fadeTime, BGMInfo.cancellationTokenSource.Token);
@@ -102,25 +112,28 @@ public class S_BGMManager : Singleton<S_BGMManager>
     }
     private async void PlayAsync(BGMInfo BGMInfo, float fadeTime, CancellationToken token)
     {
-        BGMInfo.status = BGMStatus.fadeIn;
+        BGMInfo.bgmStatus = BGMStatus.FadeIn;
         BGMInfo.audioSource.Play();
         float currentVolume = BGMInfo.audioSource.volume;
 
         for (int i = 0; i < 100; i++)
         {
-            BGMInfo.audioSource.volume += ( _volume - currentVolume ) / 100;
-            if (BGMInfo.audioSource.volume > _volume) BGMInfo.audioSource.volume = _volume;
+            BGMInfo.audioSource.volume += (_volume - currentVolume) / 100;
+            if (BGMInfo.audioSource.volume > _volume)
+            {
+                BGMInfo.audioSource.volume = _volume;
+            }
 
             try { await UniTask.Delay(TimeSpan.FromSeconds(fadeTime / 100), cancellationToken: token); }
             catch { return; }
         }
         BGMInfo.audioSource.volume = _volume;
         BGMInfo.cancellationTokenSource = null;
-        BGMInfo.status = BGMStatus.play;
+        BGMInfo.bgmStatus = BGMStatus.Play;
     }
     private async void ResumeAsync(BGMInfo BGMInfo, float fadeTime, CancellationToken token)
     {
-        BGMInfo.status = BGMStatus.fadeIn;
+        BGMInfo.bgmStatus = BGMStatus.FadeIn;
         BGMInfo.audioSource.pitch = 1;
         float currentVolume = BGMInfo.audioSource.volume;
 
@@ -133,7 +146,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
         }
         BGMInfo.audioSource.volume = _volume;
         BGMInfo.cancellationTokenSource = null;
-        BGMInfo.status = BGMStatus.play;
+        BGMInfo.bgmStatus = BGMStatus.Play;
     }
 
     /// <summary>
@@ -143,9 +156,12 @@ public class S_BGMManager : Singleton<S_BGMManager>
     /// <param name="fadeTime">フェードアウトの時間</param>
     public void Stop(string name, float fadeTime)
     {
-        if (_BGMDictionary.TryGetValue(name, out var BGMInfo))
+        if (_bgmDictionary.TryGetValue(name, out var BGMInfo))
         {
-            if (BGMInfo.cancellationTokenSource != null) BGMInfo.cancellationTokenSource.Cancel();
+            if (BGMInfo.cancellationTokenSource != null)
+            {
+                BGMInfo.cancellationTokenSource.Cancel();
+            }    
             BGMInfo.cancellationTokenSource = new CancellationTokenSource();
 
             StopAsync(BGMInfo, fadeTime, BGMInfo.cancellationTokenSource.Token);
@@ -153,7 +169,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
     }
     private async void StopAsync(BGMInfo BGMInfo, float fadeTime, CancellationToken token)
     {
-        BGMInfo.status = BGMStatus.fadeOut;
+        BGMInfo.bgmStatus = BGMStatus.FadeOut;
         float currentVolume = BGMInfo.audioSource.volume;
 
         for (int i = 0; i < 100; i++)
@@ -167,7 +183,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
         BGMInfo.audioSource.Stop();
         BGMInfo.audioSource = null;
         BGMInfo.cancellationTokenSource = null;
-        BGMInfo.status = BGMStatus.stop;
+        BGMInfo.bgmStatus = BGMStatus.Stop;
     }
 
     /// <summary>
@@ -177,9 +193,12 @@ public class S_BGMManager : Singleton<S_BGMManager>
     /// <param name="fadeTime">フェードアウトの時間</param>
     public void Pause(string name, float fadeTime)
     {
-        if (_BGMDictionary.TryGetValue(name, out var BGMInfo))
+        if (_bgmDictionary.TryGetValue(name, out var BGMInfo))
         {
-            if (BGMInfo.cancellationTokenSource != null) BGMInfo.cancellationTokenSource.Cancel();
+            if (BGMInfo.cancellationTokenSource != null)
+            {
+                BGMInfo.cancellationTokenSource.Cancel();
+            }
             BGMInfo.cancellationTokenSource = new CancellationTokenSource();
 
             PauseAsync(BGMInfo, fadeTime, BGMInfo.cancellationTokenSource.Token);
@@ -187,7 +206,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
     }
     private async void PauseAsync(BGMInfo BGMInfo, float fadeTime, CancellationToken token)
     {
-        BGMInfo.status = BGMStatus.fadeOut;
+        BGMInfo.bgmStatus = BGMStatus.FadeOut;
         float currentVolume = BGMInfo.audioSource.volume;
 
         for (int i = 0; i < 100; i++)
@@ -200,7 +219,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
         BGMInfo.audioSource.volume = 0;
         BGMInfo.audioSource.pitch = 0;
         BGMInfo.cancellationTokenSource = null;
-        BGMInfo.status = BGMStatus.pause;
+        BGMInfo.bgmStatus = BGMStatus.Pause;
     }
 
     /// <summary>
@@ -208,7 +227,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
     /// </summary>
     public void Mute()
     {
-        foreach (var item in _BGMDictionary.Values)
+        foreach (var item in _bgmDictionary.Values)
         {
             item.audioSource.pitch = 0;
         }
@@ -218,7 +237,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
     /// </summary>
     public void UnMute()
     {
-        foreach (var item in _BGMDictionary.Values)
+        foreach (var item in _bgmDictionary.Values)
         {
             item.audioSource.pitch = 1;
         }
@@ -229,10 +248,13 @@ public class S_BGMManager : Singleton<S_BGMManager>
     /// </summary>
     public void ChangeVolume(float volume)
     {
-        _volume = volume * MAX_VOLUME;
-        foreach (var item in _BGMDictionary.Values)
+        _volume = volume * _maxBGMVolume;
+        foreach (var item in _bgmDictionary.Values)
         {
-            if (item.status == BGMStatus.fadeIn || item.status == BGMStatus.play) item.audioSource.volume = _volume;
+            if (item.bgmStatus == BGMStatus.FadeIn || item.bgmStatus == BGMStatus.Play)
+            {
+                item.audioSource.volume = _volume;
+            }
         }
     }
 
@@ -242,9 +264,12 @@ public class S_BGMManager : Singleton<S_BGMManager>
     private List<string> GetPlayingBGM()
     {
         List<string> playingBGM = new List<string>();
-        foreach (var item in _BGMDictionary.Values)
+        foreach (var item in _bgmDictionary.Values)
         {
-            if (item.status == BGMStatus.fadeIn || item.status == BGMStatus.play) playingBGM.Add(item.name);
+            if (item.bgmStatus == BGMStatus.FadeIn || item.bgmStatus == BGMStatus.Play)
+            {
+                playingBGM.Add(item.Name);
+            }
         }
         return playingBGM;
     }
@@ -255,11 +280,18 @@ public class S_BGMManager : Singleton<S_BGMManager>
     private AudioSource GetUnusedAudioSource()
     {
         List<AudioSource> audioSourceList = _audioSourceList.ToList();
-        foreach (var item in _BGMDictionary.Values)
+        foreach (var item in _bgmDictionary.Values)
         {
-            if (item.audioSource != null) audioSourceList.Remove(item.audioSource);
+            if (item.audioSource != null)
+            {
+                audioSourceList.Remove(item.audioSource);
+            }
         }
-        if (audioSourceList.Count > 0) return audioSourceList[0];
+
+        if (audioSourceList.Count > 0)
+        {
+            return audioSourceList[0];
+        }    
 
         Debug.LogError("未使用のAudioSourceがありません");
         return null;
