@@ -14,13 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Localization-Assets-Japanese (ja)
   m_GUID: d8c8c7c73654fcc4e9b14df6578174d9
-  m_SerializeEntries:
-  - m_GUID: 30b0f20a027356647be06d749bddde05
-    m_Address: TitleLogo_jp
-    m_ReadOnly: 1
-    m_SerializedLabels:
-    - Locale-ja
-    FlaggedDuringContentUpdateRestriction: 0
+  m_SerializeEntries: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: a324ae245b0b28f4f9938da338e79629, type: 2}
   m_SchemaSet:

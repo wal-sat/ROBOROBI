@@ -11,6 +11,7 @@ public interface IInputLockable
 public class S_InputSystemManager : Singleton<S_InputSystemManager>
 {
     [HideInInspector] public Vector2 LeftDirection { get; private set; }
+    [HideInInspector] public Vector2 NormalizedLeftDirection { get; private set; }
     [HideInInspector] public bool IsPushingS { get; private set; }
     [HideInInspector] public bool IsPushingE { get; private set; }
     [HideInInspector] public bool IsPushingW { get; private set; }
@@ -43,11 +44,13 @@ public class S_InputSystemManager : Singleton<S_InputSystemManager>
         if (context.performed)
         {
             LeftDirection = context.ReadValue<Vector2>();
+            NormalizedLeftDirection = NormalizeVector(LeftDirection);
         }
         else if (context.canceled || _inputLock.Values.Any(x => x))
         {
             LeftDirection = Vector2.zero;
-        } 
+            NormalizedLeftDirection = Vector2.zero;
+        }
     }
     public void SetIsPushingS(InputAction.CallbackContext context)
     {
@@ -147,5 +150,15 @@ public class S_InputSystemManager : Singleton<S_InputSystemManager>
         {
             IsPushingOption = false;
         }
+    }
+
+    private Vector2 NormalizeVector(Vector2 vector)
+    {
+        if (vector.x > 0.5f) return Vector2.right;
+        if (vector.x < -0.5f) return Vector2.left;
+        if (vector.y > 0.5f) return Vector2.up;
+        if (vector.y < -0.5f) return Vector2.down;
+
+        return Vector2.zero;
     }
 }

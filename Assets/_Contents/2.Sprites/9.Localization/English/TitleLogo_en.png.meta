@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 609d09a8a22bcf34daf7a780ab6916b9
+guid: 8d04f9b6b0805674fb21c8c9f63be66a
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -67,7 +67,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -124,9 +124,9 @@ TextureImporter:
       name: TitleLogo_en_0
       rect:
         serializedVersion: 2
-        x: 0
+        x: 19
         y: 0
-        width: 49
+        width: 50
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -146,7 +146,7 @@ TextureImporter:
       name: TitleLogo_en_1
       rect:
         serializedVersion: 2
-        x: 55
+        x: 75
         y: 0
         width: 50
         height: 80
@@ -168,7 +168,7 @@ TextureImporter:
       name: TitleLogo_en_2
       rect:
         serializedVersion: 2
-        x: 111
+        x: 131
         y: 0
         width: 50
         height: 80
@@ -190,7 +190,7 @@ TextureImporter:
       name: TitleLogo_en_3
       rect:
         serializedVersion: 2
-        x: 167
+        x: 187
         y: 0
         width: 50
         height: 80
@@ -212,7 +212,7 @@ TextureImporter:
       name: TitleLogo_en_4
       rect:
         serializedVersion: 2
-        x: 223
+        x: 243
         y: 0
         width: 50
         height: 80
@@ -234,7 +234,7 @@ TextureImporter:
       name: TitleLogo_en_5
       rect:
         serializedVersion: 2
-        x: 279
+        x: 299
         y: 0
         width: 50
         height: 80
@@ -256,7 +256,7 @@ TextureImporter:
       name: TitleLogo_en_6
       rect:
         serializedVersion: 2
-        x: 335
+        x: 355
         y: 0
         width: 50
         height: 80
@@ -278,9 +278,9 @@ TextureImporter:
       name: TitleLogo_en_7
       rect:
         serializedVersion: 2
-        x: 391
+        x: 411
         y: 0
-        width: 49
+        width: 50
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -300,7 +300,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 

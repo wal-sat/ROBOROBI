@@ -46,6 +46,10 @@ MonoBehaviour:
     m_Localized: back
     m_Metadata:
       m_Items: []
+  - m_Id: 1377642559688704
+    m_Localized: Press the button to start
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
