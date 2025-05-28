@@ -1,10 +1,10 @@
 using System;
 using System.Threading;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
-using System.Collections.Generic;
 
 public class TitleSceneUIToolkit : MonoBehaviour
 {
@@ -17,6 +17,8 @@ public class TitleSceneUIToolkit : MonoBehaviour
     private VisualElement _titleMenu__exitOption;
     private VisualElement _titleSaveSlots;
     private VisualElement _titleExit;
+    private VisualElement _titleExit__backOption;
+    private VisualElement _titleExit__exitOption;
 
     private Dictionary<VisualElement, CancellationTokenSource> _CTSDictionary = new Dictionary<VisualElement, CancellationTokenSource>();
 
@@ -35,14 +37,44 @@ public class TitleSceneUIToolkit : MonoBehaviour
         _titleMenu__exitOption = _titleMenu.Q<VisualElement>("title-menu__exit-option");
         _titleSaveSlots = root.Q<VisualElement>("title-save-slots");
         _titleExit = root.Q<VisualElement>("title-exit");
+        _titleExit__backOption = _titleExit.Q<VisualElement>("title-exit__back-option");
+        _titleExit__exitOption = _titleExit.Q<VisualElement>("title-exit__exit-option");
 
         _CTSDictionary.Add(_titlePushS__Text, null);
         _CTSDictionary.Add(_titleMenu__startOption, null);
         _CTSDictionary.Add(_titleMenu__settingOption, null);
         _CTSDictionary.Add(_titleMenu__exitOption, null);
+        _CTSDictionary.Add(_titleExit__backOption, null);
+        _CTSDictionary.Add(_titleExit__exitOption, null);
     }
 
     // ----- Public Methods -----
+
+    public void ChangeTitleStateUI(TitleState titleState)
+    {
+        MakeInvisible(_titlePushS);
+        MakeInvisible(_titleMenu);
+        ClosePanel(_titleSaveSlots);
+        ClosePanel(_titleExit);
+
+        switch (titleState)
+        {
+            case TitleState.PushS:
+                MakeVisible(_titlePushS);
+                break;
+            case TitleState.Menu:
+                MakeVisible(_titleMenu);
+                break;
+            case TitleState.SaveSlots:
+                OpenPanel(_titleSaveSlots);
+                break;
+            case TitleState.Settings:
+                break;
+            case TitleState.Exit:
+                OpenPanel(_titleExit);
+                break;
+        }
+    }
 
     public void SetPushingSTextAnimation(bool isStart)
     {
@@ -55,6 +87,7 @@ public class TitleSceneUIToolkit : MonoBehaviour
             StopTextAnimation(_titlePushS__Text);
         }
     }
+
     public void SelectMenuOption(int index)
     {
         DeselectOption(_titleMenu__startOption);
@@ -81,17 +114,73 @@ public class TitleSceneUIToolkit : MonoBehaviour
         }
     }
 
+    public void SelectExitOption(int index)
+    {
+        DeselectOption(_titleExit__backOption);
+        DeselectOption(_titleExit__exitOption);
+        StopTextAnimation(_titleExit__backOption);
+        StopTextAnimation(_titleExit__exitOption);
+
+        switch (index)
+        {
+            case 0:
+                SelectOption(_titleExit__backOption);
+                StartTextAnimation(_titleExit__backOption);
+                break;
+            case 1:
+                SelectOption(_titleExit__exitOption);
+                StartTextAnimation(_titleExit__exitOption);
+                break;
+        }
+    }
+
     // ----- Private Methods -----
+
+    /// <summary>
+    /// 透明度の変更
+    /// </summary>
+    private void MakeVisible(VisualElement visualElement)
+    {
+        if (!visualElement.ClassListContains("visible--disable")) return;
+
+        visualElement.RemoveFromClassList("visible--disable");
+    }
+    private void MakeInvisible(VisualElement visualElement)
+    {
+        if (!visualElement.ClassListContains("visible")) return;
+
+        visualElement.AddToClassList("visible--disable");
+    }
+
+    /// <summary>
+    /// パネルの表示・非表示
+    /// </summary>
+    private void OpenPanel(VisualElement visualElement)
+    {
+        if (!visualElement.ClassListContains("panel")) return;
+
+        visualElement.AddToClassList("panel--open");
+    }
+    private void ClosePanel(VisualElement visualElement)
+    {
+        if (!visualElement.ClassListContains("panel--open")) return;
+
+        visualElement.RemoveFromClassList("panel--open");
+    }
 
     /// <summary>
     /// オプションの選択状態
     /// </summary>
     private void SelectOption(VisualElement visualElement)
     {
+        if (!visualElement.ClassListContains("text__option")) return;
+
         visualElement.AddToClassList("text__option--selected");
     }
     private void DeselectOption(VisualElement visualElement)
     {
+        if (!visualElement.ClassListContains("text__option--selected")) return;
+
         visualElement.RemoveFromClassList("text__option--selected");
     }
 
@@ -100,6 +189,8 @@ public class TitleSceneUIToolkit : MonoBehaviour
     /// </summary>
     private void StartTextAnimation(VisualElement visualElement)
     {
+        if (!visualElement.ClassListContains("text")) return;
+
         if (_CTSDictionary[visualElement] != null) return;
         _CTSDictionary[visualElement] = new CancellationTokenSource();
 
@@ -108,6 +199,8 @@ public class TitleSceneUIToolkit : MonoBehaviour
     }
     private void StopTextAnimation(VisualElement visualElement)
     {
+        if (!visualElement.ClassListContains("text--animate")) return;
+
         _CTSDictionary[visualElement]?.Cancel();
         _CTSDictionary[visualElement] = null;
 

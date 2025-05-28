@@ -1,16 +1,22 @@
+using System;
 using UnityEngine;
 
 public class TitleScenePushS : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    [SerializeField] private TitleSceneUIToolkit _titleSceneUIToolkit;
+
+    public Action<TitleState> OnChangeTitleState;
+
+    // ----- Public Methods -----
+
+    public void Submit()
     {
-        
+        _titleSceneUIToolkit.SetPushingSTextAnimation(false);
+        OnChangeTitleState?.Invoke(TitleState.Menu);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Initialize()
     {
-        
+        _titleSceneUIToolkit.SetPushingSTextAnimation(true);
     }
 }

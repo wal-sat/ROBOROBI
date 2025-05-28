@@ -20,9 +20,11 @@ public class TitleSceneInputManager : MonoBehaviour
 
     private void Awake()
     {
+        _titleScenePushS.OnChangeTitleState = ChangeTitleState;
         _titleSceneMenu.OnChangeTitleState = ChangeTitleState;
+        _titleSceneExit.OnChangeTitleState = ChangeTitleState;
 
-        ChangeTitleState(TitleState.Menu);
+        ChangeTitleState(TitleState.PushS);
     }
 
     private void Update()
@@ -137,7 +139,7 @@ public class TitleSceneInputManager : MonoBehaviour
 
                 break;
             case TitleState.Exit:
-
+                _titleSceneExit.Left();
                 break;
         }
     }
@@ -158,7 +160,7 @@ public class TitleSceneInputManager : MonoBehaviour
 
                 break;
             case TitleState.Exit:
-
+                _titleSceneExit.Right();
                 break;
         }
     }
@@ -167,10 +169,10 @@ public class TitleSceneInputManager : MonoBehaviour
         switch (_titleState)
         {
             case TitleState.PushS:
-
+                _titleScenePushS.Submit();
                 break;
             case TitleState.Menu:
-
+                _titleSceneMenu.Submit();
                 break;
             case TitleState.SaveSlots:
 
@@ -179,7 +181,7 @@ public class TitleSceneInputManager : MonoBehaviour
 
                 break;
             case TitleState.Exit:
-
+                _titleSceneExit.Submit();
                 break;
         }
     }
@@ -191,7 +193,7 @@ public class TitleSceneInputManager : MonoBehaviour
 
                 break;
             case TitleState.Menu:
-
+                _titleSceneMenu.Cancel();
                 break;
             case TitleState.SaveSlots:
 
@@ -200,13 +202,36 @@ public class TitleSceneInputManager : MonoBehaviour
 
                 break;
             case TitleState.Exit:
-
+                _titleSceneExit.Cancel();
                 break;
         }
     }
-    
+
     private void ChangeTitleState(TitleState newState)
     {
+        _titleSceneUIToolkit.ChangeTitleStateUI(newState);
+
+        switch (newState)
+        {
+            case TitleState.PushS:
+                _titleScenePushS.Initialize();
+                break;
+            case TitleState.Menu:
+                _titleSceneMenu.Initialize(_titleState);
+                break;
+            case TitleState.SaveSlots:
+                //_titleSceneSaveSlots.Initialize();
+                break;
+            case TitleState.Settings:
+                // Initialize settings if needed
+                break;
+            case TitleState.Exit:
+                _titleSceneExit.Initialize();
+                break;
+            default:
+                break;
+        }
+
         _titleState = newState;
     }
 }

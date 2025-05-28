@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Cysharp.Threading.Tasks;
 
 [DefaultExecutionOrder(1)] // ... (1)
 public class S_FadeManager : Singleton<S_FadeManager>
@@ -15,16 +16,20 @@ public class S_FadeManager : Singleton<S_FadeManager>
         _blackPanel = root.Q<VisualElement>("black-panel");
     }
 
-    public void FadeIn(float duration = 1f)
+    public async UniTask FadeIn(float duration = 1f)
     {
         _blackPanel.style.transitionDuration = new List<TimeValue> { new(duration, TimeUnit.Second) };
         _blackPanel.AddToClassList("visible--disable");
+
+        await UniTask.WaitForSeconds(duration);
     }
 
-    public void FadeOut(float duration = 1f)
+    public async UniTask FadeOut(float duration = 1f)
     {
         _blackPanel.style.transitionDuration = new List<TimeValue> { new(duration, TimeUnit.Second) };
         _blackPanel.RemoveFromClassList("visible--disable");
+
+        await UniTask.WaitForSeconds(duration);
     }
 
     // (1)

@@ -19,13 +19,6 @@ public class TitleSceneMenu : MonoBehaviour
         }
     }
 
-    // ----- Life Cycle Methods -----
-
-    private void Start()
-    {
-        MenuIndex = 0;
-    }
-
     // ----- Public Methods -----
 
     public void Up()
@@ -42,7 +35,7 @@ public class TitleSceneMenu : MonoBehaviour
     }
     public void Cancel()
     {
-
+        BackPushS();
     }
 
     public void Initialize(TitleState titleStatePast)
@@ -81,5 +74,11 @@ public class TitleSceneMenu : MonoBehaviour
                 OnChangeTitleState?.Invoke(TitleState.Exit);
                 break;
         }
+    }
+
+    private void BackPushS()
+    {
+        _titleSceneUIToolkit.SelectMenuOption(-1);
+        OnChangeTitleState?.Invoke(TitleState.PushS);
     }
 }

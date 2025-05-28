@@ -6,7 +6,8 @@
     font-size: 40px;
 }
 
-.text__option--selected {
-    color: rgb(22, 22, 22);
-    scale: 1.5 1.5;
+.title-exit__option {
+    font-size: 40px;
+    margin-right: 150px;
+    margin-left: 150px;
 }

@@ -148,7 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e799fe0348bf87e4795c24097459f5bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _titleSceneUIToolkit: {fileID: 0}
+  _titleSceneUIToolkit: {fileID: 273035083}
 --- !u!4 &142102014
 Transform:
   m_ObjectHideFlags: 0
@@ -228,6 +228,51 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb40648fb0360fa45b083f9e81d179a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &278806019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 278806021}
+  - component: {fileID: 278806020}
+  m_Layer: 0
+  m_Name: _TitleSceneExit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &278806020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278806019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ae876f8f2098d44881cec370c291892, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _titleSceneUIToolkit: {fileID: 273035083}
+--- !u!4 &278806021
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278806019}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1784329061}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1140186418
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,6 +410,51 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1184539539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1184539541}
+  - component: {fileID: 1184539540}
+  m_Layer: 0
+  m_Name: _TitleScenePushS
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1184539540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184539539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f10298975c6b5a46afea629f4cae2fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _titleSceneUIToolkit: {fileID: 273035083}
+--- !u!4 &1184539541
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1184539539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1784329061}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1784329060
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,7 +485,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1184539541}
   - {fileID: 142102014}
+  - {fileID: 278806021}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1784329062
@@ -410,10 +502,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f2cd657dd27e474fbc7dd274d8ed5a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _titleScenePushS: {fileID: 0}
+  _titleScenePushS: {fileID: 1184539540}
   _titleSceneMenu: {fileID: 142102013}
   _titleSceneSaveSlots: {fileID: 0}
-  _titleSceneExit: {fileID: 0}
+  _titleSceneExit: {fileID: 278806020}
   _titleSceneUIToolkit: {fileID: 273035083}
 --- !u!1001 &2867927177084420711
 PrefabInstance:
