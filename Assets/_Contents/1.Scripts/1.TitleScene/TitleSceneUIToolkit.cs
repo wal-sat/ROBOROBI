@@ -24,7 +24,7 @@ public class TitleSceneUIToolkit : MonoBehaviour
 
     private Dictionary<VisualElement, CancellationTokenSource> _CTSDictionary = new Dictionary<VisualElement, CancellationTokenSource>();
 
-    // ----- Life Methods -----
+    // ----- Life Cycle Methods -----
 
     private void Awake()
     {

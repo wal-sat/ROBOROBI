@@ -3,10 +3,12 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using Cysharp.Threading.Tasks;
 
-[DefaultExecutionOrder(1)] // ... (1)
+[DefaultExecutionOrder(1)] // ... (1)クラスの下で説明
 public class S_FadeManager : Singleton<S_FadeManager>
 {
     private VisualElement _blackPanel;
+
+    // ----- Life Cycle Methods -----
 
     public override void Awake()
     {
@@ -15,6 +17,8 @@ public class S_FadeManager : Singleton<S_FadeManager>
         var root = this.gameObject.GetComponent<UIDocument>().rootVisualElement;
         _blackPanel = root.Q<VisualElement>("black-panel");
     }
+
+    // ----- Public Methods -----
 
     public async UniTask FadeIn(float duration = 1f)
     {
@@ -31,7 +35,7 @@ public class S_FadeManager : Singleton<S_FadeManager>
 
         await UniTask.WaitForSeconds(duration);
     }
-
-    // (1)
-    // UIDocument周りの初期化の後にこのクラスのAwake()を実行するために、ExecutionOrderを1に設定している。
 }
+
+// (1)
+// UIDocument周りの初期化の後にこのクラスのAwake()を実行するために、ExecutionOrderを1に設定している。

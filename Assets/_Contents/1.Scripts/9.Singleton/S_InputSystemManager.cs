@@ -24,6 +24,8 @@ public class S_InputSystemManager : Singleton<S_InputSystemManager>
 
     private Dictionary<IInputLockable, bool> _inputLock = new Dictionary<IInputLockable, bool>();
 
+    // ----- Public Methods -----
+
     /// <summary>
     /// 入力受付の制限の状態を変更する
     /// </summary>
@@ -151,6 +153,8 @@ public class S_InputSystemManager : Singleton<S_InputSystemManager>
             IsPushingOption = false;
         }
     }
+
+    // ----- Private Methods -----
 
     private Vector2 NormalizeVector(Vector2 vector)
     {

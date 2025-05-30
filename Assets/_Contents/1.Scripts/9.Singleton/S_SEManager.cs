@@ -15,6 +15,8 @@ public class S_SEManager : Singleton<S_SEManager>
     private AudioSource[] _audioSourceList = new AudioSource[20];
     private Dictionary<string, SEInfo> _seDictionary = new Dictionary<string, SEInfo>();
     private float _volume;
+    
+    // ----- Life Cycle Methods -----
  
     public override void Awake()
     {
@@ -25,12 +27,14 @@ public class S_SEManager : Singleton<S_SEManager>
             _audioSourceList[i] = gameObject.AddComponent<AudioSource>();
             _audioSourceList[i].priority = 128;
         }
- 
+
         foreach (var SEInfo in _seList)
         {
             _seDictionary.Add(SEInfo.Name, SEInfo);
         }
     }
+    
+    // ----- Public Methods -----
 
     /// <summary>
     /// SEを再生する
@@ -41,7 +45,7 @@ public class S_SEManager : Singleton<S_SEManager>
         {
             var audioSource = GetUnusedAudioSource();
             if (audioSource == null) { return; }
-            
+
             audioSource.PlayOneShot(SEInfo.SEClip);
         }
     }
@@ -57,6 +61,8 @@ public class S_SEManager : Singleton<S_SEManager>
             audioSource.volume = _volume;
         }
     }
+    
+    // ----- Private Methods -----
 
     /// <summary>
     /// 未使用のAudioSourceを取得する
@@ -68,7 +74,7 @@ public class S_SEManager : Singleton<S_SEManager>
             if (_audioSourceList[i].isPlaying == false)
             {
                 return _audioSourceList[i];
-            }    
+            }
         }
 
         Debug.LogError("未使用のAudioSourceがありません");

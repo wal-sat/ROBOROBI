@@ -1,9 +1,11 @@
 using UnityEngine;
 
-[DefaultExecutionOrder(-101)] // ... (1)
+[DefaultExecutionOrder(-101)] // ... (1)クラスの下で説明
 public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
 	public static T Instance = default;
+
+	// ----- Life Cycle Methods -----
 
 	public virtual void Awake()
 	{

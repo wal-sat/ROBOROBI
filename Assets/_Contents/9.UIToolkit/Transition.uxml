@@ -1,0 +1,8 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Commons.uss?fileID=7433441132597879392&amp;guid=2d8b3200cd670f543bacaad7e554f586&amp;type=3#Commons" />
+    <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Transition.uss?fileID=7433441132597879392&amp;guid=19d7f844a388fba4fb2ac100e2e50e67&amp;type=3#Transition" />
+    <ui:VisualElement name="root-element" class="root-element">
+        <ui:VisualElement name="transition-panel__white" class="transition-panel transition-panel--right" style="background-color: rgb(233, 233, 233);" />
+        <ui:VisualElement name="transition-panel__blue" class="transition-panel transition-panel--right" style="background-color: rgb(145, 200, 255);" />
+    </ui:VisualElement>
+</ui:UXML>

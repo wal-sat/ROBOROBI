@@ -42,6 +42,8 @@ public class S_BGMManager : Singleton<S_BGMManager>
     private AudioSource[] _audioSourceList = new AudioSource[5];
     private Dictionary<string, BGMInfo> _bgmDictionary = new Dictionary<string, BGMInfo>();
     private float _volume;
+    
+    // ----- Life Cycle Methods -----
  
     public override void Awake()
     {
@@ -51,7 +53,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
         {
             _bgmDictionary.Add(_bgmList[i].Name, _bgmList[i]);
         }
-    
+
         for (int i = 0; i < _audioSourceList.Length; ++i)
         {
             _audioSourceList[i] = gameObject.AddComponent<AudioSource>();
@@ -73,6 +75,8 @@ public class S_BGMManager : Singleton<S_BGMManager>
             }
         }   
     }
+    
+    // ----- Public Methods -----
 
     /// <summary>
     /// BGMを再生する
@@ -82,12 +86,12 @@ public class S_BGMManager : Singleton<S_BGMManager>
     public void Play(string name, float fadeTime)
     {
         List<string> playingBGM = GetPlayingBGM();
-        foreach (var item in playingBGM) 
+        foreach (var item in playingBGM)
         {
             if (item != name) Stop(item, fadeTime);
         }
         if (playingBGM.Any(x => x == name)) { return; }
-        
+
         if (_bgmDictionary.TryGetValue(name, out var BGMInfo))
         {
             if (BGMInfo.cancellationTokenSource != null)
@@ -257,6 +261,8 @@ public class S_BGMManager : Singleton<S_BGMManager>
             }
         }
     }
+
+    // ----- Private Methods -----
 
     /// <summary>
     /// 再生中のBGMを取得する
