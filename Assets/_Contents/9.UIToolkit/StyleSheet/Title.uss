@@ -3,11 +3,27 @@
 
 .title-menu__option {
     margin-bottom: 75px;
-    font-size: 40px;
+    font-size: 45px;
 }
 
 .title-exit__option {
-    font-size: 40px;
+    font-size: 45px;
     margin-right: 150px;
     margin-left: 150px;
+}
+
+.title-save-slots__slot {
+    height: 100%;
+    width: 20%;
+}
+
+.title-save-slots__slot__title-text {
+    align-self: center;
+    margin-top: 15%;
+}
+
+.animatable {
+    transition-duration: 0.5s, 1s;
+    transition-timing-function: ease-out-cubic, ease-in-out;
+    transition-property: all, rotate;
 }

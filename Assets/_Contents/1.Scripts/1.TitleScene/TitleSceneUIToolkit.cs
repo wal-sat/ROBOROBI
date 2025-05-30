@@ -16,6 +16,8 @@ public class TitleSceneUIToolkit : MonoBehaviour
     private VisualElement _titleMenu__settingOption;
     private VisualElement _titleMenu__exitOption;
     private VisualElement _titleSaveSlots;
+    private VisualElement[] _titleSaveSlots__saveSlots = new VisualElement[3];
+    private VisualElement _titleSaveSlots__backOption;
     private VisualElement _titleExit;
     private VisualElement _titleExit__backOption;
     private VisualElement _titleExit__exitOption;
@@ -36,6 +38,11 @@ public class TitleSceneUIToolkit : MonoBehaviour
         _titleMenu__settingOption = _titleMenu.Q<VisualElement>("title-menu__setting-option");
         _titleMenu__exitOption = _titleMenu.Q<VisualElement>("title-menu__exit-option");
         _titleSaveSlots = root.Q<VisualElement>("title-save-slots");
+        for (int i = 0; i < _titleSaveSlots__saveSlots.Length; i++)
+        {
+            _titleSaveSlots__saveSlots[i] = _titleSaveSlots.Q<VisualElement>($"title-save-slots__save-slot-{i + 1}");
+        }
+        _titleSaveSlots__backOption = _titleSaveSlots.Q<VisualElement>("title-save-slots__back-option");
         _titleExit = root.Q<VisualElement>("title-exit");
         _titleExit__backOption = _titleExit.Q<VisualElement>("title-exit__back-option");
         _titleExit__exitOption = _titleExit.Q<VisualElement>("title-exit__exit-option");
@@ -44,6 +51,11 @@ public class TitleSceneUIToolkit : MonoBehaviour
         _CTSDictionary.Add(_titleMenu__startOption, null);
         _CTSDictionary.Add(_titleMenu__settingOption, null);
         _CTSDictionary.Add(_titleMenu__exitOption, null);
+        for (int i = 0; i < _titleSaveSlots__saveSlots.Length; i++)
+        {
+            _CTSDictionary.Add(_titleSaveSlots__saveSlots[i], null);
+        }
+        _CTSDictionary.Add(_titleSaveSlots__backOption, null);
         _CTSDictionary.Add(_titleExit__backOption, null);
         _CTSDictionary.Add(_titleExit__exitOption, null);
     }
@@ -54,7 +66,7 @@ public class TitleSceneUIToolkit : MonoBehaviour
     {
         MakeInvisible(_titlePushS);
         MakeInvisible(_titleMenu);
-        ClosePanel(_titleSaveSlots);
+        MakeInvisible(_titleSaveSlots);
         ClosePanel(_titleExit);
 
         switch (titleState)
@@ -66,7 +78,7 @@ public class TitleSceneUIToolkit : MonoBehaviour
                 MakeVisible(_titleMenu);
                 break;
             case TitleState.SaveSlots:
-                OpenPanel(_titleSaveSlots);
+                MakeVisible(_titleSaveSlots);
                 break;
             case TitleState.Settings:
                 break;
@@ -80,11 +92,11 @@ public class TitleSceneUIToolkit : MonoBehaviour
     {
         if (isStart)
         {
-            StartTextAnimation(_titlePushS__Text);
+            StartAnimation(_titlePushS__Text);
         }
         else
         {
-            StopTextAnimation(_titlePushS__Text);
+            StopAnimation(_titlePushS__Text);
         }
     }
 
@@ -93,43 +105,65 @@ public class TitleSceneUIToolkit : MonoBehaviour
         DeselectOption(_titleMenu__startOption);
         DeselectOption(_titleMenu__settingOption);
         DeselectOption(_titleMenu__exitOption);
-        StopTextAnimation(_titleMenu__startOption);
-        StopTextAnimation(_titleMenu__settingOption);
-        StopTextAnimation(_titleMenu__exitOption);
+        StopAnimation(_titleMenu__startOption);
+        StopAnimation(_titleMenu__settingOption);
+        StopAnimation(_titleMenu__exitOption);
 
         switch (index)
         {
             case 0:
                 SelectOption(_titleMenu__startOption);
-                StartTextAnimation(_titleMenu__startOption);
+                StartAnimation(_titleMenu__startOption);
                 break;
             case 1:
                 SelectOption(_titleMenu__settingOption);
-                StartTextAnimation(_titleMenu__settingOption);
+                StartAnimation(_titleMenu__settingOption);
                 break;
             case 2:
                 SelectOption(_titleMenu__exitOption);
-                StartTextAnimation(_titleMenu__exitOption);
+                StartAnimation(_titleMenu__exitOption);
                 break;
         }
+    }
+    public void SelectSaveSlotOption(int index, bool isSelecttingBackOption = false)
+    {
+        for (int i = 0; i < _titleSaveSlots__saveSlots.Length; i++)
+        {
+            DeselectOption(_titleSaveSlots__saveSlots[i]);
+            StopAnimation(_titleSaveSlots__saveSlots[i]);
+        }
+        DeselectOption(_titleSaveSlots__backOption);
+        StopAnimation(_titleSaveSlots__backOption);
+
+        if (isSelecttingBackOption)
+        {
+            SelectOption(_titleSaveSlots__backOption);
+            StartAnimation(_titleSaveSlots__backOption);
+            return;
+        }
+
+        if (index < 0 || index >= _titleSaveSlots__saveSlots.Length) return;
+
+        SelectOption(_titleSaveSlots__saveSlots[index]);
+        StartAnimation(_titleSaveSlots__saveSlots[index]);
     }
 
     public void SelectExitOption(int index)
     {
         DeselectOption(_titleExit__backOption);
         DeselectOption(_titleExit__exitOption);
-        StopTextAnimation(_titleExit__backOption);
-        StopTextAnimation(_titleExit__exitOption);
+        StopAnimation(_titleExit__backOption);
+        StopAnimation(_titleExit__exitOption);
 
         switch (index)
         {
             case 0:
                 SelectOption(_titleExit__backOption);
-                StartTextAnimation(_titleExit__backOption);
+                StartAnimation(_titleExit__backOption);
                 break;
             case 1:
                 SelectOption(_titleExit__exitOption);
-                StartTextAnimation(_titleExit__exitOption);
+                StartAnimation(_titleExit__exitOption);
                 break;
         }
     }
@@ -173,39 +207,39 @@ public class TitleSceneUIToolkit : MonoBehaviour
     /// </summary>
     private void SelectOption(VisualElement visualElement)
     {
-        if (!visualElement.ClassListContains("text__option")) return;
+        if (!visualElement.ClassListContains("option")) return;
 
-        visualElement.AddToClassList("text__option--selected");
+        visualElement.AddToClassList("option--select");
     }
     private void DeselectOption(VisualElement visualElement)
     {
-        if (!visualElement.ClassListContains("text__option--selected")) return;
+        if (!visualElement.ClassListContains("option--select")) return;
 
-        visualElement.RemoveFromClassList("text__option--selected");
+        visualElement.RemoveFromClassList("option--select");
     }
 
     /// <summary>
     /// テキストのアニメーション
     /// </summary>
-    private void StartTextAnimation(VisualElement visualElement)
+    private void StartAnimation(VisualElement visualElement)
     {
-        if (!visualElement.ClassListContains("text")) return;
+        if (!visualElement.ClassListContains("animatable")) return;
 
         if (_CTSDictionary[visualElement] != null) return;
         _CTSDictionary[visualElement] = new CancellationTokenSource();
 
-        visualElement.AddToClassList("text--animate");
-        ActionLoop(() => visualElement.ToggleInClassList("text--animate-toggle"), _CTSDictionary[visualElement].Token).Forget();
+        visualElement.AddToClassList("animatable--animate");
+        ActionLoop(() => visualElement.ToggleInClassList("animatable--animate-toggle"), _CTSDictionary[visualElement].Token).Forget();
     }
-    private void StopTextAnimation(VisualElement visualElement)
+    private void StopAnimation(VisualElement visualElement)
     {
-        if (!visualElement.ClassListContains("text--animate")) return;
+        if (!visualElement.ClassListContains("animatable--animate")) return;
 
         _CTSDictionary[visualElement]?.Cancel();
         _CTSDictionary[visualElement] = null;
 
-        visualElement.RemoveFromClassList("text--animate");
-        visualElement.RemoveFromClassList("text--animate-toggle");
+        visualElement.RemoveFromClassList("animatable--animate");
+        visualElement.RemoveFromClassList("animatable--animate-toggle");
     }
 
     /// <summary>

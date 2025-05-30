@@ -7,6 +7,20 @@
     -unity-font-definition: url("project://database/Assets/_Contents/10.Others/Font/YDWaosagi.otf?fileID=12800000&guid=7badb4b17c809b247a8a532d1ac4fb5b&type=3#YDWaosagi");
 }
 
+.animatable {
+    transition-duration: 0.5s, 1s;
+    transition-timing-function: ease-out-cubic, ease-in-out;
+    transition-property: all, rotate;
+}
+
+.animatable--animate {
+    rotate: 7deg;
+}
+
+.animatable--animate-toggle {
+    rotate: -7deg;
+}
+
 .text {
     color: rgb(22, 22, 22);
     font-size: 32px;
@@ -18,41 +32,31 @@
     padding-right: 0;
     padding-bottom: 0;
     padding-left: 0;
-    transition-duration: 0.5s, 1s;
-    transition-timing-function: ease-out-cubic, ease-in-out;
-    transition-property: all, rotate;
 }
 
-.text__option {
+.option {
     color: rgb(100, 100, 100);
-    font-size: 32px;
+    -unity-background-image-tint-color: rgb(175, 175, 175);
 }
 
-.text__option--selected {
+.option--select {
     color: rgb(22, 22, 22);
-    scale: 1.5 1.5;
-}
-
-.text--animate {
-    rotate: 7deg;
-}
-
-.text--animate-toggle {
-    rotate: -7deg;
+    scale: 1.25 1.25;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
 .visible {
     opacity: 1;
     transition-property: opacity;
-    transition-duration: 1s;
-    transition-timing-function: ease-out;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-in-cubic;
 }
 
 .visible--disable {
     opacity: 0;
     transition-property: opacity;
-    transition-duration: 1s;
-    transition-timing-function: ease-in;
+    transition-duration: 0.5s;
+    transition-timing-function: ease-out-cubic;
 }
 
 .panel {

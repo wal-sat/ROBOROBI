@@ -23,15 +23,15 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 3222737899520
-    m_Localized: start
+    m_Localized: Start
     m_Metadata:
       m_Items: []
   - m_Id: 3473628581888
-    m_Localized: setting
+    m_Localized: Setting
     m_Metadata:
       m_Items: []
   - m_Id: 3604025298944
-    m_Localized: exit
+    m_Localized: Exit
     m_Metadata:
       m_Items: []
   - m_Id: 6110830776320
@@ -39,15 +39,31 @@ MonoBehaviour:
     m_Metadata:
       m_Items: []
   - m_Id: 6276921020416
-    m_Localized: exit
+    m_Localized: Exit
     m_Metadata:
       m_Items: []
   - m_Id: 6200630824960
-    m_Localized: back
+    m_Localized: Back
     m_Metadata:
       m_Items: []
   - m_Id: 1377642559688704
     m_Localized: Press the button to start
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2398153351745536
+    m_Localized: Back
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2400942702317568
+    m_Localized: Save data 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2401219421523968
+    m_Localized: Save data 2
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2401249947668480
+    m_Localized: Save data 3
     m_Metadata:
       m_Items: []
   references:

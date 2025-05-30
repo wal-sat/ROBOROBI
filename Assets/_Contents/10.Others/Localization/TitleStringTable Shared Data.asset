@@ -47,6 +47,22 @@ MonoBehaviour:
     m_Key: title-push-s__text
     m_Metadata:
       m_Items: []
+  - m_Id: 2398153351745536
+    m_Key: title-save-slots__back-option
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2400942702317568
+    m_Key: title-save-slots__slot-1__title-text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2401219421523968
+    m_Key: title-save-slots__slot-2__title-text
+    m_Metadata:
+      m_Items: []
+  - m_Id: 2401249947668480
+    m_Key: title-save-slots__slot-3__title-text
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:

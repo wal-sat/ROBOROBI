@@ -22,6 +22,7 @@ public class TitleSceneInputManager : MonoBehaviour
     {
         _titleScenePushS.OnChangeTitleState = ChangeTitleState;
         _titleSceneMenu.OnChangeTitleState = ChangeTitleState;
+        _titleSceneSaveSlots.OnChangeTitleState = ChangeTitleState;
         _titleSceneExit.OnChangeTitleState = ChangeTitleState;
 
         ChangeTitleState(TitleState.PushS);
@@ -91,7 +92,7 @@ public class TitleSceneInputManager : MonoBehaviour
                 _titleSceneMenu.Up();
                 break;
             case TitleState.SaveSlots:
-
+                _titleSceneSaveSlots.Up();
                 break;
             case TitleState.Settings:
 
@@ -112,7 +113,7 @@ public class TitleSceneInputManager : MonoBehaviour
                 _titleSceneMenu.Down();
                 break;
             case TitleState.SaveSlots:
-
+                _titleSceneSaveSlots.Down();
                 break;
             case TitleState.Settings:
 
@@ -133,7 +134,7 @@ public class TitleSceneInputManager : MonoBehaviour
 
                 break;
             case TitleState.SaveSlots:
-
+                _titleSceneSaveSlots.Left();
                 break;
             case TitleState.Settings:
 
@@ -154,7 +155,7 @@ public class TitleSceneInputManager : MonoBehaviour
 
                 break;
             case TitleState.SaveSlots:
-
+                _titleSceneSaveSlots.Right();
                 break;
             case TitleState.Settings:
 
@@ -175,7 +176,7 @@ public class TitleSceneInputManager : MonoBehaviour
                 _titleSceneMenu.Submit();
                 break;
             case TitleState.SaveSlots:
-
+                _titleSceneSaveSlots.Submit();
                 break;
             case TitleState.Settings:
 
@@ -196,7 +197,7 @@ public class TitleSceneInputManager : MonoBehaviour
                 _titleSceneMenu.Cancel();
                 break;
             case TitleState.SaveSlots:
-
+                _titleSceneSaveSlots.Cancel();
                 break;
             case TitleState.Settings:
 
@@ -220,7 +221,7 @@ public class TitleSceneInputManager : MonoBehaviour
                 _titleSceneMenu.Initialize(_titleState);
                 break;
             case TitleState.SaveSlots:
-                //_titleSceneSaveSlots.Initialize();
+                _titleSceneSaveSlots.Initialize(_titleState);
                 break;
             case TitleState.Settings:
                 // Initialize settings if needed
