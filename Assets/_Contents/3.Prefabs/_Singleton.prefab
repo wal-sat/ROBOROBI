@@ -117,6 +117,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6333273726592545543}
+  - component: {fileID: 3776346057241982554}
   m_Layer: 0
   m_Name: _Singleton
   m_TagString: Untagged
@@ -146,6 +147,19 @@ Transform:
   - {fileID: 4976794362132102764}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3776346057241982554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4479363095093610729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ac17b76dfa857441a4036dd901d8a92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _isDestroy: 1
 --- !u!1 &4753792773894096401
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +484,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxBGMVolume: 0.5
-  _bgmList: []
+  _bgmList:
+  - Name: title
+    BGMClip:
+    - {fileID: 8300000, guid: 66aedf5ddb01d2d4190282e0138252e0, type: 3}
+    audioSource: {fileID: 0}
+    bgmStatus: 0
+  - Name: stageSelect
+    BGMClip:
+    - {fileID: 8300000, guid: acdd25b5cccafb6439a534e8e5190497, type: 3}
+    audioSource: {fileID: 0}
+    bgmStatus: 0
+  - Name: stage
+    BGMClip:
+    - {fileID: 8300000, guid: e8f4501e2af441b439b3982b593da618, type: 3}
+    audioSource: {fileID: 0}
+    bgmStatus: 0
+  - Name: heartBeat
+    BGMClip:
+    - {fileID: 8300000, guid: 00747931c33cff44da0da5c74e90e372, type: 3}
+    audioSource: {fileID: 0}
+    bgmStatus: 0
+  - Name: clear
+    BGMClip:
+    - {fileID: 8300000, guid: 9f6f8e18ce4ab854d94105d3486b47c3, type: 3}
+    audioSource: {fileID: 0}
+    bgmStatus: 0
 --- !u!1 &8321032200203421006
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,4 +619,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxSEVolume: 1
-  _seList: []
+  _seList:
+  - Name: u_cursor
+    SEClip: {fileID: 8300000, guid: cb5f538973d35d54e976919c2f66d2cb, type: 3}
+  - Name: u_submit
+    SEClip: {fileID: 8300000, guid: ea5febe1dfda6dd4abdf39f59262deb1, type: 3}
+  - Name: u_cancel
+    SEClip: {fileID: 8300000, guid: de8bffe40db20ed41afb51d153a1fa50, type: 3}
+  - Name: u_error
+    SEClip: {fileID: 8300000, guid: 7921a498ba9d90449b2aa07f036ce407, type: 3}
+  - Name: u_pause
+    SEClip: {fileID: 8300000, guid: 53f4376664ffaf943b7818403ec8566f, type: 3}
+  - Name: u_restartTransition
+    SEClip: {fileID: 8300000, guid: dda7f584a82a04e49999f86169d3c8a2, type: 3}
