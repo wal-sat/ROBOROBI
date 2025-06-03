@@ -6,7 +6,7 @@ public class TitleSceneMenu : MonoBehaviour
 {
     [SerializeField] private TitleSceneUIToolkit _titleSceneUIToolkit;
 
-    public Action<TitleState> OnChangeTitleState;
+    public Action<TitleSceneState> OnChangeTitleSceneState;
 
     private int _menuIndex;
     int MenuIndex
@@ -38,18 +38,18 @@ public class TitleSceneMenu : MonoBehaviour
         BackPushS();
     }
 
-    public void Initialize(TitleState titleStatePast)
+    public void Initialize(TitleSceneState titleSceneStatePast)
     {
-        switch (titleStatePast)
+        switch (titleSceneStatePast)
         {
-            case TitleState.PushS:
-            case TitleState.SaveSlots:
+            case TitleSceneState.PushS:
+            case TitleSceneState.SaveSlots:
                 MenuIndex = 0;
                 break;
-            case TitleState.Settings:
+            case TitleSceneState.Settings:
                 MenuIndex = 1;
                 break;
-            case TitleState.Exit:
+            case TitleSceneState.Exit:
                 MenuIndex = 2;
                 break;
         }
@@ -63,15 +63,15 @@ public class TitleSceneMenu : MonoBehaviour
         {
             case 0:
                 _titleSceneUIToolkit.SelectMenuOption(-1);
-                OnChangeTitleState?.Invoke(TitleState.SaveSlots);
+                OnChangeTitleSceneState?.Invoke(TitleSceneState.SaveSlots);
                 break;
             case 1:
                 _titleSceneUIToolkit.SelectMenuOption(-1);
-                OnChangeTitleState?.Invoke(TitleState.Settings);
+                OnChangeTitleSceneState?.Invoke(TitleSceneState.Settings);
                 break;
             case 2:
                 _titleSceneUIToolkit.SelectMenuOption(-1);
-                OnChangeTitleState?.Invoke(TitleState.Exit);
+                OnChangeTitleSceneState?.Invoke(TitleSceneState.Exit);
                 break;
         }
     }
@@ -79,6 +79,6 @@ public class TitleSceneMenu : MonoBehaviour
     private void BackPushS()
     {
         _titleSceneUIToolkit.SelectMenuOption(-1);
-        OnChangeTitleState?.Invoke(TitleState.PushS);
+        OnChangeTitleSceneState?.Invoke(TitleSceneState.PushS);
     }
 }

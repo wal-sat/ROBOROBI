@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public enum TitleState { None, PushS, Menu, SaveSlots, Settings, Exit }
+public enum TitleSceneState { None, PushS, Menu, SaveSlots, Settings, Exit }
 
 public class TitleSceneInputManager : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class TitleSceneInputManager : MonoBehaviour
     [SerializeField] private TitleSceneExit _titleSceneExit;
     [SerializeField] private TitleSceneUIToolkit _titleSceneUIToolkit;
 
-    private TitleState _titleState;
+    private TitleSceneState _titleSceneState;
     private Vector2 _leftDirectionPast;
     private bool _wasPushingS;
     private bool _wasPushingE;
@@ -20,12 +20,12 @@ public class TitleSceneInputManager : MonoBehaviour
 
     private void Awake()
     {
-        _titleScenePushS.OnChangeTitleState = ChangeTitleState;
-        _titleSceneMenu.OnChangeTitleState = ChangeTitleState;
-        _titleSceneSaveSlots.OnChangeTitleState = ChangeTitleState;
-        _titleSceneExit.OnChangeTitleState = ChangeTitleState;
+        _titleScenePushS.OnChangeTitleSceneState = ChangeTitleSceneState;
+        _titleSceneMenu.OnChangeTitleSceneState = ChangeTitleSceneState;
+        _titleSceneSaveSlots.OnChangeTitleSceneState = ChangeTitleSceneState;
+        _titleSceneExit.OnChangeTitleSceneState = ChangeTitleSceneState;
 
-        ChangeTitleState(TitleState.PushS);
+        ChangeTitleSceneState(TitleSceneState.PushS);
     }
 
     private void Update()
@@ -83,156 +83,156 @@ public class TitleSceneInputManager : MonoBehaviour
 
     private void OnPushingUp()
     {
-        switch (_titleState)
+        switch (_titleSceneState)
         {
-            case TitleState.PushS:
+            case TitleSceneState.PushS:
 
                 break;
-            case TitleState.Menu:
+            case TitleSceneState.Menu:
                 _titleSceneMenu.Up();
                 break;
-            case TitleState.SaveSlots:
+            case TitleSceneState.SaveSlots:
                 _titleSceneSaveSlots.Up();
                 break;
-            case TitleState.Settings:
+            case TitleSceneState.Settings:
 
                 break;
-            case TitleState.Exit:
+            case TitleSceneState.Exit:
 
                 break;
         }
     }
     private void OnPushingDown()
     {
-        switch (_titleState)
+        switch (_titleSceneState)
         {
-            case TitleState.PushS:
+            case TitleSceneState.PushS:
 
                 break;
-            case TitleState.Menu:
+            case TitleSceneState.Menu:
                 _titleSceneMenu.Down();
                 break;
-            case TitleState.SaveSlots:
+            case TitleSceneState.SaveSlots:
                 _titleSceneSaveSlots.Down();
                 break;
-            case TitleState.Settings:
+            case TitleSceneState.Settings:
 
                 break;
-            case TitleState.Exit:
+            case TitleSceneState.Exit:
 
                 break;
         }
     }
     private void OnPushingLeft()
     {
-        switch (_titleState)
+        switch (_titleSceneState)
         {
-            case TitleState.PushS:
+            case TitleSceneState.PushS:
 
                 break;
-            case TitleState.Menu:
+            case TitleSceneState.Menu:
 
                 break;
-            case TitleState.SaveSlots:
+            case TitleSceneState.SaveSlots:
                 _titleSceneSaveSlots.Left();
                 break;
-            case TitleState.Settings:
+            case TitleSceneState.Settings:
 
                 break;
-            case TitleState.Exit:
+            case TitleSceneState.Exit:
                 _titleSceneExit.Left();
                 break;
         }
     }
     private void OnPushingRight()
     {
-        switch (_titleState)
+        switch (_titleSceneState)
         {
-            case TitleState.PushS:
+            case TitleSceneState.PushS:
 
                 break;
-            case TitleState.Menu:
+            case TitleSceneState.Menu:
 
                 break;
-            case TitleState.SaveSlots:
+            case TitleSceneState.SaveSlots:
                 _titleSceneSaveSlots.Right();
                 break;
-            case TitleState.Settings:
+            case TitleSceneState.Settings:
 
                 break;
-            case TitleState.Exit:
+            case TitleSceneState.Exit:
                 _titleSceneExit.Right();
                 break;
         }
     }
     private void OnPushingS()
     {
-        switch (_titleState)
+        switch (_titleSceneState)
         {
-            case TitleState.PushS:
+            case TitleSceneState.PushS:
                 _titleScenePushS.Submit();
                 break;
-            case TitleState.Menu:
+            case TitleSceneState.Menu:
                 _titleSceneMenu.Submit();
                 break;
-            case TitleState.SaveSlots:
+            case TitleSceneState.SaveSlots:
                 _titleSceneSaveSlots.Submit();
                 break;
-            case TitleState.Settings:
+            case TitleSceneState.Settings:
 
                 break;
-            case TitleState.Exit:
+            case TitleSceneState.Exit:
                 _titleSceneExit.Submit();
                 break;
         }
     }
     private void OnPushingE()
     {
-        switch (_titleState)
+        switch (_titleSceneState)
         {
-            case TitleState.PushS:
+            case TitleSceneState.PushS:
 
                 break;
-            case TitleState.Menu:
+            case TitleSceneState.Menu:
                 _titleSceneMenu.Cancel();
                 break;
-            case TitleState.SaveSlots:
+            case TitleSceneState.SaveSlots:
                 _titleSceneSaveSlots.Cancel();
                 break;
-            case TitleState.Settings:
+            case TitleSceneState.Settings:
 
                 break;
-            case TitleState.Exit:
+            case TitleSceneState.Exit:
                 _titleSceneExit.Cancel();
                 break;
         }
     }
 
-    private void ChangeTitleState(TitleState newState)
+    private void ChangeTitleSceneState(TitleSceneState newState)
     {
-        _titleSceneUIToolkit.ChangeTitleStateUI(newState);
+        _titleSceneUIToolkit.ChangeTitleSceneStateUI(newState);
 
         switch (newState)
         {
-            case TitleState.PushS:
+            case TitleSceneState.PushS:
                 _titleScenePushS.Initialize();
                 break;
-            case TitleState.Menu:
-                _titleSceneMenu.Initialize(_titleState);
+            case TitleSceneState.Menu:
+                _titleSceneMenu.Initialize(_titleSceneState);
                 break;
-            case TitleState.SaveSlots:
-                _titleSceneSaveSlots.Initialize(_titleState);
+            case TitleSceneState.SaveSlots:
+                _titleSceneSaveSlots.Initialize();
                 break;
-            case TitleState.Settings:
+            case TitleSceneState.Settings:
                 // Initialize settings if needed
                 break;
-            case TitleState.Exit:
+            case TitleSceneState.Exit:
                 _titleSceneExit.Initialize();
                 break;
             default:
                 break;
         }
 
-        _titleState = newState;
+        _titleSceneState = newState;
     }
 }

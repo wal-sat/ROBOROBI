@@ -62,27 +62,27 @@ public class TitleSceneUIToolkit : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void ChangeTitleStateUI(TitleState titleState)
+    public void ChangeTitleSceneStateUI(TitleSceneState titleSceneState)
     {
         MakeInvisible(_titlePushS);
         MakeInvisible(_titleMenu);
         MakeInvisible(_titleSaveSlots);
         ClosePanel(_titleExit);
 
-        switch (titleState)
+        switch (titleSceneState)
         {
-            case TitleState.PushS:
+            case TitleSceneState.PushS:
                 MakeVisible(_titlePushS);
                 break;
-            case TitleState.Menu:
+            case TitleSceneState.Menu:
                 MakeVisible(_titleMenu);
                 break;
-            case TitleState.SaveSlots:
+            case TitleSceneState.SaveSlots:
                 MakeVisible(_titleSaveSlots);
                 break;
-            case TitleState.Settings:
+            case TitleSceneState.Settings:
                 break;
-            case TitleState.Exit:
+            case TitleSceneState.Exit:
                 OpenPanel(_titleExit);
                 break;
         }

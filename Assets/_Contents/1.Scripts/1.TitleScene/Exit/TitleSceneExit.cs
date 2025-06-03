@@ -6,7 +6,7 @@ public class TitleSceneExit : MonoBehaviour
 {
     [SerializeField] private TitleSceneUIToolkit _titleSceneUIToolkit;
 
-    public Action<TitleState> OnChangeTitleState;
+    public Action<TitleSceneState> OnChangeTitleSceneState;
 
     private int _exitIndex;
     int ExitIndex
@@ -61,7 +61,7 @@ public class TitleSceneExit : MonoBehaviour
     private void BackMenu()
     {
         _titleSceneUIToolkit.SelectExitOption(-1);
-        OnChangeTitleState?.Invoke(TitleState.Menu);
+        OnChangeTitleSceneState?.Invoke(TitleSceneState.Menu);
     }
 
     private async UniTaskVoid ExitGame()

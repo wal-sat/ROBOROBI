@@ -5,7 +5,7 @@ public class TitleSceneSaveSlots : MonoBehaviour
 {
     [SerializeField] private TitleSceneUIToolkit _titleSceneUIToolkit;
 
-    public Action<TitleState> OnChangeTitleState;
+    public Action<TitleSceneState> OnChangeTitleSceneState;
 
     private bool _isSelecttingBackOption;
 
@@ -50,7 +50,7 @@ public class TitleSceneSaveSlots : MonoBehaviour
         BackMenu();
     }
 
-    public void Initialize(TitleState titleStatePast)
+    public void Initialize()
     {
         _isSelecttingBackOption = false;
         SaveSlotsIndex = 0;
@@ -83,6 +83,6 @@ public class TitleSceneSaveSlots : MonoBehaviour
     private void BackMenu()
     {
         _titleSceneUIToolkit.SelectMenuOption(-1);
-        OnChangeTitleState?.Invoke(TitleState.Menu);
+        OnChangeTitleSceneState?.Invoke(TitleSceneState.Menu);
     }
 }

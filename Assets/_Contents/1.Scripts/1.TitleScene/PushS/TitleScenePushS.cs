@@ -5,14 +5,14 @@ public class TitleScenePushS : MonoBehaviour
 {
     [SerializeField] private TitleSceneUIToolkit _titleSceneUIToolkit;
 
-    public Action<TitleState> OnChangeTitleState;
+    public Action<TitleSceneState> OnChangeTitleSceneState;
 
     // ----- Public Methods -----
 
     public void Submit()
     {
         _titleSceneUIToolkit.SetPushingSTextAnimation(false);
-        OnChangeTitleState?.Invoke(TitleState.Menu);
+        OnChangeTitleSceneState?.Invoke(TitleSceneState.Menu);
     }
 
     public void Initialize()
