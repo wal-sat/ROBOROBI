@@ -23,7 +23,7 @@ public class Background : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         for (int i = 0; i < _backgroundBars.Length; i++)
         {

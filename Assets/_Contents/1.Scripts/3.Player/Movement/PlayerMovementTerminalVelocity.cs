@@ -9,9 +9,9 @@ public class PlayerMovementTerminalVelocity : MonoBehaviour
 
     public void TerminalVelocityUpdate()
     {
-        if (_playerRigidbody2D.linearVelocity.y < -_terminalVelocity * Time.fixedDeltaTime)
+        if (_playerRigidbody2D.linearVelocityY < -_terminalVelocity)
         {
-            _playerRigidbody2D.linearVelocity = new Vector2(_playerRigidbody2D.linearVelocity.x, -_terminalVelocity * Time.fixedDeltaTime);
+            _playerRigidbody2D.linearVelocity = new Vector2(_playerRigidbody2D.linearVelocityX, -_terminalVelocity);
         }
     }
 }

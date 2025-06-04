@@ -19,7 +19,7 @@ public class PlayerMovementOverhead : MonoBehaviour
     {
         if (Physics2D.OverlapCircle(_overheadCheckerTransform.position, CircleSize, _groundLayer) != null && _playerRigidbody2D.linearVelocityY > 0f)
         {
-            _playerRigidbody2D.linearVelocity = new Vector2(_playerRigidbody2D.linearVelocity.x, (float)Math.Sqrt(_playerRigidbody2D.linearVelocityY));
+            _playerRigidbody2D.linearVelocity = new Vector2(_playerRigidbody2D.linearVelocityX, (float)Math.Sqrt(_playerRigidbody2D.linearVelocityY));
         }
     }
 

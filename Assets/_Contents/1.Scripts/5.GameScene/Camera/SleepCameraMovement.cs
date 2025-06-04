@@ -1,26 +1,30 @@
 using UnityEngine;
+using Unity.Cinemachine;
 
 public class SleepCameraMovement : MonoBehaviour
 {
+    [SerializeField] private GameObject _cinemachineCamera_sleep;
     [SerializeField] private float _moveSpeed;
 
-    private GameObject _sleepCamera;
-    //private LockAxisCamera _lockAxisCamera;
+    private CinemachineConfiner2D _sleepConfiner2D;
 
-    public void Initialize(GameObject sleepCamera)
+    // ----- Life Cycle Methods -----
+
+    private void Awake()
     {
-        _sleepCamera = sleepCamera;
-        //_lockAxisCamera = _sleepCamera.GetComponent<LockAxisCamera>();
+        _sleepConfiner2D = _cinemachineCamera_sleep.GetComponent<CinemachineConfiner2D>();
     }
 
-    public void SleepCameraInit(Vector2 initPosition, Vector2 bottomLeftPos, Vector2 topRightPos)
+    // ----- Public Methods -----
+
+    public void SleepCameraInit(Vector2 initPosition, Collider2D confinerCollider)
     {
-        _sleepCamera.transform.position = initPosition;
-        //_lockAxisCamera.SetMoveRange(bottomLeftPos, topRightPos);
+        _cinemachineCamera_sleep.transform.position = initPosition;
+        _sleepConfiner2D.BoundingShape2D = confinerCollider;
     }
+
     public void SleepCameraMove(Vector2 direction)
     {
-        _sleepCamera.transform.position = new Vector2(_sleepCamera.transform.position.x + direction.x * _moveSpeed * Time.deltaTime, 
-                                                     _sleepCamera.transform.position.y + direction.y * _moveSpeed * Time.deltaTime);
+        _cinemachineCamera_sleep.transform.position += new Vector3(direction.x * _moveSpeed * Time.deltaTime, direction.y * _moveSpeed * Time.deltaTime, 0f);
     }
 }
