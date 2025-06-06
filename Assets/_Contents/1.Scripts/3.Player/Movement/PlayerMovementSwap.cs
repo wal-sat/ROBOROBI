@@ -17,15 +17,20 @@ public class PlayerMovementSwap : MonoBehaviour
 
     private Vector3 _swapCapsuleSize;
 
-    // ------ Public Methods -----
+    // ----- Life Cycle Methods -----
+
+    private void Awake()
+    {
+        OnSwapCallback += () => S_SEManager.Instance.Play("p_swap");
+    }
+
+    // ----- Public Methods -----
 
     public void SwapUpdate()
     {
         if (Physics2D.OverlapCapsule(_swapCheckerTransform.position, _swapCapsuleSize, CapsuleDirection2D.Vertical, 0, _groundLayer) != null)
         {
-            OnSwapCallback?.Invoke();
-
-            S_SEManager.Instance.Play("p_swap");
+            OnSwapCallback();
         }
     }
 

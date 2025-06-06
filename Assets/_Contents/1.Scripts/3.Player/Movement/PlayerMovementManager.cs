@@ -1,3 +1,4 @@
+using System;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -18,25 +19,61 @@ public class PlayerMovementManager : MonoBehaviour
     {
         _playerMovementSwap.OnSwapCallback += SwapIsFacingRightValue;
 
-        Initialize();
+        MovementInitialize();
     }
 
     // ----- Public Methods -----
 
-    public void Initialize()
+    public void MovementInitialize()
     {
         IsFacingRight = true;
         _playerMovementOverhead.Initialize();
         _playerMovementSwap.Initialize();
     }
 
-    public void FixedUpdate()
+    public void MovementUpdate()
     {
         _playerMovementRunning.RunningUpdate(IsFacingRight);
         _playerMovementLanding.LandingUpdate();
         _playerMovementSwap.SwapUpdate();
         _playerMovementOverhead.OverheadUpdate();
         _playerMovementTerminalVelocity.TerminalVelocityUpdate();
+    }
+
+    /// <summary>
+    /// OnLandingCallbackへの登録
+    /// </summary>
+    public void SubscribeLandingCallback(Action action)
+    {
+        _playerMovementLanding.OnLandingCallback += action;
+    }
+    public void UnsubscribeLandingCallback(Action action)
+    {
+        _playerMovementLanding.OnLandingCallback -= action;
+    }
+
+    /// <summary>
+    /// OnSwapCallbackへの登録
+    /// </summary>
+    public void SubscribeSwapCallback(Action action)
+    {
+        _playerMovementSwap.OnSwapCallback += action;
+    }
+    public void UnsubscribeSwapCallback(Action action)
+    {
+        _playerMovementSwap.OnSwapCallback -= action;
+    }
+
+    /// <summary>
+    /// SpeedAdjustCallbackへの登録
+    /// </summary>
+    public void SubscribeSpeedAdjustCallback(Func<float> action)
+    {
+        _playerMovementRunning.SpeedAdjustCallback += action;
+    }
+    public void UnsubscribeSpeedAdjustCallback(Func<float> action)
+    {
+        _playerMovementRunning.SpeedAdjustCallback -= action;
     }
 
     // ----- Private Methods -----

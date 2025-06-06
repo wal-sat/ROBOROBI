@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [SerializeField] private PlayerMovementManager _playerMovementManager;
+    [SerializeField] private PlayerActionManager _playerActionManager;
 
-    // Update is called once per frame
-    void Update()
+    // ----- Life Cycle Methods -----
+
+    private void Update()
     {
-        
+        _playerMovementManager.MovementUpdate();
+        _playerActionManager.ActionUpdate();
     }
 }

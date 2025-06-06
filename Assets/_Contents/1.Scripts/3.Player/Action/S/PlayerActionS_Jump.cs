@@ -5,8 +5,10 @@ public class PlayerActionS_Jump : PlayerActionBase
 {
     [SerializeField] private Rigidbody2D _playerRigidbody2D;
     [SerializeField] private float _jumpForce;
-    
-    [Button]
+    [SerializeField] private float _jumpCancelMultiple;
+
+    // ----- Public Methods -----
+
     public override void InitAction()
     {
         base.InitAction();
@@ -14,5 +16,15 @@ public class PlayerActionS_Jump : PlayerActionBase
         _playerRigidbody2D.linearVelocity = new Vector2(_playerRigidbody2D.linearVelocityX, _jumpForce);
 
         S_SEManager.Instance.Play("p_jump");
+    }
+
+    public override void EndAction()
+    {
+        base.EndAction();
+
+        if (_playerRigidbody2D.linearVelocityY > 0)
+        {
+            _playerRigidbody2D.linearVelocity = new Vector2(_playerRigidbody2D.linearVelocityX, _playerRigidbody2D.linearVelocityY / _jumpCancelMultiple);
+        }
     }
 }
