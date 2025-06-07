@@ -43,20 +43,22 @@ public class PlayerMovementManager : MonoBehaviour
     /// <summary>
     /// OnLandingCallbackへの登録
     /// </summary>
-    public void SubscribeLandingCallback(Action action)
-    {
-        _playerMovementLanding.OnLandingCallback += action;
-    }
-    public void UnsubscribeLandingCallback(Action action)
-    {
-        _playerMovementLanding.OnLandingCallback -= action;
-    }
+    // public void SubscribeLandingCallback(Action action)
+    // {
+    //     _playerMovementLanding.OnLandingCallback -= action;
+    //     _playerMovementLanding.OnLandingCallback += action;
+    // }
+    // public void UnsubscribeLandingCallback(Action action)
+    // {
+    //     _playerMovementLanding.OnLandingCallback -= action;
+    // }
 
     /// <summary>
     /// OnSwapCallbackへの登録
     /// </summary>
     public void SubscribeSwapCallback(Action action)
     {
+        _playerMovementSwap.OnSwapCallback -= action;
         _playerMovementSwap.OnSwapCallback += action;
     }
     public void UnsubscribeSwapCallback(Action action)
@@ -69,6 +71,7 @@ public class PlayerMovementManager : MonoBehaviour
     /// </summary>
     public void SubscribeSpeedAdjustCallback(Func<float> action)
     {
+        _playerMovementRunning.SpeedAdjustCallback -= action;
         _playerMovementRunning.SpeedAdjustCallback += action;
     }
     public void UnsubscribeSpeedAdjustCallback(Func<float> action)

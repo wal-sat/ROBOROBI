@@ -7,13 +7,13 @@ public class PlayerMovementLanding : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _throughGroundLayer;
 
-    public Action OnLandingCallback;
+    // public Action OnLandingCallback;
 
     private const float CapsulePositionY = -0.5f;
     private const float CapsuleSizeX = 0.2f;
     private const float CapsuleSizeY = 0.01f;
     private const float LandingSEBufferTime = 0.2f;
-    
+
     private Vector3 _capsuleSize;
     private float _landingSEBufferTimer;
 
@@ -29,10 +29,9 @@ public class PlayerMovementLanding : MonoBehaviour
 
     public void LandingUpdate()
     {
-        if (Physics2D.OverlapCapsule(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _groundLayer) != null ||
-            Physics2D.OverlapCapsule(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _throughGroundLayer) != null)
+        if (IsLanding())
         {
-            OnLandingCallback?.Invoke();
+            //OnLandingCallback?.Invoke();
 
             if (_landingSEBufferTimer > LandingSEBufferTime)
             {
@@ -44,5 +43,16 @@ public class PlayerMovementLanding : MonoBehaviour
         {
             _landingSEBufferTimer += Time.deltaTime;
         }
+    }
+
+    public bool IsLanding()
+    {
+        if (Physics2D.OverlapCapsule(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _groundLayer) != null ||
+            Physics2D.OverlapCapsule(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _throughGroundLayer) != null)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

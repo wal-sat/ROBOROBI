@@ -4,18 +4,17 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerActionSManager : MonoBehaviour
 {
-    [SerializeField] private PlayerMovementManager _playerMovementManager;
     [SerializeField] private PlayerActionBase _jumpAction;
     [SerializeField] private PlayerActionBase _bigJumpAction;
     [SerializeField] private PlayerActionBase _goDownAction;
 
-    private const float InputBugger = 0.05f;
+    private const float InputBuffer = 0.05f;
 
     private bool _isPushingNone;
     private bool _isPushingUp;
     private bool _isPushingDown;
     private bool _wasJumped;
-    private float _buggerTimer;
+    private float _bufferTimer;
 
     private int _maxJumpTime;
     private int _jumpTime;
@@ -24,8 +23,7 @@ public class PlayerActionSManager : MonoBehaviour
 
     private void Awake()
     {
-        _playerMovementManager.SubscribeLandingCallback(RecureJumpTime);
-
+        //_playerMovementManager.SubscribeLandingCallback(RecureJumpTime);
         SetMaxJumpTime(2);
     }
 
@@ -46,12 +44,12 @@ public class PlayerActionSManager : MonoBehaviour
         else if (leftDirection != Vector2.down && _isPushingDown)
         {
             _isPushingDown = false;
-            _buggerTimer = 0f;
+            _bufferTimer = 0f;
             CallEndAction(_goDownAction);
         }
 
-        _buggerTimer += Time.deltaTime;
-        if (_buggerTimer <= InputBugger) return;
+        _bufferTimer += Time.deltaTime;
+        if (_bufferTimer <= InputBuffer) return;
 
         // S + Up : Big Jump Action
         if (leftDirection == Vector2.up && !_isPushingUp && !_wasJumped && IsJumpable())
@@ -86,6 +84,7 @@ public class PlayerActionSManager : MonoBehaviour
         {
             _isPushingNone = false;
             _jumpTime--;
+            Debug.Log("残ジャンプ回数 : " + _jumpTime);
             CallEndAction(_jumpAction);
         }
     }
@@ -93,7 +92,7 @@ public class PlayerActionSManager : MonoBehaviour
     public void ActionEnd()
     {
         _wasJumped = false;
-        _buggerTimer = 0f;
+        _bufferTimer = 0f;
 
         if (_isPushingUp)
         {
@@ -110,8 +109,14 @@ public class PlayerActionSManager : MonoBehaviour
         {
             _isPushingNone = false;
             _jumpTime--;
+            Debug.Log("残りジャンプ数 : " + _jumpTime);
             CallEndAction(_jumpAction);
         }
+    }
+
+    public void RecureJumpTime()
+    {
+        _jumpTime = _maxJumpTime;
     }
 
     public void SetMaxJumpTime(int time)
@@ -140,11 +145,6 @@ public class PlayerActionSManager : MonoBehaviour
         if (action == null) return;
 
         if (action.IsAcquired) action.EndAction();
-    }
-
-    private void RecureJumpTime()
-    {
-        _jumpTime = _maxJumpTime;
     }
 
     /// <summary>

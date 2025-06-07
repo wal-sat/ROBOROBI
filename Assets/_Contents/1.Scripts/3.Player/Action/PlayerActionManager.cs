@@ -4,6 +4,7 @@ public class PlayerActionManager : MonoBehaviour
 {
     [SerializeField] private PlayerActionNeutralManager _playerActionNeutralManager;
     [SerializeField] private PlayerActionSManager _playerActionSManager;
+    [SerializeField] private PlayerMovementLanding _playerMovementLanding;
 
     private Vector2 _leftDirection;
     private Vector2 _normalizedLeftDirection;
@@ -19,6 +20,12 @@ public class PlayerActionManager : MonoBehaviour
         _leftDirection = S_InputSystemManager.Instance.LeftDirection;
         _normalizedLeftDirection = S_InputSystemManager.Instance.NormalizedLeftDirection;
 
+        // Recure Action Time
+        if (_playerMovementLanding.IsLanding())
+        {
+            RecureActionTime();
+        }
+
         // Neutral
         _playerActionNeutralManager.ActionUpdte(_normalizedLeftDirection);
 
@@ -33,5 +40,12 @@ public class PlayerActionManager : MonoBehaviour
             _isPushingS = false;
             _playerActionSManager.ActionEnd();
         }
+    }
+
+    // ----- Private Methods -----
+
+    private void RecureActionTime()
+    {
+        _playerActionSManager.RecureJumpTime();
     }
 }
