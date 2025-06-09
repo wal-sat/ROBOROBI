@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PlayerMovementLanding : MonoBehaviour
@@ -6,8 +5,6 @@ public class PlayerMovementLanding : MonoBehaviour
     [SerializeField] private Transform _landingCheckerTransform;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _throughGroundLayer;
-
-    // public Action OnLandingCallback;
 
     private const float CapsulePositionY = -0.5f;
     private const float CapsuleSizeX = 0.2f;
@@ -31,8 +28,6 @@ public class PlayerMovementLanding : MonoBehaviour
     {
         if (IsLanding())
         {
-            //OnLandingCallback?.Invoke();
-
             if (_landingSEBufferTimer > LandingSEBufferTime)
             {
                 S_SEManager.Instance.Play("p_land");

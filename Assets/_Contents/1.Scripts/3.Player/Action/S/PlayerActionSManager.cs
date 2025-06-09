@@ -23,7 +23,6 @@ public class PlayerActionSManager : MonoBehaviour
 
     private void Awake()
     {
-        //_playerMovementManager.SubscribeLandingCallback(RecureJumpTime);
         SetMaxJumpTime(2);
     }
 
@@ -84,7 +83,6 @@ public class PlayerActionSManager : MonoBehaviour
         {
             _isPushingNone = false;
             _jumpTime--;
-            Debug.Log("残ジャンプ回数 : " + _jumpTime);
             CallEndAction(_jumpAction);
         }
     }
@@ -109,7 +107,6 @@ public class PlayerActionSManager : MonoBehaviour
         {
             _isPushingNone = false;
             _jumpTime--;
-            Debug.Log("残りジャンプ数 : " + _jumpTime);
             CallEndAction(_jumpAction);
         }
     }
@@ -130,21 +127,24 @@ public class PlayerActionSManager : MonoBehaviour
 
     private void CallInitAction(PlayerActionBase action)
     {
-        if (action == null) return;
-
-        if (action.IsAcquired) action.InitAction();
+        if (action.IsAcquired)
+        {
+            action.InitAction();
+        }
     }
     private void CallInAction(PlayerActionBase action)
     {
-        if (action == null) return;
-
-        if (action.IsAcquired) action.InAction();
+        if (action.IsAcquired)
+        {
+            action.InAction();
+        }
     }
     private void CallEndAction(PlayerActionBase action)
     {
-        if (action == null) return;
-
-        if (action.IsAcquired) action.EndAction();
+        if (action.IsAcquired)
+        {
+            action.EndAction();
+        }
     }
 
     /// <summary>

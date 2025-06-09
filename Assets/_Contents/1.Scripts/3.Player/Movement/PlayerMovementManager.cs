@@ -19,14 +19,15 @@ public class PlayerMovementManager : MonoBehaviour
     {
         _playerMovementSwap.OnSwapCallback += SwapIsFacingRightValue;
 
-        MovementInitialize();
+        // TODO:マネージャー側から呼び出すようにする
+        MovementInitialize(true);
     }
 
     // ----- Public Methods -----
 
-    public void MovementInitialize()
+    public void MovementInitialize(bool isFacingRight)
     {
-        IsFacingRight = true;
+        IsFacingRight = isFacingRight;
         _playerMovementOverhead.Initialize();
         _playerMovementSwap.Initialize();
     }
@@ -39,19 +40,6 @@ public class PlayerMovementManager : MonoBehaviour
         _playerMovementOverhead.OverheadUpdate();
         _playerMovementTerminalVelocity.TerminalVelocityUpdate();
     }
-
-    /// <summary>
-    /// OnLandingCallbackへの登録
-    /// </summary>
-    // public void SubscribeLandingCallback(Action action)
-    // {
-    //     _playerMovementLanding.OnLandingCallback -= action;
-    //     _playerMovementLanding.OnLandingCallback += action;
-    // }
-    // public void UnsubscribeLandingCallback(Action action)
-    // {
-    //     _playerMovementLanding.OnLandingCallback -= action;
-    // }
 
     /// <summary>
     /// OnSwapCallbackへの登録
