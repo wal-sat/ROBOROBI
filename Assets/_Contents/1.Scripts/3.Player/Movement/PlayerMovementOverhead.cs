@@ -18,6 +18,11 @@ public class PlayerMovementOverhead : MonoBehaviour
 
     // ------ Public Methods -----
 
+    public void Initialize()
+    {
+        ChangeOverheadTransform(false);
+    }
+
     public void OverheadUpdate()
     {
         if (Physics2D.OverlapCircle(_overheadCheckerTransform.position, CircleSize, _groundLayer) != null && _playerRigidbody2D.linearVelocityY > 0f && !_isCoolTime)
@@ -39,11 +44,6 @@ public class PlayerMovementOverhead : MonoBehaviour
         {
             _overheadCheckerTransform.localPosition = new Vector3(0f, StandCirclePositionY, 0f);
         }
-    }
-
-    public void Initialize()
-    {
-        ChangeOverheadTransform(false);
     }
 
     // ----- Private Methods -----

@@ -26,6 +26,11 @@ public class PlayerMovementSwap : MonoBehaviour
 
     // ----- Public Methods -----
 
+    public void Initialize()
+    {
+        ChangeSwapTransform(false);
+    }
+
     public void SwapUpdate()
     {
         if (Physics2D.OverlapCapsule(_swapCheckerTransform.position, _swapCapsuleSize, CapsuleDirection2D.Vertical, 0, _groundLayer) != null)
@@ -46,10 +51,5 @@ public class PlayerMovementSwap : MonoBehaviour
             _swapCheckerTransform.localPosition = new Vector3(CapsulePositionX, StandCapsulePositionY, 0f);
             _swapCapsuleSize = new Vector3(CapsuleSizeX, StandCapsuleSizeY, 0f);
         }
-    }
-
-    public void Initialize()
-    {
-        ChangeSwapTransform(false);
     }
 }

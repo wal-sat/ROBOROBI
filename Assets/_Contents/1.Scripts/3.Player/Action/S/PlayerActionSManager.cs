@@ -79,7 +79,7 @@ public class PlayerActionSManager : MonoBehaviour
         {
             CallInAction(_jumpAction);
         }
-        else if ((leftDirection == Vector2.zero || leftDirection == Vector2.left || leftDirection == Vector2.right) && _isPushingNone)
+        else if ((leftDirection != Vector2.zero && leftDirection != Vector2.left && leftDirection != Vector2.right) && _isPushingNone)
         {
             _isPushingNone = false;
             _jumpTime--;

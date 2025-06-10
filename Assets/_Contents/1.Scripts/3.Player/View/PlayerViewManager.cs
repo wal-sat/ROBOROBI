@@ -10,6 +10,11 @@ public class PlayerViewManager : MonoBehaviour
     [SerializeField] private PlayerTireAnimation _playerTireAnimation;
     [SerializeField] private PlayerZAnimation _playerZAnimation;
 
+    [HideInInspector] public bool IsSleeping { private get; set; }
+    [HideInInspector] public bool IsCrouching { private get; set; }
+    [HideInInspector] public bool IsGrabing { private get; set; }
+    [HideInInspector] public bool IsHolding { private get; set; }
+
     private PlayerViewState _playerViewState;
 
     // ----- Public Methods -----
@@ -20,22 +25,32 @@ public class PlayerViewManager : MonoBehaviour
         _playerTireAnimation.ViewInitialize();
         _playerZAnimation.ViewInitialize(isFacingRight);
 
-        ChangePlayerViewState(PlayerViewState.Sleep);
+        //IsSleeping = true;
+        IsCrouching = false;
+        IsGrabing = false;
+        IsHolding = false;
+
+        ChangePlayerViewState();
     }
 
     public void ViewUpdate()
     {
+        ChangePlayerViewState();
+
         _playerView.ViewUpdate();
         _playerTireAnimation.ViewUpdate();
         _playerZAnimation.ViewUpdate();
     }
 
-    public void ChangePlayerViewState(PlayerViewState playerViewState)
+    // ----- Private Methods -----
+
+    private void ChangePlayerViewState()
     {
+        PlayerViewState playerViewState = CurrentPlayerViewState();
+
         if (playerViewState == _playerViewState) return;
 
         _playerView.SetPlayerView(playerViewState);
-
         if (_playerViewState == PlayerViewState.Sleep)
         {
             _playerZAnimation.ViewEnd();
@@ -44,11 +59,16 @@ public class PlayerViewManager : MonoBehaviour
         _playerViewState = playerViewState;
     }
 
-    [SerializeField] PlayerViewState aaa;
-
-    [Button]
-    private void A()
+    private PlayerViewState CurrentPlayerViewState()
     {
-        ChangePlayerViewState(aaa);
+        return (IsSleeping, IsCrouching, IsGrabing, IsHolding) switch
+        {
+            (true, _, _, _) => PlayerViewState.Sleep,
+            (false, true, _, true) => PlayerViewState.HoldingCrouch,
+            (false, true, _, _) => PlayerViewState.Crouch,
+            (false, _, true, _) => PlayerViewState.Grab,
+            (false, _, _, true) => PlayerViewState.Hold,
+            _ => PlayerViewState.Stand
+        };
     }
 }

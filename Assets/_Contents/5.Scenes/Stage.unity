@@ -213,6 +213,10 @@ MonoBehaviour:
   IsAcquired: 1
   IsInAction: 0
   IsLockOhterAction: 0
+  _playerCollider: {fileID: 1233220517}
+  _playerMovementSwap: {fileID: 70521276}
+  _playerMovementOverhead: {fileID: 1356226141}
+  _playerViewManager: {fileID: 1233220519}
 --- !u!1 &44317519
 GameObject:
   m_ObjectHideFlags: 0
@@ -5104,7 +5108,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerMovementManager: {fileID: 794884801}
   _playerActionManager: {fileID: 141887659}
-  _playerViewManager: {fileID: 0}
+  _playerViewManager: {fileID: 1233220519}
 --- !u!1 &930179648
 GameObject:
   m_ObjectHideFlags: 0
@@ -5781,7 +5785,6 @@ MonoBehaviour:
   _playerView: {fileID: 1762335246}
   _playerTireAnimation: {fileID: 767756662}
   _playerZAnimation: {fileID: 592231247}
-  aaa: 0
 --- !u!1 &1281598183
 GameObject:
   m_ObjectHideFlags: 0
@@ -7016,7 +7019,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 53612d7ea0f20564b8a4ab1237dff2a5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
