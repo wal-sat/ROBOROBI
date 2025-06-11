@@ -12,7 +12,7 @@ public class PlayerViewManager : MonoBehaviour
 
     [HideInInspector] public bool IsSleeping { private get; set; }
     [HideInInspector] public bool IsCrouching { private get; set; }
-    [HideInInspector] public bool IsGrabing { private get; set; }
+    [HideInInspector] public bool IsGrabbing { private get; set; }
     [HideInInspector] public bool IsHolding { private get; set; }
 
     private PlayerViewState _playerViewState;
@@ -25,9 +25,9 @@ public class PlayerViewManager : MonoBehaviour
         _playerTireAnimation.ViewInitialize();
         _playerZAnimation.ViewInitialize(isFacingRight);
 
-        //IsSleeping = true;
+        IsSleeping = true;
         IsCrouching = false;
-        IsGrabing = false;
+        IsGrabbing = false;
         IsHolding = false;
 
         ChangePlayerViewState();
@@ -61,7 +61,7 @@ public class PlayerViewManager : MonoBehaviour
 
     private PlayerViewState CurrentPlayerViewState()
     {
-        return (IsSleeping, IsCrouching, IsGrabing, IsHolding) switch
+        return (IsSleeping, IsCrouching, IsGrabbing, IsHolding) switch
         {
             (true, _, _, _) => PlayerViewState.Sleep,
             (false, true, _, true) => PlayerViewState.HoldingCrouch,
@@ -70,5 +70,11 @@ public class PlayerViewManager : MonoBehaviour
             (false, _, _, true) => PlayerViewState.Hold,
             _ => PlayerViewState.Stand
         };
+    }
+
+    [Button]
+    private void Activate()
+    {
+        IsSleeping = false;
     }
 }

@@ -1,0 +1,24 @@
+using System.Collections.Generic;
+using NaughtyAttributes;
+using UnityEngine;
+
+public class BreakableBlockManager : MonoBehaviour
+{
+    private List<BreakableBlock> _breakableBlockList = new List<BreakableBlock>();
+
+    // ----- Public Methods -----
+
+    public void Register(BreakableBlock breakableBlock)
+    {
+        _breakableBlockList.Add(breakableBlock);
+    }
+
+    [Button]
+    public void Initialize()
+    {
+        foreach (var breakableBlock in _breakableBlockList)
+        {
+            breakableBlock.Initialize();
+        }
+    }
+}

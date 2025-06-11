@@ -24,7 +24,7 @@ public class PlayerMovementLanding : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void LandingUpdate()
+    public void MovementUpdate()
     {
         if (IsLanding())
         {

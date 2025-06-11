@@ -12,8 +12,10 @@ public class PlayerMovementRunning : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void RunningUpdate(bool isFacingRight)
+    public void MovementUpdate(bool isFacingRight, bool isPlayerRunningLock)
     {
+        if (isPlayerRunningLock) return;
+
         _runSpeed = isFacingRight ? _defaultRunSpeed : -_defaultRunSpeed;
 
         if (SpeedAdjustCallback != null)

@@ -37,7 +37,6 @@ public class PlayerView : MonoBehaviour
 
             if (_index >= _sleepSprites.Length) _index = 0;
 
-            Debug.Log(_index);
             _spriteRenderer.sprite = _sleepSprites[_index];
         }
     }

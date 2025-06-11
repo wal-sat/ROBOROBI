@@ -7,7 +7,7 @@ public class PlayerMovementTerminalVelocity : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void TerminalVelocityUpdate()
+    public void MovementUpdate()
     {
         if (_playerRigidbody2D.linearVelocityY < -_terminalVelocity)
         {

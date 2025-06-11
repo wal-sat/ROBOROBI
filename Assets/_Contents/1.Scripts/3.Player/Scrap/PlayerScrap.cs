@@ -9,6 +9,7 @@ public class PlayerScrap : MonoBehaviour
     [SerializeField] private Vector2 _destroyDistance;
 
     private const float PositionOffsetMultiplier = 0.1f;
+    private const int FrameSkipNumber = 60;
 
     private Action<GameObject> OnDestroyCallBack;
     private int _frameSkip;
@@ -17,7 +18,7 @@ public class PlayerScrap : MonoBehaviour
 
     private void Update()
     {
-        if (_frameSkip++ < 60) return;
+        if (_frameSkip++ < FrameSkipNumber) return;
         _frameSkip = 0;
 
         if (IsOutOfDestroyDistance())

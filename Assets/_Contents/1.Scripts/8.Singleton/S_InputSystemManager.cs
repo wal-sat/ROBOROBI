@@ -29,15 +29,15 @@ public class S_InputSystemManager : Singleton<S_InputSystemManager>
     /// <summary>
     /// 入力受付の制限の状態を変更する
     /// </summary>
-    public void SetInputLock(IInputLockable gameObject, bool canInput)
+    public void SetInputLock(IInputLockable gameObject, bool isLock)
     {
         if (_inputLock.ContainsKey(gameObject))
         {
-            _inputLock[gameObject] = canInput;
+            _inputLock[gameObject] = isLock;
         }
         else
         {
-            _inputLock.Add(gameObject, canInput);
+            _inputLock.Add(gameObject, isLock);
         }
     }
 
