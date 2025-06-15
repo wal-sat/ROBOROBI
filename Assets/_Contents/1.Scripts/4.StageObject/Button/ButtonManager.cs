@@ -1,0 +1,24 @@
+using System.Collections.Generic;
+using NaughtyAttributes;
+using UnityEngine;
+
+public class ButtonManager : MonoBehaviour
+{
+    private List<Button> _buttonList = new List<Button>();
+
+    // ----- Public Methods -----
+
+    public void Register(Button button)
+    {
+        _buttonList.Add(button);
+    }
+
+    [Button]
+    public void Initialize()
+    {
+        foreach (var button in _buttonList)
+        {
+            button.Initialize();
+        }
+    }
+}
