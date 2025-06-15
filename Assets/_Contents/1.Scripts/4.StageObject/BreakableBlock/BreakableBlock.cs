@@ -7,8 +7,8 @@ public class BreakableBlock : MonoBehaviour
     [SerializeField] private BreakableBlockManager _breakableBlockManager;
     [SerializeField] private BreakableBlockView _breakableBlockView;
     [SerializeField] private Transform _landingCheckerTransform;
-    [SerializeField] private float _breakTime;
 
+    private const float BreakTime = 0.25f;
     private const float OffsetY = 0.2f;
 
     private Collider2D _breakableBlockCollider;
@@ -37,9 +37,9 @@ public class BreakableBlock : MonoBehaviour
 
     // ----- Private Methods -----
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
             if (this.transform.position.y + this.gameObject.transform.localScale.y / 2 - OffsetY <= _landingCheckerTransform.position.y) 
             {
@@ -53,7 +53,7 @@ public class BreakableBlock : MonoBehaviour
 
     private async UniTaskVoid Break(CancellationToken cancellationToken)
     {
-        await UniTask.WaitForSeconds(_breakTime, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(BreakTime, cancellationToken: cancellationToken);
 
         _breakableBlockCollider.enabled = false;
         _breakableBlockView.ChangeView(false);

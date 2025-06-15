@@ -102,14 +102,19 @@ public class PlayerMovementManager : MonoBehaviour
     /// <summary>
     /// /// SpeedAdjustCallbackへの登録
     /// </summary>
-    public void SubscribeSpeedAdjustCallback(Func<float> action)
+    public void SubscribeSpeedAdjustCallback(Func<float> func)
     {
-        _playerMovementRunning.SpeedAdjustCallback -= action;
-        _playerMovementRunning.SpeedAdjustCallback += action;
+        if (!_playerMovementRunning.SpeedAdjustCallbackList.Contains(func))
+        {
+            _playerMovementRunning.SpeedAdjustCallbackList.Add(func);
+        }
     }
-    public void UnsubscribeSpeedAdjustCallback(Func<float> action)
+    public void UnsubscribeSpeedAdjustCallback(Func<float> func)
     {
-        _playerMovementRunning.SpeedAdjustCallback -= action;
+        if (_playerMovementRunning.SpeedAdjustCallbackList.Contains(func))
+        {
+            _playerMovementRunning.SpeedAdjustCallbackList.Remove(func);
+        }
     }
 
     /// <summary>

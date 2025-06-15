@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerMovementRunning : MonoBehaviour
@@ -6,7 +7,7 @@ public class PlayerMovementRunning : MonoBehaviour
     [SerializeField] private Rigidbody2D _playerRigidbody2D;
     [SerializeField] private float _defaultRunSpeed;
 
-    public Func<float> SpeedAdjustCallback;
+    public List< Func<float> > SpeedAdjustCallbackList = new List< Func<float> >();
 
     private float _runSpeed;
 
@@ -18,9 +19,9 @@ public class PlayerMovementRunning : MonoBehaviour
 
         _runSpeed = isFacingRight ? _defaultRunSpeed : -_defaultRunSpeed;
 
-        if (SpeedAdjustCallback != null)
+        foreach (var speedAdjustCallback in SpeedAdjustCallbackList)
         {
-            _runSpeed += SpeedAdjustCallback.Invoke();
+            _runSpeed += speedAdjustCallback();
         }
 
         _playerRigidbody2D.linearVelocity = new Vector2(_runSpeed * Time.fixedDeltaTime, _playerRigidbody2D.linearVelocityY);
