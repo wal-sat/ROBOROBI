@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Thorn : MonoBehaviour
+public class ThornObject : MonoBehaviour
 {
     [SerializeField] private StageManager _stageManager;
 
