@@ -25,7 +25,7 @@ public class Button : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void Initialize()
+    public void ButtonInitialize()
     {
         _isEnable = true;
         _buttonView.SpriteChange(_isEnable);

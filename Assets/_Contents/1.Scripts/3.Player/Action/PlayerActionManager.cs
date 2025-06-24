@@ -27,13 +27,13 @@ public class PlayerActionManager : MonoBehaviour
         }
 
         // Neutral
-        _playerActionNeutralManager.ActionUpdte(_normalizedLeftDirection);
+        _playerActionNeutralManager.ActionUpdate(_normalizedLeftDirection);
 
         // S Button
         if (S_InputSystemManager.Instance.IsPushingS)
         {
             _isPushingS = true;
-            _playerActionSManager.ActionUpdte(_normalizedLeftDirection);
+            _playerActionSManager.ActionUpdate(_normalizedLeftDirection);
         }
         else if (_isPushingS)
         {

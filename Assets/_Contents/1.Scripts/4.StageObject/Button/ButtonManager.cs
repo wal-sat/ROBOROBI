@@ -14,11 +14,11 @@ public class ButtonManager : MonoBehaviour
     }
 
     [Button]
-    public void Initialize()
+    public void StageObjectInitialize()
     {
         foreach (var button in _buttonList)
         {
-            button.Initialize();
+            button.ButtonInitialize();
         }
     }
 }

@@ -60,9 +60,9 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerRunningLockable
         }
     }
 
-    public override void Initialize()
+    public override void InitializeAction()
     {
-        base.Initialize();
+        base.InitializeAction();
 
         _playerViewManager.IsGrabbing = false;
 

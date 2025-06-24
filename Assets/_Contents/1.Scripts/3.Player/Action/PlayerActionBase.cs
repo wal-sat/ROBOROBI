@@ -18,7 +18,7 @@ public class PlayerActionBase : MonoBehaviour
     {
         IsInAction = false;
     }
-    public virtual void Initialize()
+    public virtual void InitializeAction()
     {
         IsInAction = false;
     }

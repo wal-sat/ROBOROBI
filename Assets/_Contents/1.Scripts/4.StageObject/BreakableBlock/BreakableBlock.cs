@@ -27,7 +27,7 @@ public class BreakableBlock : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void Initialize()
+    public void BreakableBlockInitialize()
     {
         _breakableBlockCollider.enabled = true;
         _breakableBlockView.ChangeView(true);

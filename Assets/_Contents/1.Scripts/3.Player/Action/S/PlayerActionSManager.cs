@@ -28,7 +28,7 @@ public class PlayerActionSManager : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void ActionUpdte(Vector2 leftDirection)
+    public void ActionUpdate(Vector2 leftDirection)
     {
         // S + Down : Go Down Action
         if (leftDirection == Vector2.down && !_isPushingDown)

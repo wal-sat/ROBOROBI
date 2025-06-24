@@ -42,9 +42,9 @@ public class PlayerActionS_Jump : PlayerActionBase
         _isInputCancel = true;
     }
 
-    public override void Initialize()
+    public override void InitializeAction()
     {
-        base.Initialize();
+        base.InitializeAction();
 
         JumpCancel();
     }

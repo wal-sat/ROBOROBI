@@ -14,11 +14,11 @@ public class BreakableBlockManager : MonoBehaviour
     }
 
     [Button]
-    public void Initialize()
+    public void StageObjectInitialize()
     {
         foreach (var breakableBlock in _breakableBlockList)
         {
-            breakableBlock.Initialize();
+            breakableBlock.BreakableBlockInitialize();
         }
     }
 }

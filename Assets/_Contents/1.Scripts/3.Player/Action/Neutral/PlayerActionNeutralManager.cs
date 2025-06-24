@@ -37,7 +37,7 @@ public class PlayerActionNeutralManager : MonoBehaviour
         _wasFacingRight = isFacingRight;
     }
 
-    public void ActionUpdte(Vector2 leftDirection)
+    public void ActionUpdate(Vector2 leftDirection)
     {
         // Up : Grab Action
         if (leftDirection == Vector2.up && !_isPushingUp)
