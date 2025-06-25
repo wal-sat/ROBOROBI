@@ -37,6 +37,8 @@ public class ConveyorManager : MonoBehaviour
 
     public void Register(Conveyor conveyor, bool isRightDirection)
     {
+        if (conveyor == null) return;
+
         if (isRightDirection && !_rightConveyorList.Contains(conveyor))
         {
             _rightConveyorList.Add(conveyor);

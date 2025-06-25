@@ -15,7 +15,10 @@ public class LRObjectManager : MonoBehaviour
 
     public void Register(LRObject lrObject)
     {
-        _lrObjectList.Add(lrObject);
+        if (lrObject != null && !_lrObjectList.Contains(lrObject))
+        {
+            _lrObjectList.Add(lrObject);
+        }
     }
 
     public void LRObjectMove(LRObjectState lrObjectState)

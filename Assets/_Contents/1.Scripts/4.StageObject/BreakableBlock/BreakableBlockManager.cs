@@ -10,7 +10,10 @@ public class BreakableBlockManager : MonoBehaviour
 
     public void Register(BreakableBlock breakableBlock)
     {
-        _breakableBlockList.Add(breakableBlock);
+        if (breakableBlock != null && !_breakableBlockList.Contains(breakableBlock))
+        {
+            _breakableBlockList.Add(breakableBlock);
+        }
     }
 
     [Button]

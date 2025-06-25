@@ -10,7 +10,10 @@ public class RopeManager : MonoBehaviour
 
     public void Register(Rope rope)
     {
-        _ropeList.Add(rope);
+        if (rope != null && !_ropeList.Contains(rope))
+        {
+            _ropeList.Add(rope);
+        }
     }
 
     public bool IsOverlapRope()

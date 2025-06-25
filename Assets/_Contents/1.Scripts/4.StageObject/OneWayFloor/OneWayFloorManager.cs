@@ -10,7 +10,10 @@ public class OneWayFloorManager : MonoBehaviour
 
     public void Register(OneWayFloor oneWayFloor)
     {
-        _oneWayFloorList.Add(oneWayFloor);
+        if (oneWayFloor != null && !_oneWayFloorList.Contains(oneWayFloor))
+        {
+            _oneWayFloorList.Add(oneWayFloor);
+        }
     }
 
     public void SetColliderEnable(bool isEnable)

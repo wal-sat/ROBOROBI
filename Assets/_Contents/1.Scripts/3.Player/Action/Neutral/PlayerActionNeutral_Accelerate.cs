@@ -22,6 +22,13 @@ public class PlayerActionNeutral_Accelerate : PlayerActionBase
         _playerMovementManager.UnsubscribeSpeedAdjustCallback(Accelerate);
     }
 
+    public override void InitializeAction()
+    {
+        base.InitializeAction();
+
+        _playerMovementManager.UnsubscribeSpeedAdjustCallback(Accelerate);
+    }
+
     // ----- Private Methods -----
 
     private float Accelerate()

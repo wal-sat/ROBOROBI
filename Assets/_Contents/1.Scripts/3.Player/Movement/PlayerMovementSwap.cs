@@ -26,11 +26,6 @@ public class PlayerMovementSwap : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void MovementInitialize()
-    {
-        ChangeSwapTransform(false);
-    }
-
     public void MovementUpdate()
     {
         if (Physics2D.OverlapCapsule(_swapCheckerTransform.position, _swapCapsuleSize, CapsuleDirection2D.Vertical, 0, _groundLayer) != null)

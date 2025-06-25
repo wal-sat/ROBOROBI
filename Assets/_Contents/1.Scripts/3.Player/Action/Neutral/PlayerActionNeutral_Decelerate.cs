@@ -22,6 +22,13 @@ public class PlayerActionNeutral_Decelerate : PlayerActionBase
         _playerMovementManager.UnsubscribeSpeedAdjustCallback(Decelerate);
     }
 
+    public override void InitializeAction()
+    {
+        base.InitializeAction();
+
+        _playerMovementManager.UnsubscribeSpeedAdjustCallback(Decelerate);
+    }
+
     // ----- Private Methods -----
 
     private float Decelerate()

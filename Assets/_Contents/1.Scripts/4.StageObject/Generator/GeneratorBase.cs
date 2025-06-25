@@ -112,9 +112,9 @@ public class GeneratorBase : MonoBehaviour
     {
         while (!token.IsCancellationRequested)
         {
-            await UniTask.WaitForSeconds(_generateInterval, cancellationToken: token);
-
             action();
+            
+            await UniTask.WaitForSeconds(_generateInterval, cancellationToken: token);
         }
     }
 }

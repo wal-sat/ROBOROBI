@@ -10,7 +10,10 @@ public class ButtonManager : MonoBehaviour
 
     public void Register(Button button)
     {
-        _buttonList.Add(button);
+        if (button != null && !_buttonList.Contains(button))
+        {
+            _buttonList.Add(button);
+        }
     }
 
     [Button]

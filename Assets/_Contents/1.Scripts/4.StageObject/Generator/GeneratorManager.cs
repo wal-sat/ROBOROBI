@@ -10,7 +10,10 @@ public class GeneratorManager : MonoBehaviour
 
     public void Register(GeneratorBase generator)
     {
-        _generatorList.Add(generator);
+        if (generator != null && !_generatorList.Contains(generator))
+        {
+            _generatorList.Add(generator);
+        }
     }
 
     [Button]

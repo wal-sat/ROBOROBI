@@ -22,6 +22,7 @@ public class PlayerMovementManager : MonoBehaviour
     [SerializeField] private PlayerMovementOverhead _playerMovementOverhead;
     [SerializeField] private PlayerMovementGravity _playerMovementGravity;
     [SerializeField] private PlayerMovementTerminalVelocity _playerMovementTerminalVelocity;
+    [SerializeField] private PlayerMovementDieToGetStuck _playerMovementDieToGetStuck;
 
     [HideInInspector] public bool IsFacingRight { get; private set; }
 
@@ -46,8 +47,6 @@ public class PlayerMovementManager : MonoBehaviour
     public void MovementInitialize(bool isFacingRight)
     {
         IsFacingRight = isFacingRight;
-        _playerMovementOverhead.MovementInitialize();
-        _playerMovementSwap.MovementInitialize();
         _playerMovementGravity.MovementInitialize();
     }
 
@@ -59,6 +58,7 @@ public class PlayerMovementManager : MonoBehaviour
         _playerMovementOverhead.MovementUpdate();
         _playerMovementGravity.MovementUpdate(_playerGravityDisable.Values.Any(x => x));
         _playerMovementTerminalVelocity.MovementUpdate();
+        _playerMovementDieToGetStuck.MovementUpdate();
     }
 
     /// <summary>
