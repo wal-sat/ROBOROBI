@@ -5,6 +5,7 @@ public class Button : MonoBehaviour
 {
     [SerializeField] private ButtonManager _buttonManager;
     [SerializeField] private ButtonView _buttonView;
+    [SerializeField] private IsTriggerWithPlayer _isTriggerWithPlayer;
     [SerializeField] private GameObject _movedObject;
     [SerializeField] private Vector2 _movePoint;
 
@@ -12,7 +13,7 @@ public class Button : MonoBehaviour
 
     private Tween _currentTween;
     private Vector2 _defaultPosition;
-    private bool _isEnable;
+    private FirstCallChecker _firstCallChecker = new FirstCallChecker();
 
     // ----- Life Cycle Methods -----
 
@@ -21,14 +22,15 @@ public class Button : MonoBehaviour
         _buttonManager.Register(this);
 
         _defaultPosition = _movedObject.transform.position;
+        _isTriggerWithPlayer.TriggerEnterCallback += TriggerEnter;
     }
 
     // ----- Public Methods -----
 
     public void ButtonInitialize()
     {
-        _isEnable = true;
-        _buttonView.SpriteChange(_isEnable);
+        _firstCallChecker.Reset();
+        _buttonView.SpriteChange(true);
 
         _currentTween.Kill();
         _movedObject.transform.position = _defaultPosition;
@@ -36,26 +38,17 @@ public class Button : MonoBehaviour
 
     // ----- Private Methods -----
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void TriggerEnter()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (_firstCallChecker.Check())
         {
-            if (_isEnable)
-            {
-                _isEnable = false;
-                _buttonView.SpriteChange(_isEnable);
+            _buttonView.SpriteChange(false);
 
-                PressedButton();
+            Vector2 pos = new Vector2(_defaultPosition.x + _movePoint.x, _defaultPosition.y + _movePoint.y);
+            _currentTween = _movedObject.transform.DOMove(pos, MoveTime).SetEase(Ease.OutQuad);
 
-                S_SEManager.Instance.Play("s_button");
-                S_SEManager.Instance.Play("s_movable");
-            }
+            S_SEManager.Instance.Play("s_button");
+            S_SEManager.Instance.Play("s_movable");
         }
-    }
-
-    private void PressedButton()
-    {
-        Vector2 pos = new Vector2(_defaultPosition.x + _movePoint.x, _defaultPosition.y + _movePoint.y);
-        _currentTween = _movedObject.transform.DOMove(pos, MoveTime).SetEase(Ease.OutQuad);
     }
 }

@@ -46,6 +46,7 @@ public class CameraAreaManager : MonoBehaviour
     {
         if (!_cameraAreaList.Contains(cameraArea))
         {
+            Debug.Log("Register" + cameraArea.name);
             _cameraAreaList.Add(cameraArea);
             ChangeCameraArea();
         }
@@ -54,6 +55,7 @@ public class CameraAreaManager : MonoBehaviour
     {
         if (_cameraAreaList.Contains(cameraArea))
         {
+            Debug.Log("Unregister" + cameraArea.name);
             _cameraAreaList.Remove(cameraArea);
             ChangeCameraArea(cameraArea);
         }
@@ -67,6 +69,8 @@ public class CameraAreaManager : MonoBehaviour
 
         CameraArea cameraArea = _cameraAreaList.AsEnumerable().Reverse().OrderByDescending(item => item.CameraAreaPriority).FirstOrDefault();
         if (cameraArea == null) return;
+
+        Debug.Log("ChangeCameraArea: " + cameraArea.name);
 
         if (_currentCameraArea == null || _currentCameraArea != cameraArea)
         {

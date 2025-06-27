@@ -18,6 +18,7 @@ public class PlayerActionSManager : MonoBehaviour
 
     private int _maxJumpTime;
     private int _jumpTime;
+    private bool _isRecoveryJumpTime;
 
     // ----- Life Cycle Methods -----
 
@@ -64,7 +65,7 @@ public class PlayerActionSManager : MonoBehaviour
         else if (leftDirection != Vector2.up && _isPushingUp)
         {
             _isPushingUp = false;
-            _jumpTime--;
+            DecrementJumpTime();
             CallEndAction(_bigJumpAction);
         }
 
@@ -82,7 +83,7 @@ public class PlayerActionSManager : MonoBehaviour
         else if ((leftDirection != Vector2.zero && leftDirection != Vector2.left && leftDirection != Vector2.right) && _isPushingNone)
         {
             _isPushingNone = false;
-            _jumpTime--;
+            DecrementJumpTime();
             CallEndAction(_jumpAction);
         }
     }
@@ -95,7 +96,7 @@ public class PlayerActionSManager : MonoBehaviour
         if (_isPushingUp)
         {
             _isPushingUp = false;
-            _jumpTime--;
+            DecrementJumpTime();
             CallEndAction(_bigJumpAction);
         }
         if (_isPushingDown)
@@ -106,14 +107,9 @@ public class PlayerActionSManager : MonoBehaviour
         if (_isPushingNone)
         {
             _isPushingNone = false;
-            _jumpTime--;
+            DecrementJumpTime();
             CallEndAction(_jumpAction);
         }
-    }
-
-    public void RecureJumpTime()
-    {
-        _jumpTime = _maxJumpTime;
     }
 
     public void SetMaxJumpTime(int time)
@@ -121,6 +117,21 @@ public class PlayerActionSManager : MonoBehaviour
         _maxJumpTime = time;
 
         if (_jumpTime > _maxJumpTime) _jumpTime = _maxJumpTime;
+    }
+
+    public void RecoveryJumpTime()
+    {
+        _jumpTime = _maxJumpTime;
+
+        if (_isPushingUp || _isPushingNone)
+        {
+            _isRecoveryJumpTime = true;
+        }
+    }
+
+    public void DepleteJumpTime()
+    {
+        _jumpTime = 0;
     }
 
     // ----- Private Methods -----
@@ -144,6 +155,18 @@ public class PlayerActionSManager : MonoBehaviour
         if (action.IsAcquired)
         {
             action.EndAction();
+        }
+    }
+
+    private void DecrementJumpTime()
+    {
+        if (!_isRecoveryJumpTime && _jumpTime > 0)
+        {
+            _jumpTime--;
+        }
+        else
+        {
+            _isRecoveryJumpTime = false;
         }
     }
 

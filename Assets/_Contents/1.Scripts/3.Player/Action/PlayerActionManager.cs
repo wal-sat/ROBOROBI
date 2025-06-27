@@ -23,7 +23,7 @@ public class PlayerActionManager : MonoBehaviour
         // Recure Action Time
         if (_playerMovementLanding.IsLanding())
         {
-            RecureActionTime();
+            RecoveryActionTime();
         }
 
         // Neutral
@@ -42,10 +42,15 @@ public class PlayerActionManager : MonoBehaviour
         }
     }
 
-    // ----- Private Methods -----
-
-    private void RecureActionTime()
+    public void RecoveryActionTime()
     {
-        _playerActionSManager.RecureJumpTime();
+        _playerActionSManager.RecoveryJumpTime();
     }
+
+    public void DepleteActionTime()
+    {
+        _playerActionSManager.DepleteJumpTime();
+    }
+
+    // ----- Private Methods -----
 }
