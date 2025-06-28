@@ -7,9 +7,9 @@ public class PlayerMovementTerminalVelocity : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void MovementUpdate()
+    public void MovementUpdate(bool isTerminalVelocityLockable)
     {
-        if (_playerRigidbody2D.linearVelocityY < -_terminalVelocity)
+        if (!isTerminalVelocityLockable && _playerRigidbody2D.linearVelocityY < -_terminalVelocity)
         {
             _playerRigidbody2D.linearVelocity = new Vector2(_playerRigidbody2D.linearVelocityX, -_terminalVelocity);
         }

@@ -4,7 +4,6 @@ using UnityEngine;
 public class CameraArea : MonoBehaviour
 {
     [SerializeField] private CameraAreaManager _cameraAreaManager;
-    [SerializeField] private IsTriggerWithPlayer _isTriggerWithPlayer;
     [SerializeField] public int CameraAreaPriority;
     [SerializeField] public float CameraSize;
 
@@ -24,20 +23,22 @@ public class CameraArea : MonoBehaviour
         BottomLeftPos = new Vector2(bounds.min.x, bounds.min.y);
         TopRightPos = new Vector2(bounds.max.x, bounds.max.y);
         sr.sprite = null;
-
-        _isTriggerWithPlayer.TriggerEnterCallback = TriggerEnter;
-        _isTriggerWithPlayer.TriggerExitCallback = TriggerExit;
     }
 
     // ----- Private Methods -----
 
-    private void TriggerEnter()
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        _cameraAreaManager.Register(this);
+        if (collision.CompareTag("PlayerStageAreaChecker"))
+        {
+            _cameraAreaManager.Register(this);
+        }
     }
-
-    private void TriggerExit()
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        _cameraAreaManager.Unregister(this);
+        if (collision.CompareTag("PlayerStageAreaChecker"))
+        {
+            _cameraAreaManager.Unregister(this);
+        }
     }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerRunningLockable, IPlayerGravityDisable
+public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerMovementPropertyLockable
 {
     [SerializeField] private GameObject _player;
     [SerializeField] private PlayerMovementManager _playerMovementManager;
@@ -77,8 +77,7 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerRunningLockable
 
     private void InitGrab()
     {
-        _playerMovementManager.SetPlayerRunningLock(this, true);
-        _playerMovementManager.SetPlayerGravityDisable(this, true);
+        _playerMovementManager.SetPlayerMovementPropertyLockable(this, true);
         _playerMovementManager.SetPlayerVelocityZero();
 
         _grabbedRopeTransform = _ropeManager.GetRopeTransform();
@@ -96,7 +95,6 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerRunningLockable
     }
     private void EndGrab()
     {
-        _playerMovementManager.SetPlayerRunningLock(this, false);
-        _playerMovementManager.SetPlayerGravityDisable(this, false);
+        _playerMovementManager.SetPlayerMovementPropertyLockable(this, false);
     }
 }

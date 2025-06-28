@@ -24,8 +24,10 @@ public class PlayerMovementLanding : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void MovementUpdate()
+    public void MovementUpdate(bool isLandingLockable)
     {
+        if (isLandingLockable) return;
+
         if (IsLanding())
         {
             if (_landingSEBufferTimer > LandingSEBufferTime)

@@ -4,8 +4,10 @@ using Cysharp.Threading.Tasks.CompilerServices;
 using UnityEngine;
 using DG.Tweening;
 
-public class WarpGate : MonoBehaviour
+public class WarpGate : MonoBehaviour, IPlayerMovementPropertyLockable
 {
+    [SerializeField] private PlayerMovementManager _playerMovementManager;
+    [SerializeField] private CameraManager _cameraManager;
     [SerializeField] private WarpGateManager _warpGateManager;
     [SerializeField] private WarpGateView _warpGateView;
     [SerializeField] private float _warpTweenDuration;
@@ -82,32 +84,39 @@ public class WarpGate : MonoBehaviour
         await UniTask.Yield(cancellationToken);
 
         Rigidbody2D rigidbody = gameObject.GetComponent<Rigidbody2D>();
+        Collider2D collider = gameObject.GetComponent<Collider2D>();
         Vector3 velocity = Vector3.zero;
         if (rigidbody != null)
         {
             velocity = rigidbody.linearVelocity;
             rigidbody.linearVelocity = Vector3.zero;
         }
-        Collider2D collider2D = gameObject.GetComponent<Collider2D>();
-        if (collider2D != null)
+        if (collider != null)
         {
-            //collider2D.enabled = false;
+            collider.enabled = false;
         }
+        if (gameObject.CompareTag("Player"))
+        {
+            _playerMovementManager.SetPlayerMovementPropertyLockable(this, true);
+            _cameraManager.ChangeCameraState(CameraState.Transition);
+        }
+        gameObject.transform.DOMove(_destinationWarpGate.transform.position, _warpTweenDuration).SetEase(Ease.Linear).SetLink(gameObject);
 
-        _warpTween = gameObject.transform.DOMove(_destinationWarpGate.transform.position, _warpTweenDuration).SetEase(Ease.OutCubic).SetLink(gameObject)
-            .OnComplete(() =>
-            {
-                gameObject.transform.rotation = _destinationWarpGate.transform.rotation;
-                if (rigidbody != null)
-                {
-                    rigidbody.linearVelocity = velocity;
-                }
-                if (collider2D != null)
-                {
-                    collider2D.enabled = true;
-                }
-            });
+        await UniTask.WaitForSeconds(_warpTweenDuration, cancellationToken: cancellationToken);
 
+        if (rigidbody != null)
+        {
+            rigidbody.linearVelocity = velocity;
+        }
+        if (collider != null)
+        {
+            collider.enabled = true;
+        }
+        if (gameObject.CompareTag("Player"))
+        {
+            _playerMovementManager.SetPlayerMovementPropertyLockable(this, false);
+            _cameraManager.ChangeCameraState(CameraState.Main);
+        }
         _warpGateView.EnableView(false);
         CoolTime(cancellationToken).Forget();
     }

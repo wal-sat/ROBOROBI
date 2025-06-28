@@ -18,9 +18,11 @@ public class PlayerMovementOverhead : MonoBehaviour
 
     // ------ Public Methods -----
 
-    public void MovementUpdate()
+    public void MovementUpdate(bool isOverheadLockable)
     {
-        if (Physics2D.OverlapCircle(_overheadCheckerTransform.position, CircleSize, _groundLayer) != null && _playerRigidbody2D.linearVelocityY > 0f && !_isCoolTime)
+        if (isOverheadLockable || _playerRigidbody2D.linearVelocityY <= 0f || _isCoolTime) return;
+
+        if (Physics2D.OverlapCircle(_overheadCheckerTransform.position, CircleSize, _groundLayer) != null)
         {
             _playerRigidbody2D.linearVelocity = new Vector2(_playerRigidbody2D.linearVelocityX, (float)Math.Sqrt(_playerRigidbody2D.linearVelocityY));
 

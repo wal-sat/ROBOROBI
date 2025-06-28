@@ -12,14 +12,15 @@ public class PlayerMovementGravity : MonoBehaviour
         _playerRigidbody2D.gravityScale = _defaultGravityScale;
     }
 
-    public void MovementUpdate(bool isDisable)
+    public void MovementUpdate(bool isGravityLockable)
     {
-        if (isDisable)
+        if (isGravityLockable)
         {
             _playerRigidbody2D.gravityScale = 0f;
-            return;
         }
-
-        _playerRigidbody2D.gravityScale = _defaultGravityScale;
+        else
+        {
+            _playerRigidbody2D.gravityScale = _defaultGravityScale;
+        }
     }
 }

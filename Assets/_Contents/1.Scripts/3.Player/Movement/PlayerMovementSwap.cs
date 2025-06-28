@@ -26,8 +26,10 @@ public class PlayerMovementSwap : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void MovementUpdate()
+    public void MovementUpdate(bool isSwapLockable)
     {
+        if (isSwapLockable) return;
+        
         if (Physics2D.OverlapCapsule(_swapCheckerTransform.position, _swapCapsuleSize, CapsuleDirection2D.Vertical, 0, _groundLayer) != null)
         {
             OnSwapCallback();

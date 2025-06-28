@@ -12,9 +12,9 @@ public class PlayerMovementDieToGetStuck : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void MovementUpdate()
+    public void MovementUpdate(bool isDieToGetStuckLockable)
     {
-        if (Physics2D.OverlapCircle(_getStuckCheckerTransform.position, _radius, _groundLayer) != null)
+        if (!isDieToGetStuckLockable && Physics2D.OverlapCircle(_getStuckCheckerTransform.position, _radius, _groundLayer) != null)
         {
             _stageManager.PlayerDeath();
         }
@@ -32,10 +32,12 @@ public class PlayerMovementDieToGetStuck : MonoBehaviour
         }
     }
 
-    public Color gizmoColor = Color.red;
-    public int segments = 64; // 円の分割数（多いほど滑らか）
+    // ----- Gizmo Settings -----
 
-    void OnDrawGizmos()
+    private Color gizmoColor = Color.red;
+    private int segments = 16;
+
+    private void OnDrawGizmos()
     {
         Gizmos.color = gizmoColor;
 

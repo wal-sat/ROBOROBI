@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public interface IPlayerRunningLockable
+public interface IPlayerMovementPropertyLockable
 {
-    // SetPlayerRunningLock() を呼び出すためのインターフェース
-}
-
-public interface IPlayerGravityDisable
-{
-    // SetPlayerRunningLock() を呼び出すためのインターフェース
+    // PlayerMovementManagerに登録されているかどうか
 }
 
 public class PlayerMovementManager : MonoBehaviour
@@ -27,8 +22,13 @@ public class PlayerMovementManager : MonoBehaviour
     [HideInInspector] public bool IsFacingRight { get; private set; }
 
     private Rigidbody2D _playerRigidbody2D;
-    private Dictionary<IPlayerRunningLockable, bool> _playerRunningLock = new Dictionary<IPlayerRunningLockable, bool>();
-    private Dictionary<IPlayerGravityDisable, bool> _playerGravityDisable = new Dictionary<IPlayerGravityDisable, bool>();
+    private Dictionary<IPlayerMovementPropertyLockable, bool> _playerRunningLock = new Dictionary<IPlayerMovementPropertyLockable, bool>();
+    private Dictionary<IPlayerMovementPropertyLockable, bool> _playerLandingLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
+    private Dictionary<IPlayerMovementPropertyLockable, bool> _playerSwapLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
+    private Dictionary<IPlayerMovementPropertyLockable, bool> _playerOverheadLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
+    private Dictionary<IPlayerMovementPropertyLockable, bool> _playerGravityLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
+    private Dictionary<IPlayerMovementPropertyLockable, bool> _playerTerminalVelocityLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
+    private Dictionary<IPlayerMovementPropertyLockable, bool> _playerDieToGetStuckLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
 
     // ----- Life Cycle Methods -----
 
@@ -53,26 +53,30 @@ public class PlayerMovementManager : MonoBehaviour
     public void MovementUpdate()
     {
         _playerMovementRunning.MovementUpdate(IsFacingRight, _playerRunningLock.Values.Any(x => x));
-        _playerMovementLanding.MovementUpdate();
-        _playerMovementSwap.MovementUpdate();
-        _playerMovementOverhead.MovementUpdate();
-        _playerMovementGravity.MovementUpdate(_playerGravityDisable.Values.Any(x => x));
-        _playerMovementTerminalVelocity.MovementUpdate();
-        _playerMovementDieToGetStuck.MovementUpdate();
+        _playerMovementLanding.MovementUpdate(_playerLandingLockable.Values.Any(x => x));
+        _playerMovementSwap.MovementUpdate(_playerSwapLockable.Values.Any(x => x));
+        _playerMovementOverhead.MovementUpdate(_playerOverheadLockable.Values.Any(x => x));
+        _playerMovementGravity.MovementUpdate(_playerGravityLockable.Values.Any(x => x));
+        _playerMovementTerminalVelocity.MovementUpdate(_playerTerminalVelocityLockable.Values.Any(x => x));
+        _playerMovementDieToGetStuck.MovementUpdate(_playerDieToGetStuckLockable.Values.Any(x => x));
     }
 
-    /// <summary>
-    /// Playerの速度をゼロにする
-    /// </summary>
     public void SetPlayerVelocityZero()
     {
         _playerRigidbody2D.linearVelocity = Vector2.zero;
     }
 
-    /// <summary>
-    /// PlayerのRunningの制限の状態を変更する
-    /// </summary>
-    public void SetPlayerRunningLock(IPlayerRunningLockable gameObject, bool isLock)
+    public void SetPlayerMovementPropertyLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)
+    {
+        SetPlayerRunningLock(gameObject, isLock);
+        SetPlayerLandingLockable(gameObject, isLock);
+        SetPlayerSwapLockable(gameObject, isLock);
+        SetPlayerOverheadLockable(gameObject, isLock);
+        SetPlayerGravityLockable(gameObject, isLock);
+        SetPlayerTerminalVelocityLockable(gameObject, isLock);
+        SetPlayerDieToGetStuckLockable(gameObject, isLock);
+    }
+    public void SetPlayerRunningLock(IPlayerMovementPropertyLockable gameObject, bool isLock)
     {
         if (_playerRunningLock.ContainsKey(gameObject))
         {
@@ -83,19 +87,70 @@ public class PlayerMovementManager : MonoBehaviour
             _playerRunningLock.Add(gameObject, isLock);
         }
     }
-
-    /// <summary>
-    /// PlayerのGravityの無効状態を変更する
-    /// </summary>
-    public void SetPlayerGravityDisable(IPlayerGravityDisable gameObject, bool isDisable)
+    public void SetPlayerLandingLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)
     {
-        if (_playerGravityDisable.ContainsKey(gameObject))
+        if (_playerLandingLockable.ContainsKey(gameObject))
         {
-            _playerGravityDisable[gameObject] = isDisable;
+            _playerLandingLockable[gameObject] = isLock;
         }
         else
         {
-            _playerGravityDisable.Add(gameObject, isDisable);
+            _playerLandingLockable.Add(gameObject, isLock);
+        }
+    }
+    public void SetPlayerSwapLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)
+    {
+        if (_playerSwapLockable.ContainsKey(gameObject))
+        {
+            _playerSwapLockable[gameObject] = isLock;
+        }
+        else
+        {
+            _playerSwapLockable.Add(gameObject, isLock);
+        }
+    }
+    public void SetPlayerOverheadLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)
+    {
+        if (_playerOverheadLockable.ContainsKey(gameObject))
+        {
+            _playerOverheadLockable[gameObject] = isLock;
+        }
+        else
+        {
+            _playerOverheadLockable.Add(gameObject, isLock);
+        }
+    }
+    public void SetPlayerGravityLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)
+    {
+        if (_playerGravityLockable.ContainsKey(gameObject))
+        {
+            _playerGravityLockable[gameObject] = isLock;
+        }
+        else
+        {
+            _playerGravityLockable.Add(gameObject, isLock);
+        }
+    }
+    public void SetPlayerTerminalVelocityLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)
+    {
+        if (_playerTerminalVelocityLockable.ContainsKey(gameObject))
+        {
+            _playerTerminalVelocityLockable[gameObject] = isLock;
+        }
+        else
+        {
+            _playerTerminalVelocityLockable.Add(gameObject, isLock);
+        }
+    }
+    public void SetPlayerDieToGetStuckLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)
+    {
+        if (_playerDieToGetStuckLockable.ContainsKey(gameObject))
+        {
+            _playerDieToGetStuckLockable[gameObject] = isLock;
+        }
+        else
+        {
+            _playerDieToGetStuckLockable.Add(gameObject, isLock);
         }
     }
 

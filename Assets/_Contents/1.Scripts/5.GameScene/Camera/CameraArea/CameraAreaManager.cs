@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class CameraAreaManager : MonoBehaviour
 {
-    private enum CameraType { Main_0, Main_1, Sleep }
+    private enum CameraType { Main_0, Main_1, Transition_0, Transition_1, Sleep }
 
     private class CameraInfo
     {
@@ -20,9 +20,11 @@ public class CameraAreaManager : MonoBehaviour
         }
     }
 
-    [SerializeField] private GameObject _cinemachineCamera_0;
-    [SerializeField] private GameObject _cinemachineCamera_1;
-    [SerializeField] private GameObject _cinemachineCamera_sleep;
+    [SerializeField] private GameObject _cinemachineCameraMain_0;
+    [SerializeField] private GameObject _cinemachineCameraMain_1;
+    [SerializeField] private GameObject _cinemachineCameraTransition_0;
+    [SerializeField] private GameObject _cinemachineCameraTransition_1;
+    [SerializeField] private GameObject _cinemachineCameraSleep;
 
     private Dictionary<CameraType, CameraInfo> _cameraDictionary = new Dictionary<CameraType, CameraInfo>();
     private List<CameraArea> _cameraAreaList = new List<CameraArea>();
@@ -33,9 +35,11 @@ public class CameraAreaManager : MonoBehaviour
 
     private void Awake()
     {
-        _cameraDictionary.Add(CameraType.Main_0, new CameraInfo(_cinemachineCamera_0.GetComponent<CinemachineCamera>(), _cinemachineCamera_0.GetComponent<CinemachineConfiner2D>()));
-        _cameraDictionary.Add(CameraType.Main_1, new CameraInfo(_cinemachineCamera_1.GetComponent<CinemachineCamera>(), _cinemachineCamera_1.GetComponent<CinemachineConfiner2D>()));
-        _cameraDictionary.Add(CameraType.Sleep, new CameraInfo(_cinemachineCamera_sleep.GetComponent<CinemachineCamera>(), _cinemachineCamera_sleep.GetComponent<CinemachineConfiner2D>()));
+        _cameraDictionary.Add(CameraType.Main_0, new CameraInfo(_cinemachineCameraMain_0.GetComponent<CinemachineCamera>(), _cinemachineCameraMain_0.GetComponent<CinemachineConfiner2D>()));
+        _cameraDictionary.Add(CameraType.Main_1, new CameraInfo(_cinemachineCameraMain_1.GetComponent<CinemachineCamera>(), _cinemachineCameraMain_1.GetComponent<CinemachineConfiner2D>()));
+        _cameraDictionary.Add(CameraType.Transition_0, new CameraInfo(_cinemachineCameraTransition_0.GetComponent<CinemachineCamera>(), _cinemachineCameraTransition_0.GetComponent<CinemachineConfiner2D>()));
+        _cameraDictionary.Add(CameraType.Transition_1, new CameraInfo(_cinemachineCameraTransition_1.GetComponent<CinemachineCamera>(), _cinemachineCameraTransition_1.GetComponent<CinemachineConfiner2D>()));
+        _cameraDictionary.Add(CameraType.Sleep, new CameraInfo(_cinemachineCameraSleep.GetComponent<CinemachineCamera>(), _cinemachineCameraSleep.GetComponent<CinemachineConfiner2D>()));
 
         _currentCameraType = CameraType.Main_0;
     }
@@ -46,7 +50,6 @@ public class CameraAreaManager : MonoBehaviour
     {
         if (!_cameraAreaList.Contains(cameraArea))
         {
-            Debug.Log("Register" + cameraArea.name);
             _cameraAreaList.Add(cameraArea);
             ChangeCameraArea();
         }
@@ -55,7 +58,6 @@ public class CameraAreaManager : MonoBehaviour
     {
         if (_cameraAreaList.Contains(cameraArea))
         {
-            Debug.Log("Unregister" + cameraArea.name);
             _cameraAreaList.Remove(cameraArea);
             ChangeCameraArea(cameraArea);
         }
@@ -70,28 +72,45 @@ public class CameraAreaManager : MonoBehaviour
         CameraArea cameraArea = _cameraAreaList.AsEnumerable().Reverse().OrderByDescending(item => item.CameraAreaPriority).FirstOrDefault();
         if (cameraArea == null) return;
 
-        Debug.Log("ChangeCameraArea: " + cameraArea.name);
-
         if (_currentCameraArea == null || _currentCameraArea != cameraArea)
         {
-            _cameraDictionary[_currentCameraType].cinemachineCamera.Priority = cameraArea.CameraAreaPriority;
-            _cameraDictionary[_currentCameraType].cinemachineCamera.Lens.OrthographicSize = cameraArea.CameraSize;
-            _cameraDictionary[_currentCameraType].cinemachineConfiner2D.BoundingShape2D = cameraArea.Collider2D;
-
-            _cameraDictionary[CameraType.Sleep].cinemachineCamera.Priority = cameraArea.CameraAreaPriority + 1;
-            _cameraDictionary[CameraType.Sleep].cinemachineCamera.Lens.OrthographicSize = cameraArea.CameraSize;
-
-            _currentCameraArea = cameraArea;
             if (_currentCameraType == CameraType.Main_0)
             {
+                _cameraDictionary[CameraType.Main_0].cinemachineCamera.Priority = cameraArea.CameraAreaPriority;
+                _cameraDictionary[CameraType.Main_0].cinemachineCamera.Lens.OrthographicSize = cameraArea.CameraSize;
+                _cameraDictionary[CameraType.Main_0].cinemachineConfiner2D.BoundingShape2D = cameraArea.Collider2D;
+
+                _cameraDictionary[CameraType.Transition_0].cinemachineCamera.Priority = cameraArea.CameraAreaPriority + 1;
+                _cameraDictionary[CameraType.Transition_0].cinemachineCamera.Lens.OrthographicSize = cameraArea.CameraSize;
+                _cameraDictionary[CameraType.Transition_0].cinemachineConfiner2D.BoundingShape2D = cameraArea.Collider2D;
+
+                _cameraDictionary[CameraType.Main_1].cinemachineCamera.Priority = -1;
+                _cameraDictionary[CameraType.Transition_1].cinemachineCamera.Priority = -1;
+
+                _currentCameraArea = cameraArea;
                 _currentCameraType = CameraType.Main_1;
+                
             }
             else if (_currentCameraType == CameraType.Main_1)
             {
+                _cameraDictionary[CameraType.Main_1].cinemachineCamera.Priority = cameraArea.CameraAreaPriority;
+                _cameraDictionary[CameraType.Main_1].cinemachineCamera.Lens.OrthographicSize = cameraArea.CameraSize;
+                _cameraDictionary[CameraType.Main_1].cinemachineConfiner2D.BoundingShape2D = cameraArea.Collider2D;
+
+                _cameraDictionary[CameraType.Transition_1].cinemachineCamera.Priority = cameraArea.CameraAreaPriority + 1;
+                _cameraDictionary[CameraType.Transition_1].cinemachineCamera.Lens.OrthographicSize = cameraArea.CameraSize;
+                _cameraDictionary[CameraType.Transition_1].cinemachineConfiner2D.BoundingShape2D = cameraArea.Collider2D;
+
+
+                _cameraDictionary[CameraType.Main_0].cinemachineCamera.Priority = -1;
+                _cameraDictionary[CameraType.Transition_0].cinemachineCamera.Priority = -1;
+
+                _currentCameraArea = cameraArea;
                 _currentCameraType = CameraType.Main_0;
             }
 
-            _cameraDictionary[_currentCameraType].cinemachineCamera.Priority = -1;
+            _cameraDictionary[CameraType.Sleep].cinemachineCamera.Priority = cameraArea.CameraAreaPriority + 2;
+            _cameraDictionary[CameraType.Sleep].cinemachineCamera.Lens.OrthographicSize = cameraArea.CameraSize;
         }
     }
 }
