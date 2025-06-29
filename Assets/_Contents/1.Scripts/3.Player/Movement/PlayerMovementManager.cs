@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using NUnit.Framework;
 using UnityEngine;
 
 public interface IPlayerMovementPropertyLockable
@@ -15,17 +16,21 @@ public class PlayerMovementManager : MonoBehaviour
     [SerializeField] private PlayerMovementLanding _playerMovementLanding;
     [SerializeField] private PlayerMovementSwap _playerMovementSwap;
     [SerializeField] private PlayerMovementOverhead _playerMovementOverhead;
+    [SerializeField] private PlayerMovementBackside _playerMovementBackside;
     [SerializeField] private PlayerMovementGravity _playerMovementGravity;
     [SerializeField] private PlayerMovementTerminalVelocity _playerMovementTerminalVelocity;
     [SerializeField] private PlayerMovementDieToGetStuck _playerMovementDieToGetStuck;
 
     [HideInInspector] public bool IsFacingRight { get; private set; }
+    [HideInInspector] public bool IsLanding { get; private set; }
+    [HideInInspector] public bool IsSwapping { get; private set; }
 
     private Rigidbody2D _playerRigidbody2D;
     private Dictionary<IPlayerMovementPropertyLockable, bool> _playerRunningLock = new Dictionary<IPlayerMovementPropertyLockable, bool>();
     private Dictionary<IPlayerMovementPropertyLockable, bool> _playerLandingLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
     private Dictionary<IPlayerMovementPropertyLockable, bool> _playerSwapLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
     private Dictionary<IPlayerMovementPropertyLockable, bool> _playerOverheadLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
+    private Dictionary<IPlayerMovementPropertyLockable, bool> _playerBacksideLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
     private Dictionary<IPlayerMovementPropertyLockable, bool> _playerGravityLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
     private Dictionary<IPlayerMovementPropertyLockable, bool> _playerTerminalVelocityLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
     private Dictionary<IPlayerMovementPropertyLockable, bool> _playerDieToGetStuckLockable = new Dictionary<IPlayerMovementPropertyLockable, bool>();
@@ -52,10 +57,14 @@ public class PlayerMovementManager : MonoBehaviour
 
     public void MovementUpdate()
     {
+        IsLanding = _playerMovementLanding.IsLanding();
+        IsSwapping = _playerMovementSwap.IsSwapping();
+
         _playerMovementRunning.MovementUpdate(IsFacingRight, _playerRunningLock.Values.Any(x => x));
         _playerMovementLanding.MovementUpdate(_playerLandingLockable.Values.Any(x => x));
         _playerMovementSwap.MovementUpdate(_playerSwapLockable.Values.Any(x => x));
         _playerMovementOverhead.MovementUpdate(_playerOverheadLockable.Values.Any(x => x));
+        _playerMovementBackside.MovementUpdate(IsFacingRight, _playerBacksideLockable.Values.Any(x => x));
         _playerMovementGravity.MovementUpdate(_playerGravityLockable.Values.Any(x => x));
         _playerMovementTerminalVelocity.MovementUpdate(_playerTerminalVelocityLockable.Values.Any(x => x));
         _playerMovementDieToGetStuck.MovementUpdate(_playerDieToGetStuckLockable.Values.Any(x => x));
@@ -66,12 +75,13 @@ public class PlayerMovementManager : MonoBehaviour
         _playerRigidbody2D.linearVelocity = Vector2.zero;
     }
 
-    public void SetPlayerMovementPropertyLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)
+    public void SetPlayerMovementPropertyLock(IPlayerMovementPropertyLockable gameObject, bool isLock)
     {
         SetPlayerRunningLock(gameObject, isLock);
         SetPlayerLandingLockable(gameObject, isLock);
         SetPlayerSwapLockable(gameObject, isLock);
         SetPlayerOverheadLockable(gameObject, isLock);
+        SetPlayerBacksideLockable(gameObject, isLock);
         SetPlayerGravityLockable(gameObject, isLock);
         SetPlayerTerminalVelocityLockable(gameObject, isLock);
         SetPlayerDieToGetStuckLockable(gameObject, isLock);
@@ -118,6 +128,17 @@ public class PlayerMovementManager : MonoBehaviour
         else
         {
             _playerOverheadLockable.Add(gameObject, isLock);
+        }
+    }
+    public void SetPlayerBacksideLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)
+    {
+        if (_playerBacksideLockable.ContainsKey(gameObject))
+        {
+            _playerBacksideLockable[gameObject] = isLock;
+        }
+        else
+        {
+            _playerBacksideLockable.Add(gameObject, isLock);
         }
     }
     public void SetPlayerGravityLockable(IPlayerMovementPropertyLockable gameObject, bool isLock)

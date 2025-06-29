@@ -5,6 +5,7 @@ public class PlayerActionNeutral_Crouch : PlayerActionBase
     [SerializeField] CapsuleCollider2D _playerCollider;
     [SerializeField] PlayerMovementSwap _playerMovementSwap;
     [SerializeField] PlayerMovementOverhead _playerMovementOverhead;
+    [SerializeField] PlayerMovementBackside _playerMovementBackside;
     [SerializeField] PlayerMovementDieToGetStuck _playerMovementDieToGetStuck;
     [SerializeField] PlayerViewManager _playerViewManager;
 
@@ -24,6 +25,7 @@ public class PlayerActionNeutral_Crouch : PlayerActionBase
         _playerCollider.size = new Vector2(SizeX, CrouchSizeY);
         _playerMovementSwap.ChangeSwapTransform(true);
         _playerMovementOverhead.ChangeOverheadTransform(true);
+        _playerMovementBackside.ChangeBacksideTransform(true);
         _playerMovementDieToGetStuck.ChangeGetStuckTransform(true);
         _playerViewManager.IsCrouching = true;
     }
@@ -36,6 +38,7 @@ public class PlayerActionNeutral_Crouch : PlayerActionBase
         _playerCollider.size = new Vector2(SizeX, StandSizeY);
         _playerMovementSwap.ChangeSwapTransform(false);
         _playerMovementOverhead.ChangeOverheadTransform(false);
+        _playerMovementBackside.ChangeBacksideTransform(false);
         _playerMovementDieToGetStuck.ChangeGetStuckTransform(false);
         _playerViewManager.IsCrouching = false;
     }
@@ -48,6 +51,7 @@ public class PlayerActionNeutral_Crouch : PlayerActionBase
         _playerCollider.size = new Vector2(SizeX, StandSizeY);
         _playerMovementSwap.ChangeSwapTransform(false);
         _playerMovementOverhead.ChangeOverheadTransform(false);
+        _playerMovementBackside.ChangeBacksideTransform(false);
         _playerMovementDieToGetStuck.ChangeGetStuckTransform(false);
         _playerViewManager.IsCrouching = false;
     }

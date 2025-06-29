@@ -17,7 +17,6 @@ public class WarpGate : MonoBehaviour, IPlayerMovementPropertyLockable
 
     public CancellationTokenSource CancellationTokenSource { get; private set; }
 
-    private Tween _warpTween;
     private FirstCallChecker _firstCallChecker = new FirstCallChecker();
 
     // ----- Life Cycle Methods -----
@@ -32,25 +31,26 @@ public class WarpGate : MonoBehaviour, IPlayerMovementPropertyLockable
     public void WarpGateInitialize()
     {
         _firstCallChecker.Reset();
-        _warpGateView.EnableView(true);
+        _warpGateView.SpriteChange(true);
 
         CancellationTokenSource?.Cancel();
         CancellationTokenSource?.Dispose();
         CancellationTokenSource = null;
     }
 
-    public async UniTaskVoid CoolTime(CancellationToken cancellationToken)
+    public async UniTaskVoid CoolTime(float coolTime, CancellationToken cancellationToken)
     {
         if (_firstCallChecker.Check())
         {
-            _warpGateView.EnableView(false);
+            _warpGateView.SpriteChange(false);
         }
 
-        await UniTask.WaitForSeconds(_coolTime, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(coolTime, cancellationToken: cancellationToken);
 
         _firstCallChecker.Reset();
-        _warpGateView.EnableView(true);
+        _warpGateView.SpriteChange(true);
 
+        CancellationTokenSource?.Dispose();
         CancellationTokenSource = null;
     }
 
@@ -59,7 +59,7 @@ public class WarpGate : MonoBehaviour, IPlayerMovementPropertyLockable
 
     private void OnTriggerEnter2D(Collider2D collider)
     {
-        WarpedObject warpedObject = collider.GetComponent<WarpedObject>();
+        RigidbodyObject warpedObject = collider.GetComponent<RigidbodyObject>();
         if (warpedObject != null)
         {
             if (_firstCallChecker.Check())
@@ -67,57 +67,42 @@ public class WarpGate : MonoBehaviour, IPlayerMovementPropertyLockable
                 CancellationTokenSource?.Cancel();
                 CancellationTokenSource?.Dispose();
                 CancellationTokenSource = new CancellationTokenSource();
-                WarpAsync(warpedObject.gameObject, CancellationTokenSource.Token).Forget();
+                WarpAsync(warpedObject, CancellationTokenSource.Token).Forget();
 
                 S_SEManager.Instance.Play("s_warp");
             }
         }
     }
 
-    private async UniTaskVoid WarpAsync(GameObject gameObject, CancellationToken cancellationToken)
+    private async UniTaskVoid WarpAsync(RigidbodyObject warpedObject, CancellationToken cancellationToken)
     {
         _destinationWarpGate.CancellationTokenSource?.Cancel();
         _destinationWarpGate.CancellationTokenSource?.Dispose();
         _destinationWarpGate.CancellationTokenSource = new CancellationTokenSource();
-        _destinationWarpGate.CoolTime(_destinationWarpGate.CancellationTokenSource.Token).Forget();
+        _destinationWarpGate.CoolTime(_coolTime, _destinationWarpGate.CancellationTokenSource.Token).Forget();
 
         await UniTask.Yield(cancellationToken);
 
-        Rigidbody2D rigidbody = gameObject.GetComponent<Rigidbody2D>();
-        Collider2D collider = gameObject.GetComponent<Collider2D>();
-        Vector3 velocity = Vector3.zero;
-        if (rigidbody != null)
+        Vector3 velocity = warpedObject.Rigidbody.linearVelocity;
+        warpedObject.Rigidbody.linearVelocity = Vector3.zero;
+        warpedObject.Collider.enabled = false;
+        if (warpedObject.CompareTag("Player"))
         {
-            velocity = rigidbody.linearVelocity;
-            rigidbody.linearVelocity = Vector3.zero;
-        }
-        if (collider != null)
-        {
-            collider.enabled = false;
-        }
-        if (gameObject.CompareTag("Player"))
-        {
-            _playerMovementManager.SetPlayerMovementPropertyLockable(this, true);
+            _playerMovementManager.SetPlayerMovementPropertyLock(this, true);
             _cameraManager.ChangeCameraState(CameraState.Transition);
         }
-        gameObject.transform.DOMove(_destinationWarpGate.transform.position, _warpTweenDuration).SetEase(Ease.Linear).SetLink(gameObject);
+        warpedObject.transform.DOMove(_destinationWarpGate.transform.position, _warpTweenDuration).SetEase(Ease.Linear).SetLink(warpedObject.gameObject);
+        _warpGateView.SpriteChange(false);
 
         await UniTask.WaitForSeconds(_warpTweenDuration, cancellationToken: cancellationToken);
 
-        if (rigidbody != null)
+        warpedObject.Rigidbody.linearVelocity = velocity;
+        warpedObject.Collider.enabled = true;
+        if (warpedObject.CompareTag("Player"))
         {
-            rigidbody.linearVelocity = velocity;
-        }
-        if (collider != null)
-        {
-            collider.enabled = true;
-        }
-        if (gameObject.CompareTag("Player"))
-        {
-            _playerMovementManager.SetPlayerMovementPropertyLockable(this, false);
+            _playerMovementManager.SetPlayerMovementPropertyLock(this, false);
             _cameraManager.ChangeCameraState(CameraState.Main);
         }
-        _warpGateView.EnableView(false);
-        CoolTime(cancellationToken).Forget();
+        CoolTime(_coolTime - _warpTweenDuration, cancellationToken).Forget();
     }
 }

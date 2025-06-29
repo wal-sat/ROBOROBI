@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class WarpGateView : MonoBehaviour
+public class BarrelView : MonoBehaviour
 {
     [SerializeField] private Sprite _defaultSprite;
     [SerializeField] private Sprite _disableSprite;

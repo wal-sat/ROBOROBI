@@ -13,7 +13,7 @@ public class PlayerManager : MonoBehaviour
         _playerViewManager.ViewInitialize(true);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         _playerMovementManager.MovementUpdate();
         _playerActionManager.ActionUpdate();

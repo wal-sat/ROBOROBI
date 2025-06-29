@@ -77,7 +77,7 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerMovementPropert
 
     private void InitGrab()
     {
-        _playerMovementManager.SetPlayerMovementPropertyLockable(this, true);
+        _playerMovementManager.SetPlayerMovementPropertyLock(this, true);
         _playerMovementManager.SetPlayerVelocityZero();
 
         _grabbedRopeTransform = _ropeManager.GetRopeTransform();
@@ -95,6 +95,6 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerMovementPropert
     }
     private void EndGrab()
     {
-        _playerMovementManager.SetPlayerMovementPropertyLockable(this, false);
+        _playerMovementManager.SetPlayerMovementPropertyLock(this, false);
     }
 }

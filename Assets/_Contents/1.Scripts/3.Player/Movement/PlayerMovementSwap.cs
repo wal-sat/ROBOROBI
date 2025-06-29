@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class PlayerMovementSwap : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D _playerRigidbody2D;
     [SerializeField] private Transform _swapCheckerTransform;
     [SerializeField] private LayerMask _groundLayer;
 
     public Action OnSwapCallback;
 
-    private const float CapsulePositionX = 0.2f;
+    private const float CapsulePositionX = 0.25f;
     private const float StandCapsulePositionY = -0.05f;
     private const float CrouchCapsulePositionY = -0.175f;
     private const float CapsuleSizeX = 0.1f;
@@ -29,8 +30,19 @@ public class PlayerMovementSwap : MonoBehaviour
     public void MovementUpdate(bool isSwapLockable)
     {
         if (isSwapLockable) return;
-        
-        if (Physics2D.OverlapCapsule(_swapCheckerTransform.position, _swapCapsuleSize, CapsuleDirection2D.Vertical, 0, _groundLayer) != null)
+
+        float bufferX = _playerRigidbody2D.linearVelocityX * Time.fixedDeltaTime;
+        if (IsSwapping(bufferX))
+        {
+            float abstractVelocityX = Math.Abs(_playerRigidbody2D.linearVelocityX);
+            if (abstractVelocityX > 1f)
+            {
+                float velocityX = (float)Math.Sqrt(abstractVelocityX) * Mathf.Sign(_playerRigidbody2D.linearVelocityX);
+                _playerRigidbody2D.linearVelocity = new Vector2(velocityX, _playerRigidbody2D.linearVelocityY);
+            }
+        }
+
+        if (IsSwapping())
         {
             OnSwapCallback();
         }
@@ -48,5 +60,10 @@ public class PlayerMovementSwap : MonoBehaviour
             _swapCheckerTransform.localPosition = new Vector3(CapsulePositionX, StandCapsulePositionY, 0f);
             _swapCapsuleSize = new Vector3(CapsuleSizeX, StandCapsuleSizeY, 0f);
         }
+    }
+
+    public bool IsSwapping(float bufferX = 0f)
+    {
+        return Physics2D.OverlapCapsule(_swapCheckerTransform.position + new Vector3(bufferX, 0f, 0f), _swapCapsuleSize, CapsuleDirection2D.Vertical, 0, _groundLayer) != null;
     }
 }

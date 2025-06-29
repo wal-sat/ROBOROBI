@@ -6,7 +6,6 @@ using UnityEngine;
 public class ConveyorManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovementManager _playerMovementManager;
-    [SerializeField] private PlayerMovementLanding _playerMovementLanding;
     [SerializeField] private float _additionalSpeed;
 
     private const float UnsubscribeBufferTime = 0.25f;
@@ -22,12 +21,12 @@ public class ConveyorManager : MonoBehaviour
 
     private void Update()
     {
-        if (_playerMovementLanding.IsLanding() && _canUnsubscribeRight)
+        if (_playerMovementManager.IsLanding && _canUnsubscribeRight)
         {
             _playerMovementManager.UnsubscribeSpeedAdjustCallback(RightConveyor);
         }
 
-        if (_playerMovementLanding.IsLanding() && _canUnsubscribeLeft)
+        if (_playerMovementManager.IsLanding && _canUnsubscribeLeft)
         {
             _playerMovementManager.UnsubscribeSpeedAdjustCallback(LeftConveyor);
         }
