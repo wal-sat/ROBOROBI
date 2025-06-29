@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NaughtyAttributes;
 using UnityEngine;
 
 public class ButtonManager : MonoBehaviour
@@ -16,7 +15,6 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    [Button]
     public void StageObjectInitialize()
     {
         foreach (var button in _buttonList)

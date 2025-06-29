@@ -7,10 +7,11 @@ using UnityEngine;
 public class Barrel : MonoBehaviour, IPlayerMovementPropertyLockable
 {
     [SerializeField] private PlayerMovementManager _playerMovementManager;
+    [SerializeField] private CameraManager _cameraManager;
     [SerializeField] private BarrelManager _barrelManager;
     [SerializeField] private BarrelView _barrelView;
     [SerializeField] private float _blownUpPower;
-    
+
     private const float StayTime = 1f;
 
     private CancellationTokenSource _cancellationTokenSource;
@@ -80,15 +81,20 @@ public class Barrel : MonoBehaviour, IPlayerMovementPropertyLockable
         {
             _isBlownUpPlayer = true;
             _playerMovementManager.SetPlayerRunningLock(this, true);
+            _cameraManager.ChangeCameraState(CameraState.Transition);
         }
 
         await UniTask.WaitForSeconds(StayTime, cancellationToken: cancellationToken);
 
+        _barrelView.SpriteChange(true);
         barrelObject.gameObject.SetActive(true);
         float rad = -this.transform.eulerAngles.z * Mathf.Deg2Rad;
         Vector2 direction = new Vector2(Mathf.Sin(rad), Mathf.Cos(rad)).normalized;
         barrelObject.Rigidbody.linearVelocity = new Vector3(direction.x * _blownUpPower, direction.y * _blownUpPower, 0f);
-        _barrelView.SpriteChange(true);
+        if (barrelObject.CompareTag("Player"))
+        {
+            _cameraManager.ChangeCameraState(CameraState.Main);
+        }
 
         await UniTask.WaitForSeconds(0.1f, cancellationToken: cancellationToken);
 

@@ -34,6 +34,11 @@ public class ConveyorManager : MonoBehaviour
 
     // ----- Public Methods -----
 
+    public void StageObjectInitialize()
+    {
+        ;
+    }
+
     public void Register(Conveyor conveyor, bool isRightDirection)
     {
         if (conveyor == null) return;
@@ -43,7 +48,8 @@ public class ConveyorManager : MonoBehaviour
             _rightConveyorList.Add(conveyor);
             _playerMovementManager.SubscribeSpeedAdjustCallback(RightConveyor);
 
-            if (_rightCancellationTokenSource != null) _rightCancellationTokenSource.Cancel();
+            _rightCancellationTokenSource?.Cancel();
+            _rightCancellationTokenSource?.Dispose();
             _rightCancellationTokenSource = new CancellationTokenSource();
             _canUnsubscribeRight = false;
         }
@@ -53,7 +59,8 @@ public class ConveyorManager : MonoBehaviour
             _leftConveyorList.Add(conveyor);
             _playerMovementManager.SubscribeSpeedAdjustCallback(LeftConveyor);
 
-            if (_leftCancellationTokenSource != null) _leftCancellationTokenSource.Cancel();
+            _leftCancellationTokenSource?.Cancel();
+            _leftCancellationTokenSource?.Dispose();
             _leftCancellationTokenSource = new CancellationTokenSource();
             _canUnsubscribeLeft = false;
         }

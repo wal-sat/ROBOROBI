@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using NaughtyAttributes;
 using UnityEngine;
 
 public class BreakableBlockManager : MonoBehaviour
@@ -16,7 +15,6 @@ public class BreakableBlockManager : MonoBehaviour
         }
     }
 
-    [Button]
     public void StageObjectInitialize()
     {
         foreach (var breakableBlock in _breakableBlockList)
