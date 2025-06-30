@@ -27,7 +27,7 @@ public class PlayerManager : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void Initialize()
+    public void Initialize(bool isFacingRight)
     {
         _player.SetActive(true);
     }

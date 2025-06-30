@@ -1,15 +1,17 @@
 using System;
 using System.Xml.Serialization;
+using Cysharp.Threading.Tasks;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class StageManager : MonoBehaviour
+public class StageManager : MonoBehaviour, IInputLockable
 {
-    [SerializeField] private PlayerManager playerManager;
-    [SerializeField] private SavePointManager savePointManager;
-    [SerializeField] private StageObjectManager stageObjectManager;
-    [SerializeField] private BackgroundManager backgroundManager;
-    [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private PlayerManager _playerManager;
+    [SerializeField] private SectionManager _sectionManager;
+    [SerializeField] private SavePointManager _savePointManager;
+    [SerializeField] private StageObjectManager _stageObjectManager;
+    [SerializeField] private BackgroundManager _backgroundManager;
+    [SerializeField] private CameraManager _cameraManager;
   
     public Action<GameSceneState> ChangeGameSceneState;
 
@@ -39,7 +41,7 @@ public class StageManager : MonoBehaviour
     /// </summary>
     public void PlayerActivate()
     {
-
+        ChangeGameSceneState(GameSceneState.Playing);
     }
 
     /// <summary>
@@ -53,9 +55,25 @@ public class StageManager : MonoBehaviour
     /// <summary>
     /// Playerがドアに入った時の処理を
     /// </summary>
-    public void PlayerEnterDoor()
+    public async UniTaskVoid PlayerEnterDoor()
     {
+        S_InputSystemManager.Instance.SetInputLock(this, true);
+        _playerManager.EnterDoor();
 
+        await UniTask.WaitForSeconds(0.2f, cancellationToken: destroyCancellationToken);
+
+        UniTask.WaitForSeconds(0.65f, cancellationToken: destroyCancellationToken).ContinueWith(() => S_SEManager.Instance.Play("s_door")).Forget();
+
+        await S_FadeManager.Instance.FadeOut(1f, destroyCancellationToken);
+
+        SavePointBase startPoint = _sectionManager.NextSection();
+        _savePointManager.TeleportSavePoint(startPoint);
+        _playerManager.Initialize(startPoint.IsFacingRight);
+
+        await S_FadeManager.Instance.FadeIn(1f, destroyCancellationToken);
+
+        S_InputSystemManager.Instance.SetInputLock(this, false);
+        ChangeGameSceneState(GameSceneState.Sleep);
     }
 
     /// <summary>
@@ -83,5 +101,8 @@ public class StageManager : MonoBehaviour
     private void Initialize()
     {
         Time.timeScale = 1;
+
+        SavePointBase startPoint = _sectionManager.ChangeSection(0);
+        _savePointManager.TeleportSavePoint(startPoint);
     }
 }

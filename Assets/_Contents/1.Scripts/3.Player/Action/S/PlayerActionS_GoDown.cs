@@ -19,4 +19,11 @@ public class PlayerActionS_GoDown : PlayerActionBase
 
         _oneWayFloorManager.SetColliderEnable(true);
     }
+
+    public override void InitializeAction()
+    {
+        base.InitializeAction();
+
+        _oneWayFloorManager.SetColliderEnable(true);
+    }
 }

@@ -23,5 +23,5 @@ MonoBehaviour:
   _s_Jump: 1
   _s_BigJump: 1
   _s_GoDown: 1
-  _s_DoubleJump: 0
+  _s_DoubleJump: 1
   _s_InfiniteJump: 0

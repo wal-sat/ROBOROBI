@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
 [DefaultExecutionOrder(1)] // ... (1)クラスの下で説明
 public class S_FadeManager : Singleton<S_FadeManager>
@@ -20,20 +21,20 @@ public class S_FadeManager : Singleton<S_FadeManager>
 
     // ----- Public Methods -----
 
-    public async UniTask FadeIn(float duration = 1f)
+    public async UniTask FadeIn(float duration, CancellationToken cancellationToken)
     {
         _blackPanel.style.transitionDuration = new List<TimeValue> { new(duration, TimeUnit.Second) };
         _blackPanel.AddToClassList("visible--disable");
 
-        await UniTask.WaitForSeconds(duration);
+        await UniTask.WaitForSeconds(duration, cancellationToken: cancellationToken);
     }
 
-    public async UniTask FadeOut(float duration = 1f)
+    public async UniTask FadeOut(float duration, CancellationToken cancellationToken)
     {
         _blackPanel.style.transitionDuration = new List<TimeValue> { new(duration, TimeUnit.Second) };
         _blackPanel.RemoveFromClassList("visible--disable");
 
-        await UniTask.WaitForSeconds(duration);
+        await UniTask.WaitForSeconds(duration, cancellationToken: cancellationToken);
     }
 }
 

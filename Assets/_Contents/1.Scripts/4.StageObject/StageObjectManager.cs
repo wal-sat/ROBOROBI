@@ -21,5 +21,11 @@ public class StageObjectManager : MonoBehaviour
         _barrelManager.StageObjectInitialize();
         _breakableBlockManager.StageObjectInitialize();
         _buttonManager.StageObjectInitialize();
+        _conveyorManager.StageObjectInitialize();
+        _generatorManager.StageObjectInitialize();
+        _lrObjectManager.StageObjectInitialize();
+        _movableObjectManager.StageObjectInitialize();
+        _recoveryCapsuleManager.StageObjectInitialize();
+        _warpGateManager.StageObjectInitialize();
     }
 }

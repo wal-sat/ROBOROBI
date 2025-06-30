@@ -32,7 +32,6 @@ public class LRObjectManager : MonoBehaviour
         }
     }
 
-    [Button]
     public void StageObjectInitialize()
     {
         _lrObjectState = LRObjectState.L;

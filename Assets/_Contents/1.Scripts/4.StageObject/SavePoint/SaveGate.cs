@@ -18,7 +18,7 @@ public class SaveGate : SavePointBase
         _savePointManager.SetCurrentSavePoint(this);
         _saveGateView.GlossSprite().Forget();
 
-        // パーティクル生成
+        _savePointParticle.Play();
         // 効果音
     }
 }

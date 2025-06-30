@@ -8,7 +8,7 @@ public class ConveyorManager : MonoBehaviour
     [SerializeField] private PlayerMovementManager _playerMovementManager;
     [SerializeField] private float _additionalSpeed;
 
-    private const float UnsubscribeBufferTime = 0.25f;
+    private const float UnsubscribeBufferTime = 0.1f;
 
     private List<Conveyor> _rightConveyorList = new List<Conveyor>();
     private List<Conveyor> _leftConveyorList = new List<Conveyor>();
@@ -23,11 +23,13 @@ public class ConveyorManager : MonoBehaviour
     {
         if (_playerMovementManager.IsLanding && _canUnsubscribeRight)
         {
+            _canUnsubscribeRight = false;
             _playerMovementManager.UnsubscribeSpeedAdjustCallback(RightConveyor);
         }
 
         if (_playerMovementManager.IsLanding && _canUnsubscribeLeft)
         {
+            _canUnsubscribeLeft = false;
             _playerMovementManager.UnsubscribeSpeedAdjustCallback(LeftConveyor);
         }
     }
@@ -36,7 +38,19 @@ public class ConveyorManager : MonoBehaviour
 
     public void StageObjectInitialize()
     {
-        ;
+        _playerMovementManager.UnsubscribeSpeedAdjustCallback(RightConveyor);
+        _playerMovementManager.UnsubscribeSpeedAdjustCallback(LeftConveyor);
+
+        _rightConveyorList.Clear();
+        _leftConveyorList.Clear();
+
+        _rightCancellationTokenSource?.Cancel();
+        _leftCancellationTokenSource?.Cancel();
+        _rightCancellationTokenSource?.Dispose();
+        _leftCancellationTokenSource?.Dispose();
+
+        _canUnsubscribeRight = false;
+        _canUnsubscribeLeft = false;
     }
 
     public void Register(Conveyor conveyor, bool isRightDirection)
@@ -49,9 +63,6 @@ public class ConveyorManager : MonoBehaviour
             _playerMovementManager.SubscribeSpeedAdjustCallback(RightConveyor);
 
             _rightCancellationTokenSource?.Cancel();
-            _rightCancellationTokenSource?.Dispose();
-            _rightCancellationTokenSource = new CancellationTokenSource();
-            _canUnsubscribeRight = false;
         }
 
         if (!isRightDirection && !_leftConveyorList.Contains(conveyor))
@@ -60,9 +71,6 @@ public class ConveyorManager : MonoBehaviour
             _playerMovementManager.SubscribeSpeedAdjustCallback(LeftConveyor);
 
             _leftCancellationTokenSource?.Cancel();
-            _leftCancellationTokenSource?.Dispose();
-            _leftCancellationTokenSource = new CancellationTokenSource();
-            _canUnsubscribeLeft = false;
         }
     }
 
@@ -74,6 +82,8 @@ public class ConveyorManager : MonoBehaviour
 
             if (_rightConveyorList.Count == 0)
             {
+                _rightCancellationTokenSource?.Dispose();
+                _rightCancellationTokenSource = new CancellationTokenSource();
                 UnsubscribeRightBuffer(_rightCancellationTokenSource.Token).Forget();
             }
         }
@@ -84,6 +94,8 @@ public class ConveyorManager : MonoBehaviour
 
             if (_leftConveyorList.Count == 0)
             {
+                _leftCancellationTokenSource?.Dispose();
+                _leftCancellationTokenSource = new CancellationTokenSource();
                 UnsubscribeLeftBuffer(_leftCancellationTokenSource.Token).Forget();
             }
         }
@@ -105,13 +117,13 @@ public class ConveyorManager : MonoBehaviour
     {
         await UniTask.WaitForSeconds(UnsubscribeBufferTime, cancellationToken: cancellationToken);
 
-        if (_rightConveyorList.Count == 0) _canUnsubscribeRight = true;
+        _canUnsubscribeRight = true;
     }
 
     private async UniTaskVoid UnsubscribeLeftBuffer(CancellationToken cancellationToken)
     {
         await UniTask.WaitForSeconds(UnsubscribeBufferTime, cancellationToken: cancellationToken);
 
-        if (_leftConveyorList.Count == 0) _canUnsubscribeLeft = true;
+        _canUnsubscribeLeft = true;
     }
 }

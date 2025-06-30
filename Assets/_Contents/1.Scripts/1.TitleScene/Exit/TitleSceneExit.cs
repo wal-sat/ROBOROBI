@@ -66,7 +66,7 @@ public class TitleSceneExit : MonoBehaviour
 
     private async UniTaskVoid ExitGame()
     {
-        await S_FadeManager.Instance.FadeOut(1f);
+        await S_FadeManager.Instance.FadeOut(1f, destroyCancellationToken);
 
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;

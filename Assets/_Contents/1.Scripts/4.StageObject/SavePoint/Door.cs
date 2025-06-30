@@ -4,6 +4,7 @@ public class Door : MonoBehaviour
 {
     [SerializeField] private StageManager _stageManager;
     [SerializeField] private IsTriggerWithPlayer _isTriggerWithPlayer;
+    [SerializeField] private ParticleSystem _savePointParticle;
 
     // ----- Life Cycle Methods -----
 
@@ -18,7 +19,7 @@ public class Door : MonoBehaviour
     {
         _stageManager.PlayerEnterDoor();
 
-        // パーティクル生成
+        _savePointParticle.Play();
         // 効果音
     }
 }

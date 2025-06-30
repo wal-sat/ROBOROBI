@@ -16,7 +16,6 @@ public class GeneratorManager : MonoBehaviour
         }
     }
 
-    [Button]
     public void StageObjectInitialize()
     {
         foreach (var generator in _generatorList)

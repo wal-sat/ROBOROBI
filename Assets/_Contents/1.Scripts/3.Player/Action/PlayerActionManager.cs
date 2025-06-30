@@ -150,4 +150,12 @@ public class PlayerActionManager : MonoBehaviour
     }
 
     // ----- Private Methods -----
+
+    [SerializeField] AcquiredActionData acquiredActionData;
+
+    [Button]
+    private void Start()
+    {
+        SetAcquiredAction(acquiredActionData);
+    }
 }

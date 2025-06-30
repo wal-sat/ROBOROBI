@@ -4,7 +4,7 @@ public class PlayerActionBase : MonoBehaviour
 {
     [SerializeField] public ActionKind ActionKind;
 
-    [HideInInspector] public bool IsAcquired = true;
+    [HideInInspector] public bool IsAcquired;
     [HideInInspector] public bool IsInAction;
     [HideInInspector] public bool IsLockOtherAction;
 

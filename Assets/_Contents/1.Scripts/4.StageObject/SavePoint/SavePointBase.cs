@@ -8,7 +8,7 @@ public class SavePointBase : MonoBehaviour
     [HideIf(nameof(_isStartGate))] [SerializeField] protected SavePointManager _savePointManager;
     [HideIf(nameof(_isStartGate))] [SerializeField] protected IsTriggerWithPlayer _isTriggerWithPlayer;
     [HideIf(nameof(_isStartGate))] [SerializeField] protected SaveGateView _saveGateView;
-    [HideIf(nameof(_isStartGate))] [SerializeField] protected GameObject _savePointParticle;
+    [HideIf(nameof(_isStartGate))] [SerializeField] protected ParticleSystem _savePointParticle;
     [SerializeField] private SpriteRenderer _sleepCameraArea;
 
     [SerializeField] public AcquiredActionData AcquiredActionData;

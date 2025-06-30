@@ -15,15 +15,15 @@ public class S_LoadSceneManager : Singleton<S_LoadSceneManager>, IInputLockable
     {
         S_InputSystemManager.Instance.SetInputLock(this, true);
 
-        await S_FadeManager.Instance.FadeOut(FadeTime);
+        await S_FadeManager.Instance.FadeOut(FadeTime, destroyCancellationToken);
 
         SceneManager.LoadScene(sceneKind.ToString());
 
-        await UniTask.WaitForSeconds(FadeTime);
+        await UniTask.WaitForSeconds(FadeTime, cancellationToken: destroyCancellationToken);
 
         S_InputSystemManager.Instance.SetInputLock(this, false);
 
-        await S_FadeManager.Instance.FadeIn(FadeTime);
+        await S_FadeManager.Instance.FadeIn(FadeTime, destroyCancellationToken);
     }
 
     public SceneKind GetCurrentSceneKind()
