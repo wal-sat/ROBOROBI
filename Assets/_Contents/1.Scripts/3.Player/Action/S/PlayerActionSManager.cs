@@ -1,12 +1,12 @@
+using System;
+using NaughtyAttributes;
 using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
 public class PlayerActionSManager : MonoBehaviour
 {
-    [SerializeField] private PlayerActionBase _jumpAction;
-    [SerializeField] private PlayerActionBase _bigJumpAction;
-    [SerializeField] private PlayerActionBase _goDownAction;
+    [SerializeField] private PlayerActionBase[] _sActions;
 
     private const float InputBuffer = 0.05f;
 
@@ -24,7 +24,7 @@ public class PlayerActionSManager : MonoBehaviour
 
     private void Awake()
     {
-        SetMaxJumpTime(2);
+        ;
     }
 
     // ----- Public Methods -----
@@ -35,17 +35,17 @@ public class PlayerActionSManager : MonoBehaviour
         if (leftDirection == Vector2.down && !_isPushingDown)
         {
             _isPushingDown = true;
-            CallInitAction(_goDownAction);
+            CallInitAction(ActionKind.S_GoDown);
         }
         else if (leftDirection == Vector2.down && _isPushingDown)
         {
-            CallInAction(_goDownAction);
+            CallInAction(ActionKind.S_GoDown);
         }
         else if (leftDirection != Vector2.down && _isPushingDown)
         {
             _isPushingDown = false;
             _bufferTimer = 0f;
-            CallEndAction(_goDownAction);
+            CallEndAction(ActionKind.S_GoDown);
         }
 
         _bufferTimer += Time.deltaTime;
@@ -56,17 +56,17 @@ public class PlayerActionSManager : MonoBehaviour
         {
             _isPushingUp = true;
             _wasJumped = true;
-            CallInitAction(_bigJumpAction);
+            CallInitAction(ActionKind.S_BigJump);
         }
         else if (leftDirection == Vector2.up && _isPushingUp)
         {
-            CallInAction(_bigJumpAction);
+            CallInAction(ActionKind.S_BigJump);
         }
         else if (leftDirection != Vector2.up && _isPushingUp)
         {
             _isPushingUp = false;
             DecrementJumpTime();
-            CallEndAction(_bigJumpAction);
+            CallEndAction(ActionKind.S_BigJump);
         }
 
         // S : Jump Action
@@ -74,17 +74,17 @@ public class PlayerActionSManager : MonoBehaviour
         {
             _isPushingNone = true;
             _wasJumped = true;
-            CallInitAction(_jumpAction);
+            CallInitAction(ActionKind.S_Jump);
         }
         else if ((leftDirection == Vector2.zero || leftDirection == Vector2.left || leftDirection == Vector2.right) && _isPushingNone)
         {
-            CallInAction(_jumpAction);
+            CallInAction(ActionKind.S_Jump);
         }
         else if ((leftDirection != Vector2.zero && leftDirection != Vector2.left && leftDirection != Vector2.right) && _isPushingNone)
         {
             _isPushingNone = false;
             DecrementJumpTime();
-            CallEndAction(_jumpAction);
+            CallEndAction(ActionKind.S_Jump);
         }
     }
 
@@ -97,26 +97,36 @@ public class PlayerActionSManager : MonoBehaviour
         {
             _isPushingUp = false;
             DecrementJumpTime();
-            CallEndAction(_bigJumpAction);
+            CallEndAction(ActionKind.S_BigJump);
         }
         if (_isPushingDown)
         {
             _isPushingDown = false;
-            CallEndAction(_goDownAction);
+            CallEndAction(ActionKind.S_GoDown);
         }
         if (_isPushingNone)
         {
             _isPushingNone = false;
             DecrementJumpTime();
-            CallEndAction(_jumpAction);
+            CallEndAction(ActionKind.S_Jump);
         }
     }
 
-    public void SetMaxJumpTime(int time)
+    public void SetAcquireAction(ActionKind actionKind, bool isAcquired)
     {
-        _maxJumpTime = time;
+        foreach (var action in _sActions)
+        {
+            if (action.ActionKind == actionKind)
+            {
+                if (action.IsAcquired && !isAcquired)
+                {
+                    action.InitializeAction();
+                }
+                action.IsAcquired = isAcquired;
+            }
+        }
 
-        if (_jumpTime > _maxJumpTime) _jumpTime = _maxJumpTime;
+        SetMaxJumpTime();
     }
 
     public void RecoveryJumpTime()
@@ -136,26 +146,64 @@ public class PlayerActionSManager : MonoBehaviour
 
     // ----- Private Methods -----
 
-    private void CallInitAction(PlayerActionBase action)
+    private void CallInitAction(ActionKind actionKind)
     {
-        if (action.IsAcquired)
+        foreach (var action in _sActions)
         {
-            action.InitAction();
+            if (action == null) return;
+
+            if (action.ActionKind == actionKind && action.IsAcquired)
+            {
+                action.InitAction();
+            }
         }
     }
-    private void CallInAction(PlayerActionBase action)
+    private void CallInAction(ActionKind actionKind)
     {
-        if (action.IsAcquired)
+        foreach (var action in _sActions)
         {
-            action.InAction();
+            if (action == null) return;
+
+            if (action.ActionKind == actionKind && action.IsAcquired)
+            {
+                action.InAction();
+            }
         }
     }
-    private void CallEndAction(PlayerActionBase action)
+    private void CallEndAction(ActionKind actionKind)
     {
-        if (action.IsAcquired)
+        foreach (var action in _sActions)
         {
-            action.EndAction();
+            if (action == null) return;
+
+            if (action.ActionKind == actionKind && action.IsAcquired)
+            {
+                action.EndAction();
+            }
         }
+    }
+
+    private void SetMaxJumpTime()
+    {
+        int newMaxJumpTime = 1;
+        foreach (var action in _sActions)
+        {
+            if (action.ActionKind == ActionKind.S_DoubleJump && action.IsAcquired && newMaxJumpTime == 1)
+            {
+                newMaxJumpTime = 2;
+            }
+            else if (action.ActionKind == ActionKind.S_InfiniteJump && action.IsAcquired)
+            {
+                newMaxJumpTime = -1;
+            }
+        }
+
+        if (_jumpTime < _maxJumpTime)
+        {
+            _jumpTime = Math.Max(newMaxJumpTime - (_maxJumpTime - _jumpTime), 0);
+        }
+
+        _maxJumpTime = newMaxJumpTime;
     }
 
     private void DecrementJumpTime()

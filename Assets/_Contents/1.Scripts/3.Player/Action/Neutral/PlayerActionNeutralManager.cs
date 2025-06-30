@@ -3,14 +3,7 @@ using UnityEngine;
 public class PlayerActionNeutralManager : MonoBehaviour
 {
     [SerializeField] private PlayerMovementManager _playerMovementManager;
-    [SerializeField] private PlayerActionBase _grabAction;
-    [SerializeField] private PlayerActionBase _crouchAction;
-    [SerializeField] private PlayerActionBase _accelerateAction;
-    [SerializeField] private PlayerActionBase _decelerateAction;
-    [SerializeField] private PlayerActionBase _swapAction;
-    [SerializeField] private PlayerActionBase _kickAction;
-    [SerializeField] private PlayerActionBase _interactLAction;
-    [SerializeField] private PlayerActionBase _interactRAction;
+    [SerializeField] private PlayerActionBase[] _neutralActions;
 
     private bool _isPushingUp;
     private bool _isPushingDown;
@@ -43,64 +36,64 @@ public class PlayerActionNeutralManager : MonoBehaviour
         if (leftDirection == Vector2.up && !_isPushingUp)
         {
             _isPushingUp = true;
-            CallInitAction(_grabAction);
+            CallInitAction(ActionKind.Neutral_Grab);
         }
         else if (leftDirection == Vector2.up && _isPushingUp)
         {
-            CallInAction(_grabAction);
+            CallInAction(ActionKind.Neutral_Grab);
         }
         else if (leftDirection != Vector2.up && _isPushingUp)
         {
             _isPushingUp = false;
-            CallEndAction(_grabAction);
+            CallEndAction(ActionKind.Neutral_Grab);
         }
 
         // Down : Crouch Action
         if (leftDirection == Vector2.down && !_isPushingDown)
         {
             _isPushingDown = true;
-            CallInitAction(_crouchAction);
+            CallInitAction(ActionKind.Neutral_Crouch);
         }
         else if (leftDirection == Vector2.down && _isPushingDown)
         {
-            CallInAction(_crouchAction);
+            CallInAction(ActionKind.Neutral_Crouch);
         }
         else if (leftDirection != Vector2.down && _isPushingDown)
         {
             _isPushingDown = false;
-            CallEndAction(_crouchAction);
+            CallEndAction(ActionKind.Neutral_Crouch);
         }
 
         // L2 : InteractL Action
         if (S_InputSystemManager.Instance.IsPushingL2 && !_isPushingL2)
         {
             _isPushingL2 = true;
-            CallInitAction(_interactLAction);
+            CallInitAction(ActionKind.Neutral_InteractL);
         }
         else if (S_InputSystemManager.Instance.IsPushingL2 && _isPushingL2)
         {
-            CallInAction(_interactLAction);
+            CallInAction(ActionKind.Neutral_InteractL);
         }
         else if (!S_InputSystemManager.Instance.IsPushingL2 && _isPushingL2)
         {
             _isPushingL2 = false;
-            CallEndAction(_interactLAction);
+            CallEndAction(ActionKind.Neutral_InteractL);
         }
 
         // R2 : Kick Action
         if (S_InputSystemManager.Instance.IsPushingR2 && !_isPushingR2)
         {
             _isPushingR2 = true;
-            CallInitAction(_interactRAction);
+            CallInitAction(ActionKind.Neutral_InteractR);
         }
         else if (S_InputSystemManager.Instance.IsPushingR2 && _isPushingR2)
         {
-            CallInAction(_interactRAction);
+            CallInAction(ActionKind.Neutral_InteractR);
         }
         else if (!S_InputSystemManager.Instance.IsPushingR2 && _isPushingR2)
         {
             _isPushingR2 = false;
-            CallEndAction(_interactRAction);
+            CallEndAction(ActionKind.Neutral_InteractR);
         }
 
         bool isFacingRight = _playerMovementManager.IsFacingRight;
@@ -112,22 +105,22 @@ public class PlayerActionNeutralManager : MonoBehaviour
                 if (_isPushingLeft)
                 {
                     _isPushingLeft = false;
-                    CallEndAction(_accelerateAction);
+                    CallEndAction(ActionKind.Neutral_Accelerate);
                 }
                 if (_isPushingRight)
                 {
                     _isPushingRight = false;
-                    CallEndAction(_decelerateAction);
+                    CallEndAction(ActionKind.Neutral_Decelerate);
                 }
                 if (_isPushingL1)
                 {
                     _isPushingL1 = false;
-                    CallEndAction(_kickAction);
+                    CallEndAction(ActionKind.Neutral_Kick);
                 }
                 if (_isPushingR1)
                 {
                     _isPushingR1 = false;
-                    CallEndAction(_swapAction);
+                    CallEndAction(ActionKind.Neutral_Swap);
                 }
             }
 
@@ -135,64 +128,64 @@ public class PlayerActionNeutralManager : MonoBehaviour
             if (leftDirection == Vector2.left && !_isPushingLeft)
             {
                 _isPushingLeft = true;
-                CallInitAction(_decelerateAction);
+                CallInitAction(ActionKind.Neutral_Decelerate);
             }
             else if (leftDirection == Vector2.left && _isPushingLeft)
             {
-                CallInAction(_decelerateAction);
+                CallInAction(ActionKind.Neutral_Decelerate);
             }
             else if (leftDirection != Vector2.left && _isPushingLeft)
             {
                 _isPushingLeft = false;
-                CallEndAction(_decelerateAction);
+                CallEndAction(ActionKind.Neutral_Decelerate);
             }
 
             // Right : Accelerate Action
             if (leftDirection == Vector2.right && !_isPushingRight)
             {
                 _isPushingRight = true;
-                CallInitAction(_accelerateAction);
+                CallInitAction(ActionKind.Neutral_Accelerate);
             }
             else if (leftDirection == Vector2.right && _isPushingRight)
             {
-                CallInAction(_accelerateAction);
+                CallInAction(ActionKind.Neutral_Accelerate);
             }
             else if (leftDirection != Vector2.right && _isPushingRight)
             {
                 _isPushingRight = false;
-                CallEndAction(_accelerateAction);
+                CallEndAction(ActionKind.Neutral_Accelerate);
             }
 
             // L1 : Swap Action
             if (S_InputSystemManager.Instance.IsPushingL1 && !_isPushingL1)
             {
                 _isPushingL1 = true;
-                CallInitAction(_swapAction);
+                CallInitAction(ActionKind.Neutral_Swap);
             }
             else if (S_InputSystemManager.Instance.IsPushingL1 && _isPushingL1)
             {
-                CallInAction(_swapAction);
+                CallInAction(ActionKind.Neutral_Swap);
             }
             else if (!S_InputSystemManager.Instance.IsPushingL1 && _isPushingL1)
             {
                 _isPushingL1 = false;
-                CallEndAction(_swapAction);
+                CallEndAction(ActionKind.Neutral_Swap);
             }
 
             // R1 : Kick Action
             if (S_InputSystemManager.Instance.IsPushingR1 && !_isPushingR1)
             {
                 _isPushingR1 = true;
-                CallInitAction(_kickAction);
+                CallInitAction(ActionKind.Neutral_Kick);
             }
             else if (S_InputSystemManager.Instance.IsPushingR1 && _isPushingR1)
             {
-                CallInAction(_kickAction);
+                CallInAction(ActionKind.Neutral_Kick);
             }
             else if (!S_InputSystemManager.Instance.IsPushingR1 && _isPushingR1)
             {
                 _isPushingR1 = false;
-                CallEndAction(_kickAction);
+                CallEndAction(ActionKind.Neutral_Kick);
             }
         }
         else if (!isFacingRight)
@@ -203,22 +196,22 @@ public class PlayerActionNeutralManager : MonoBehaviour
                 if (_isPushingLeft)
                 {
                     _isPushingLeft = false;
-                    CallEndAction(_decelerateAction);
+                    CallEndAction(ActionKind.Neutral_Decelerate);
                 }
                 if (_isPushingRight)
                 {
                     _isPushingRight = false;
-                    CallEndAction(_accelerateAction);
+                    CallEndAction(ActionKind.Neutral_Accelerate);
                 }
                 if (_isPushingL1)
                 {
                     _isPushingL1 = false;
-                    CallEndAction(_swapAction);
+                    CallEndAction(ActionKind.Neutral_Swap);
                 }
                 if (_isPushingR1)
                 {
                     _isPushingR1 = false;
-                    CallEndAction(_kickAction);
+                    CallEndAction(ActionKind.Neutral_Kick);
                 }
             }
 
@@ -226,91 +219,121 @@ public class PlayerActionNeutralManager : MonoBehaviour
             if (leftDirection == Vector2.left && !_isPushingLeft)
             {
                 _isPushingLeft = true;
-                CallInitAction(_accelerateAction);
+                CallInitAction(ActionKind.Neutral_Accelerate);
             }
             else if (leftDirection == Vector2.left && _isPushingLeft)
             {
-                CallInAction(_accelerateAction);
+                CallInAction(ActionKind.Neutral_Accelerate);
             }
             else if (leftDirection != Vector2.left && _isPushingLeft)
             {
                 _isPushingLeft = false;
-                CallEndAction(_accelerateAction);
+                CallEndAction(ActionKind.Neutral_Accelerate);
             }
 
             // Right : Decelerate Action
             if (leftDirection == Vector2.right && !_isPushingRight)
             {
                 _isPushingRight = true;
-                CallInitAction(_decelerateAction);
+                CallInitAction(ActionKind.Neutral_Decelerate);
             }
             else if (leftDirection == Vector2.right && _isPushingRight)
             {
-                CallInAction(_decelerateAction);
+                CallInAction(ActionKind.Neutral_Decelerate);
             }
             else if (leftDirection != Vector2.right && _isPushingRight)
             {
                 _isPushingRight = false;
-                CallEndAction(_decelerateAction);
+                CallEndAction(ActionKind.Neutral_Decelerate);
             }
 
             // L1 : Kick Action
             if (S_InputSystemManager.Instance.IsPushingL1 && !_isPushingL1)
             {
                 _isPushingL1 = true;
-                CallInitAction(_kickAction);
+                CallInitAction(ActionKind.Neutral_Kick);
             }
             else if (S_InputSystemManager.Instance.IsPushingL1 && _isPushingL1)
             {
-                CallInAction(_kickAction);
+                CallInAction(ActionKind.Neutral_Kick);
             }
             else if (!S_InputSystemManager.Instance.IsPushingL1 && _isPushingL1)
             {
                 _isPushingL1 = false;
-                CallEndAction(_kickAction);
+                CallEndAction(ActionKind.Neutral_Kick);
             }
 
             // R1 : Swap Action
             if (S_InputSystemManager.Instance.IsPushingR1 && !_isPushingR1)
             {
                 _isPushingR1 = true;
-                CallInitAction(_swapAction);
+                CallInitAction(ActionKind.Neutral_Swap);
             }
             else if (S_InputSystemManager.Instance.IsPushingR1 && _isPushingR1)
             {
-                CallInAction(_swapAction);
+                CallInAction(ActionKind.Neutral_Swap);
             }
             else if (!S_InputSystemManager.Instance.IsPushingR1 && _isPushingR1)
             {
                 _isPushingR1 = false;
-                CallEndAction(_swapAction);
+                CallEndAction(ActionKind.Neutral_Swap);
             }
         }
 
         _wasFacingRight = isFacingRight;
     }
 
+    public void SetAcquireAction(ActionKind actionKind, bool isAcquired)
+    {
+        foreach (var action in _neutralActions)
+        {
+            if (action.ActionKind == actionKind)
+            {
+                if (action.IsAcquired && !isAcquired)
+                {
+                    action.InitializeAction();
+                }
+                action.IsAcquired = isAcquired;
+            }
+        }
+    }
+
     // ----- Private Methods -----
 
-    private void CallInitAction(PlayerActionBase action)
+    private void CallInitAction(ActionKind actionKind)
     {
-        if (action.IsAcquired)
+        foreach (var action in _neutralActions)
         {
-            action.InitAction();
+            if (action == null) return;
+
+            if (action.ActionKind == actionKind && action.IsAcquired)
+            {
+                action.InitAction();
+            }
         }
     }
-    private void CallInAction(PlayerActionBase action)
+    private void CallInAction(ActionKind actionKind)
     {
-        if (action.IsAcquired)
+        foreach (var action in _neutralActions)
         {
-            action.InAction();
+            if (action == null) return;
+
+            if (action.ActionKind == actionKind && action.IsAcquired)
+            {
+                action.InAction();
+            }
         }
     }
-    private void CallEndAction(PlayerActionBase action)
+    private void CallEndAction(ActionKind actionKind)
     {
-        if (action.IsAcquired)
+        foreach (var action in _neutralActions)
         {
-            action.EndAction();
+            if (action == null) return;
+
+            if (action.ActionKind == actionKind && action.IsAcquired)
+            {
+                action.EndAction();
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ public class Door : MonoBehaviour
 
     private void TriggerEnter()
     {
-        _stageManager.Door();
+        _stageManager.PlayerEnterDoor();
 
         // パーティクル生成
         // 効果音

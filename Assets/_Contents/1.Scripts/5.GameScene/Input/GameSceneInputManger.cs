@@ -8,13 +8,15 @@ public class GameSceneInputManger : MonoBehaviour, IInputLockable
     [SerializeField] private GameSceneOptionInput _gameSceneOptionInput;
     [SerializeField] private GameSceneSleepInput _gameSceneSleepInput;
     [SerializeField] private GameSceneClearInput _gameSceneClearInput;
+    [SerializeField] private StageManager _stageManager;
+
     private GameSceneState _gameSceneState;
 
     // ----- Life Cycle Methods -----
 
     private void Awake()
     {
-        
+        _stageManager.ChangeGameSceneState = ChangeGameSceneState;   
     }
 
     private void Update()

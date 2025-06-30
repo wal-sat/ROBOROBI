@@ -163,9 +163,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb8b204e4b2cb7d4cb1192fcc52c269b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 7
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _lrObjectManager: {fileID: 1996792601}
 --- !u!1 &31522485
 GameObject:
@@ -211,9 +212,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9697d87dcf4714da49790f59f6f874, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 3
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _playerCollider: {fileID: 1233220517}
   _playerMovementSwap: {fileID: 70521276}
   _playerMovementOverhead: {fileID: 1356226141}
@@ -348,50 +350,6 @@ MonoBehaviour:
     MaxWindowSize: 15
     Padding: 0
   m_LegacyMaxWindowSize: -2
---- !u!1 &45032904
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 45032905}
-  - component: {fileID: 45032906}
-  m_Layer: 0
-  m_Name: _StageManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &45032905
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45032904}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 629963264}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &45032906
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 45032904}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c9d3f2b831704840a87781152d7595a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &57044812
 GameObject:
   m_ObjectHideFlags: 0
@@ -531,9 +489,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03fa7800ac41c0e4bb7d32288b909dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 0
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _player: {fileID: 1233220515}
   _playerMovementManager: {fileID: 794884801}
   _playerViewManager: {fileID: 1233220519}
@@ -850,9 +809,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03894516c3182734bb2c7afe10f6edec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 2
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _playerMovementManager: {fileID: 794884801}
   _decelerateSpeed: 50
 --- !u!4 &193808440 stripped
@@ -1032,9 +992,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50a8590741d59ae4281d374bec44d11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 5
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
 --- !u!1 &259746598
 GameObject:
   m_ObjectHideFlags: 0
@@ -1919,9 +1880,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 594978a8908cd494caf888f217bcb674, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 10
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _oneWayFloorManager: {fileID: 142870965}
 --- !u!1 &381065695
 GameObject:
@@ -6000,6 +5962,54 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerRigidbody2D: {fileID: 1233220518}
   _terminalVelocity: 12
+--- !u!1 &452401354
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452401355}
+  - component: {fileID: 452401356}
+  m_Layer: 0
+  m_Name: S_InfiniteJump
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &452401355
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452401354}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 999988612}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &452401356
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452401354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27eff0941882617479a85949bced2376, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionKind: 12
+  IsAcquired: 1
+  IsInAction: 0
+  IsLockOtherAction: 0
 --- !u!1 &480967001
 GameObject:
   m_ObjectHideFlags: 0
@@ -6823,8 +6833,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 629963264}
+  - component: {fileID: 629963265}
   m_Layer: 0
-  m_Name: _System
+  m_Name: _StageManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6844,13 +6855,29 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 920735697}
-  - {fileID: 45032905}
   - {fileID: 2082157839}
   - {fileID: 1721926477}
   - {fileID: 2019084235}
   - {fileID: 1408956599}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &629963265
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629963263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c9d3f2b831704840a87781152d7595a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 920735698}
+  savePointManager: {fileID: 2082157840}
+  stageObjectManager: {fileID: 1721926478}
+  backgroundManager: {fileID: 2019084234}
+  cameraManager: {fileID: 1408956601}
 --- !u!1 &642261484
 GameObject:
   m_ObjectHideFlags: 0
@@ -7738,9 +7765,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 970798c654f64634ca6c245f014150f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 8
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _playerRigidbody2D: {fileID: 1233220518}
   _jumpForce: 14.2
   _jumpCancelMultiple: 1.5
@@ -7876,9 +7904,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a78cc54e23b245498ea72c6bc246553, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 4
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _playerMovementSwap: {fileID: 70521276}
 --- !u!1 &898100315
 GameObject:
@@ -8481,6 +8510,7 @@ MonoBehaviour:
   _playerMovementManager: {fileID: 794884801}
   _playerActionManager: {fileID: 141887659}
   _playerViewManager: {fileID: 1233220519}
+  _player: {fileID: 1281598183}
 --- !u!1 &930179648
 GameObject:
   m_ObjectHideFlags: 0
@@ -8525,9 +8555,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c445fcf49c0da6845b8f5891237f42c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 1
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _playerMovementManager: {fileID: 794884801}
   _accelerateSpeed: 75
 --- !u!1 &933886386
@@ -8867,6 +8898,8 @@ Transform:
   - {fileID: 862580158}
   - {fileID: 1860299432}
   - {fileID: 361562917}
+  - {fileID: 1068890784}
+  - {fileID: 452401355}
   m_Father: {fileID: 141887658}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &999988613
@@ -8881,9 +8914,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b0b479662db70b4393f8ce50b53f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpAction: {fileID: 862580159}
-  _bigJumpAction: {fileID: 1860299433}
-  _goDownAction: {fileID: 361562918}
+  _sActions:
+  - {fileID: 862580159}
+  - {fileID: 1860299433}
+  - {fileID: 361562918}
+  - {fileID: 1068890785}
+  - {fileID: 452401356}
 --- !u!1 &1009563243
 GameObject:
   m_ObjectHideFlags: 0
@@ -9361,6 +9397,54 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1068890783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1068890784}
+  - component: {fileID: 1068890785}
+  m_Layer: 0
+  m_Name: S_DoubleJump
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1068890784
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068890783}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 999988612}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1068890785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1068890783}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee092eeb6b49b9f47b0fc1943229d904, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActionKind: 11
+  IsAcquired: 1
+  IsInAction: 0
+  IsLockOtherAction: 0
 --- !u!1 &1090156480
 GameObject:
   m_ObjectHideFlags: 0
@@ -9559,7 +9643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc68864ac85714b4c97e43da7ba8219c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stageManager: {fileID: 45032906}
+  _stageManager: {fileID: 0}
 --- !u!4 &1129836594 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8605756651353335876, guid: e76f2e6a319a34843b0e75edf83636eb, type: 3}
@@ -10465,9 +10549,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 76746494}
-  - {fileID: 31522486}
   - {fileID: 930179649}
   - {fileID: 159506583}
+  - {fileID: 31522486}
   - {fileID: 892166714}
   - {fileID: 230758131}
   - {fileID: 1686787519}
@@ -10487,14 +10571,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerMovementManager: {fileID: 794884801}
-  _grabAction: {fileID: 76746495}
-  _crouchAction: {fileID: 31522487}
-  _accelerateAction: {fileID: 930179650}
-  _decelerateAction: {fileID: 159506584}
-  _swapAction: {fileID: 892166715}
-  _kickAction: {fileID: 230758132}
-  _interactLAction: {fileID: 1686787520}
-  _interactRAction: {fileID: 11001125}
+  _neutralActions:
+  - {fileID: 76746495}
+  - {fileID: 31522487}
+  - {fileID: 930179650}
+  - {fileID: 159506584}
+  - {fileID: 892166715}
+  - {fileID: 230758132}
+  - {fileID: 1686787520}
+  - {fileID: 11001125}
 --- !u!1001 &1353784366
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10971,7 +11056,7 @@ MonoBehaviour:
   _saveGateView: {fileID: 0}
   _savePointParticle: {fileID: 0}
   _sleepCameraArea: {fileID: 1956811273}
-  AcquiredActionData: {fileID: 0}
+  AcquiredActionData: {fileID: 11400000, guid: cdd6f5a8d7a1f0842bf7b68b744fd64b, type: 2}
   SavePointIndex: 0
   IsFacingRight: 0
   BottomLeftPos: {x: 0, y: 0}
@@ -11449,6 +11534,50 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.3
+--- !u!1 &1422986895
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1422986896}
+  - component: {fileID: 1422986897}
+  m_Layer: 0
+  m_Name: _GeneratorManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1422986896
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422986895}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1721926477}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1422986897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1422986895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e548aea4971f2d34b9dc79abf8d03a58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1427944976
 GameObject:
   m_ObjectHideFlags: 0
@@ -12519,7 +12648,7 @@ MonoBehaviour:
   _saveGateView: {fileID: 1579076614}
   _savePointParticle: {fileID: 0}
   _sleepCameraArea: {fileID: 1724383215}
-  AcquiredActionData: {fileID: 0}
+  AcquiredActionData: {fileID: 11400000, guid: cdd6f5a8d7a1f0842bf7b68b744fd64b, type: 2}
   SavePointIndex: 0
   IsFacingRight: 0
   BottomLeftPos: {x: 0, y: 0}
@@ -12764,9 +12893,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e854594af4216514f8744d23380b3556, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 6
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _lrObjectManager: {fileID: 1996792601}
 --- !u!1 &1702438423
 GameObject:
@@ -12960,6 +13090,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1721926477}
+  - component: {fileID: 1721926478}
   m_Layer: 0
   m_Name: _StageObjectManager
   m_TagString: Untagged
@@ -12984,6 +13115,7 @@ Transform:
   - {fileID: 1829979441}
   - {fileID: 2109042002}
   - {fileID: 719963123}
+  - {fileID: 1422986896}
   - {fileID: 1996792600}
   - {fileID: 1090156481}
   - {fileID: 142870964}
@@ -12992,6 +13124,29 @@ Transform:
   - {fileID: 1335242658}
   m_Father: {fileID: 629963264}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1721926478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721926476}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b14ee75933a209c45b2c03849ded6852, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _barrelManager: {fileID: 1340298696}
+  _breakableBlockManager: {fileID: 1829979442}
+  _buttonManager: {fileID: 2109042003}
+  _conveyorManager: {fileID: 719963124}
+  _generatorManager: {fileID: 1422986897}
+  _lrObjectManager: {fileID: 1996792601}
+  _movableObjectManager: {fileID: 1090156482}
+  _oneWayFloorManager: {fileID: 142870965}
+  _recoveryCapsuleManager: {fileID: 526348237}
+  _ropeManager: {fileID: 264004658}
+  _warpGateManager: {fileID: 1335242659}
 --- !u!1 &1724383213
 GameObject:
   m_ObjectHideFlags: 0
@@ -13396,7 +13551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae789e88e1e6bae4599113ac42b4bfca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stageManager: {fileID: 45032906}
+  _stageManager: {fileID: 0}
   _isTriggerWithPlayer: {fileID: 1969354522}
 --- !u!1 &1779660230
 GameObject:
@@ -13989,7 +14144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1be50b07dc9072e45b99547b6f374079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stageManager: {fileID: 45032906}
+  _stageManager: {fileID: 0}
   _getStuckCheckerTransform: {fileID: 2053488122}
   _groundLayer:
     serializedVersion: 2
@@ -14039,9 +14194,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d8489c051983e048b3f0a5e7445a603, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionKind: 9
   IsAcquired: 1
   IsInAction: 0
-  IsLockOhterAction: 0
+  IsLockOtherAction: 0
   _playerRigidbody2D: {fileID: 1233220518}
   _jumpForce: 18
   _jumpCancelMultiple: 1.4
@@ -15252,7 +15408,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc68864ac85714b4c97e43da7ba8219c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stageManager: {fileID: 45032906}
+  _stageManager: {fileID: 0}
 --- !u!1 &2019084233
 GameObject:
   m_ObjectHideFlags: 0
@@ -15634,7 +15790,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc68864ac85714b4c97e43da7ba8219c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stageManager: {fileID: 45032906}
+  _stageManager: {fileID: 0}
 --- !u!1 &2045961351
 GameObject:
   m_ObjectHideFlags: 0
