@@ -6,6 +6,8 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerMovementManager _playerMovementManager;
     [SerializeField] private PlayerActionManager _playerActionManager;
     [SerializeField] private PlayerViewManager _playerViewManager;
+    [SerializeField] private PlayerScrapManager _playerScrapManager;
+    [SerializeField] private PlayerExplosionAnimation _playerExplosionAnimation;
     [SerializeField] private GameObject _player;
 
     private bool _isActivePlayer;
@@ -20,9 +22,11 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        _playerMovementManager.MovementUpdate();
-        _playerActionManager.ActionUpdate();
-        _playerViewManager.ViewUpdate();
+        if (_isEnteringDoor) return;
+
+        _playerMovementManager.MovementUpdate(_isActivePlayer);
+        _playerActionManager.ActionUpdate(_isActivePlayer);
+        _playerViewManager.ViewUpdate(_isActivePlayer);
     }
 
     // ----- Public Methods -----
@@ -30,6 +34,13 @@ public class PlayerManager : MonoBehaviour
     public void Initialize(bool isFacingRight)
     {
         _player.SetActive(true);
+
+        _isActivePlayer = false;
+        _isEnteringDoor = false;
+
+        _playerMovementManager.MovementInitialize(isFacingRight);
+        _playerActionManager.ActionInitialize();
+        _playerViewManager.ViewInitialize(isFacingRight);
     }
 
     public void Activate()
@@ -38,13 +49,21 @@ public class PlayerManager : MonoBehaviour
         S_SEManager.Instance.Play("p_activate");
     }
 
-    public void Death()
+    public void Death(float angleZ)
     {
         _player.SetActive(false);
+
+        _playerScrapManager.DeathExplosion(_player.transform.position, angleZ);
+        _playerExplosionAnimation.DeathExplosion(_player.transform.position).Forget();
+
+        S_SEManager.Instance.Play("p_explosion");
     }
 
     public void EnterDoor()
     {
+        _isEnteringDoor = true;
 
+        _playerActionManager.ActionInitialize();
+        _playerMovementManager.SetPlayerVelocityZero();
     }
 }

@@ -27,6 +27,5 @@ public class SavePointManager : MonoBehaviour
         }
 
         _player.transform.position = new Vector3(CurrentSavePoint.transform.position.x, CurrentSavePoint.transform.position.y, _player.transform.position.z);
-        // Playerのアクションをセットする
     }
 }

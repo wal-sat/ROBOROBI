@@ -18,8 +18,10 @@ public class PlayerTireAnimation : MonoBehaviour
         _spriteRenderer.sprite = _sprites[_index];
     }
 
-    public void ViewUpdate()
+    public void ViewUpdate(bool isActivePlayer)
     {
+        if (!isActivePlayer) return;
+
         _timer += Time.deltaTime;
 
         if (_timer >= _animationTime)

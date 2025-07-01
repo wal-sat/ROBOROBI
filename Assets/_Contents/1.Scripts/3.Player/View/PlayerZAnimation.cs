@@ -39,9 +39,9 @@ public class PlayerZAnimation : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    public void ViewUpdate()
+    public void ViewUpdate(bool isActivePlayer)
     {
-        if (!this.gameObject.activeSelf) return;
+        if (isActivePlayer) return;
 
         _timer += Time.deltaTime;
 

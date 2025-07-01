@@ -33,13 +33,13 @@ public class PlayerViewManager : MonoBehaviour
         ChangePlayerViewState();
     }
 
-    public void ViewUpdate()
+    public void ViewUpdate(bool isActivePlayer)
     {
         ChangePlayerViewState();
 
-        _playerView.ViewUpdate();
-        _playerTireAnimation.ViewUpdate();
-        _playerZAnimation.ViewUpdate();
+        _playerView.ViewUpdate(isActivePlayer);
+        _playerTireAnimation.ViewUpdate(isActivePlayer);
+        _playerZAnimation.ViewUpdate(isActivePlayer);
     }
 
     // ----- Private Methods -----
@@ -70,11 +70,5 @@ public class PlayerViewManager : MonoBehaviour
             (false, _, _, true) => PlayerViewState.Hold,
             _ => PlayerViewState.Stand
         };
-    }
-
-    [Button]
-    private void Activate()
-    {
-        IsSleeping = false;
     }
 }

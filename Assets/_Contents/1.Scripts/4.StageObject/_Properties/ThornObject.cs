@@ -8,7 +8,7 @@ public class ThornObject : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            _stageManager.PlayerDeath();
+            _stageManager.PlayerDeath().Forget();
         }
     }
 }

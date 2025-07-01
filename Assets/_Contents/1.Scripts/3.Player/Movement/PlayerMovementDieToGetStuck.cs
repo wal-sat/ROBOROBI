@@ -16,7 +16,7 @@ public class PlayerMovementDieToGetStuck : MonoBehaviour
     {
         if (!isDieToGetStuckLockable && Physics2D.OverlapCircle(_getStuckCheckerTransform.position, _radius, _groundLayer) != null)
         {
-            _stageManager.PlayerDeath();
+            _stageManager.PlayerDeath().Forget();
         }
     }
 

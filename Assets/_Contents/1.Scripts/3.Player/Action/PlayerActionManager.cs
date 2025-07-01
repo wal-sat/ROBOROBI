@@ -29,8 +29,10 @@ public class PlayerActionManager : MonoBehaviour
 
     }
 
-    public void ActionUpdate()
+    public void ActionUpdate(bool isActivePlayer)
     {
+        if (!isActivePlayer) return;
+
         _leftDirection = S_InputSystemManager.Instance.LeftDirection;
         _normalizedLeftDirection = S_InputSystemManager.Instance.NormalizedLeftDirection;
 

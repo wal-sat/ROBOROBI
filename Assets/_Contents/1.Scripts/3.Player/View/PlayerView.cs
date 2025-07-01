@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class PlayerView : MonoBehaviour
 {
-    [SerializeField] private SpriteRenderer _spriteRenderer;
     [SerializeField] private Sprite[] _sleepSprites;
     [SerializeField] private Sprite _standSprite;
     [SerializeField] private Sprite _crouchSprite;
@@ -11,9 +10,17 @@ public class PlayerView : MonoBehaviour
     [SerializeField] private Sprite _holdingCrouchSprite;
     [SerializeField] private float _sleepAnimationTime;
 
-    private bool _isSleeping;
+    private SpriteRenderer _spriteRenderer;
+
     private float _timer;
     private int _index;
+
+    // ----- Life Cycle Methods -----
+
+    private void Awake()
+    {
+        _spriteRenderer = this.GetComponent<SpriteRenderer>();
+    }
 
     // ----- Public Methods -----
 
@@ -24,9 +31,9 @@ public class PlayerView : MonoBehaviour
         _spriteRenderer.sprite = _sleepSprites[_index];
     }
 
-    public void ViewUpdate()
+    public void ViewUpdate(bool isActivePlayer)
     {
-        if (!_isSleeping) return;
+        if (isActivePlayer) return;
 
         _timer += Time.deltaTime;
 
@@ -43,12 +50,9 @@ public class PlayerView : MonoBehaviour
 
     public void SetPlayerView(PlayerViewState playerViewState)
     {
-        _isSleeping = false;
-
         switch (playerViewState)
         {
             case PlayerViewState.Sleep:
-                _isSleeping = true;
                 break;
             case PlayerViewState.Stand:
                 _spriteRenderer.sprite = _standSprite;

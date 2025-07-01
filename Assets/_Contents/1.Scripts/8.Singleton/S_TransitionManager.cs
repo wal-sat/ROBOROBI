@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cysharp.Threading.Tasks;
+using System.Threading;
 
 [DefaultExecutionOrder(1)] // ... (1)クラスの下で説明
 public class S_TransitionManager : Singleton<S_TransitionManager>
@@ -27,7 +28,7 @@ public class S_TransitionManager : Singleton<S_TransitionManager>
 
     // ----- Public Methods -----
 
-    public async UniTask OutTransition(float duration = 0.5f)
+    public async UniTask OutTransition(float duration, CancellationToken cancellationToken)
     {
         _transitionPanel__white.style.display = DisplayStyle.Flex;
         _transitionPanel__blue.style.display = DisplayStyle.Flex;
@@ -37,25 +38,25 @@ public class S_TransitionManager : Singleton<S_TransitionManager>
 
         MakePanelTransitions(_transitionPanel__white, PanelPosition.Center);
 
-        await UniTask.WaitForSeconds(PanelDelay);
+        await UniTask.WaitForSeconds(PanelDelay, cancellationToken: cancellationToken);
 
         MakePanelTransitions(_transitionPanel__blue, PanelPosition.Center);
 
-        await UniTask.WaitForSeconds(duration - PanelDelay);
+        await UniTask.WaitForSeconds(duration - PanelDelay, cancellationToken: cancellationToken);
     }
 
-    public async UniTask InTransition(float duration = 0.5f)
+    public async UniTask InTransition(float duration, CancellationToken cancellationToken)
     {
         _transitionPanel__white.style.transitionDuration = new List<TimeValue> { new(duration - PanelDelay, TimeUnit.Second) };
         _transitionPanel__blue.style.transitionDuration = new List<TimeValue> { new(duration - PanelDelay, TimeUnit.Second) };
 
         MakePanelTransitions(_transitionPanel__blue, PanelPosition.Left);
 
-        await UniTask.WaitForSeconds(PanelDelay);
+        await UniTask.WaitForSeconds(PanelDelay, cancellationToken: cancellationToken);
 
         MakePanelTransitions(_transitionPanel__white, PanelPosition.Left);
 
-        await UniTask.WaitForSeconds(duration - PanelDelay);
+        await UniTask.WaitForSeconds(duration - PanelDelay, cancellationToken: cancellationToken);
 
         Initialize().Forget();
     }

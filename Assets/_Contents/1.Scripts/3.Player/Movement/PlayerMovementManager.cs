@@ -21,9 +21,19 @@ public class PlayerMovementManager : MonoBehaviour
     [SerializeField] private PlayerMovementTerminalVelocity _playerMovementTerminalVelocity;
     [SerializeField] private PlayerMovementDieToGetStuck _playerMovementDieToGetStuck;
 
-    [HideInInspector] public bool IsFacingRight { get; private set; }
     [HideInInspector] public bool IsLanding { get; private set; }
     [HideInInspector] public bool IsSwapping { get; private set; }
+
+    private bool _isFacingRight;
+    public bool IsFacingRight
+    {
+        get => _isFacingRight;
+        private set
+        {
+            _isFacingRight = value;
+            _player.transform.transform.localScale = new Vector3(_isFacingRight ? 1 : -1, 1, 1);
+        }
+    }
 
     private Rigidbody2D _playerRigidbody2D;
     private Dictionary<IPlayerMovementPropertyLockable, bool> _playerRunningLock = new Dictionary<IPlayerMovementPropertyLockable, bool>();
@@ -42,9 +52,6 @@ public class PlayerMovementManager : MonoBehaviour
         _playerRigidbody2D = _player.GetComponent<Rigidbody2D>();
 
         _playerMovementSwap.OnSwapCallback += SwapIsFacingRightValue;
-
-        // TODO:マネージャー側から呼び出すようにする
-        MovementInitialize(true);
     }
 
     // ----- Public Methods -----
@@ -55,8 +62,10 @@ public class PlayerMovementManager : MonoBehaviour
         _playerMovementGravity.MovementInitialize();
     }
 
-    public void MovementUpdate()
+    public void MovementUpdate(bool isActivePlayer)
     {
+        if (!isActivePlayer) return;
+
         IsLanding = _playerMovementLanding.IsLanding();
         IsSwapping = _playerMovementSwap.IsSwapping();
 
@@ -211,6 +220,5 @@ public class PlayerMovementManager : MonoBehaviour
     private void SwapIsFacingRightValue()
     {
         IsFacingRight = !IsFacingRight;
-        _player.transform.transform.localScale = new Vector3(IsFacingRight ? 1 : -1, 1, 1);
     }
 }

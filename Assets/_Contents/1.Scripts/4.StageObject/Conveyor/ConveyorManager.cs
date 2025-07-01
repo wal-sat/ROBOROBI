@@ -44,10 +44,18 @@ public class ConveyorManager : MonoBehaviour
         _rightConveyorList.Clear();
         _leftConveyorList.Clear();
 
-        _rightCancellationTokenSource?.Cancel();
-        _leftCancellationTokenSource?.Cancel();
-        _rightCancellationTokenSource?.Dispose();
-        _leftCancellationTokenSource?.Dispose();
+        if (_rightCancellationTokenSource != null)
+        {
+            _rightCancellationTokenSource.Cancel();
+            _rightCancellationTokenSource.Dispose();
+            _rightCancellationTokenSource = null;
+        }
+        if (_leftCancellationTokenSource != null)
+        {
+            _leftCancellationTokenSource.Cancel();
+            _leftCancellationTokenSource.Dispose();
+            _leftCancellationTokenSource = null;
+        }
 
         _canUnsubscribeRight = false;
         _canUnsubscribeLeft = false;
@@ -62,7 +70,12 @@ public class ConveyorManager : MonoBehaviour
             _rightConveyorList.Add(conveyor);
             _playerMovementManager.SubscribeSpeedAdjustCallback(RightConveyor);
 
-            _rightCancellationTokenSource?.Cancel();
+            if (_rightCancellationTokenSource != null)
+            {
+                _rightCancellationTokenSource.Cancel();
+                _rightCancellationTokenSource.Dispose();
+                _rightCancellationTokenSource = null;
+            }
         }
 
         if (!isRightDirection && !_leftConveyorList.Contains(conveyor))
@@ -70,7 +83,12 @@ public class ConveyorManager : MonoBehaviour
             _leftConveyorList.Add(conveyor);
             _playerMovementManager.SubscribeSpeedAdjustCallback(LeftConveyor);
 
-            _leftCancellationTokenSource?.Cancel();
+            if (_leftCancellationTokenSource != null)
+            {
+                _leftCancellationTokenSource.Cancel();
+                _leftCancellationTokenSource.Dispose();
+                _leftCancellationTokenSource = null;
+            }
         }
     }
 
@@ -82,9 +100,8 @@ public class ConveyorManager : MonoBehaviour
 
             if (_rightConveyorList.Count == 0)
             {
-                _rightCancellationTokenSource?.Dispose();
                 _rightCancellationTokenSource = new CancellationTokenSource();
-                UnsubscribeRightBuffer(_rightCancellationTokenSource.Token).Forget();
+                UnsubscribeRightBuffer().Forget();
             }
         }
 
@@ -94,9 +111,8 @@ public class ConveyorManager : MonoBehaviour
 
             if (_leftConveyorList.Count == 0)
             {
-                _leftCancellationTokenSource?.Dispose();
                 _leftCancellationTokenSource = new CancellationTokenSource();
-                UnsubscribeLeftBuffer(_leftCancellationTokenSource.Token).Forget();
+                UnsubscribeLeftBuffer().Forget();
             }
         }
     }
@@ -113,17 +129,21 @@ public class ConveyorManager : MonoBehaviour
         return -_additionalSpeed;
     }
 
-    private async UniTaskVoid UnsubscribeRightBuffer(CancellationToken cancellationToken)
+    private async UniTaskVoid UnsubscribeRightBuffer()
     {
-        await UniTask.WaitForSeconds(UnsubscribeBufferTime, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(UnsubscribeBufferTime, cancellationToken: _rightCancellationTokenSource.Token);
 
         _canUnsubscribeRight = true;
+        _rightCancellationTokenSource.Dispose();
+        _rightCancellationTokenSource = null;
     }
 
-    private async UniTaskVoid UnsubscribeLeftBuffer(CancellationToken cancellationToken)
+    private async UniTaskVoid UnsubscribeLeftBuffer()
     {
-        await UniTask.WaitForSeconds(UnsubscribeBufferTime, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(UnsubscribeBufferTime, cancellationToken: _leftCancellationTokenSource.Token);
 
         _canUnsubscribeLeft = true;
+        _leftCancellationTokenSource.Dispose();
+        _leftCancellationTokenSource = null;
     }
 }

@@ -17,7 +17,7 @@ public class Door : MonoBehaviour
 
     private void TriggerEnter()
     {
-        _stageManager.PlayerEnterDoor();
+        _stageManager.PlayerEnterDoor().Forget();
 
         _savePointParticle.Play();
         // 効果音
