@@ -81,7 +81,7 @@ public class Barrel : MonoBehaviour, IPlayerMovementPropertyLockable
         {
             _isBlownUpPlayer = true;
             _playerMovementManager.SetPlayerRunningLock(this, true);
-            _cameraManager.ChangeCameraState(CameraState.Transition);
+            _cameraManager.ChangeCameraKind(CameraKind.Transition);
         }
 
         await UniTask.WaitForSeconds(StayTime, cancellationToken: cancellationToken);
@@ -93,7 +93,7 @@ public class Barrel : MonoBehaviour, IPlayerMovementPropertyLockable
         barrelObject.Rigidbody.linearVelocity = new Vector3(direction.x * _blownUpPower, direction.y * _blownUpPower, 0f);
         if (barrelObject.CompareTag("Player"))
         {
-            _cameraManager.ChangeCameraState(CameraState.Main);
+            _cameraManager.ChangeCameraKind(CameraKind.Main);
         }
 
         await UniTask.WaitForSeconds(0.1f, cancellationToken: cancellationToken);

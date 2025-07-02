@@ -1,10 +1,8 @@
 using NaughtyAttributes;
 using Unity.Cinemachine;
-using UnityEditor.U2D.Aseprite;
 using UnityEngine;
-using UnityEngine.Rendering;
 
-public enum CameraState { Main, Transition, Sleep }
+public enum CameraKind { Main, Transition, Sleep }
 
 public class CameraManager : MonoBehaviour
 {
@@ -15,40 +13,35 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject _cinemachineCameraTransition_1;
     [SerializeField] private GameObject _cinemachineCameraSleep;
 
-    private const float BlendTime = 0.5f;
+    private const float DefaultBlendTime = 0.5f;
+    private const float ShortBlendTime = 0.15f;
 
     // ----- Life Cycle Methods -----
 
     private void Awake()
     {
-        ChangeCameraState(CameraState.Main);
+        ChangeCameraKind(CameraKind.Main);
     }
 
     // ----- Public Methods -----
 
-    public void ChangeCameraState(CameraState cameraState)
+    public void ChangeCameraKind(CameraKind cameraKind)
     {
-        _cinemachineBrain.DefaultBlend.Time = BlendTime;
-        _cinemachineBrain.DefaultBlend.Style = CinemachineBlendDefinition.Styles.HardOut;
-        _cinemachineCameraMain_0.SetActive(false);
-        _cinemachineCameraMain_1.SetActive(false);
+        _cinemachineBrain.DefaultBlend.Time = DefaultBlendTime;
         _cinemachineCameraTransition_0.SetActive(false);
         _cinemachineCameraTransition_1.SetActive(false);
         _cinemachineCameraSleep.SetActive(false);
 
-        switch (cameraState)
+        switch (cameraKind)
         {
-            case CameraState.Main:
-                _cinemachineCameraMain_0.SetActive(true);
-                _cinemachineCameraMain_1.SetActive(true);
+            case CameraKind.Main:
                 break;
-            case CameraState.Transition:
-                _cinemachineBrain.DefaultBlend.Time = 0.01f;
-                _cinemachineBrain.DefaultBlend.Style = CinemachineBlendDefinition.Styles.Cut;
+            case CameraKind.Transition:
+                _cinemachineBrain.DefaultBlend.Time = ShortBlendTime;
                 _cinemachineCameraTransition_0.SetActive(true);
                 _cinemachineCameraTransition_1.SetActive(true);
                 break;
-            case CameraState.Sleep:
+            case CameraKind.Sleep:
                 _cinemachineCameraSleep.SetActive(true);
                 break;
         }

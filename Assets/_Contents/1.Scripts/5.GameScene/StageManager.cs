@@ -45,6 +45,7 @@ public class StageManager : MonoBehaviour, IInputLockable
     public void PlayerActivate()
     {
         ChangeGameSceneState(GameSceneState.Playing);
+        _cameraManager.ChangeCameraKind(CameraKind.Main);
 
         _playerManager.Activate();
     }
@@ -59,9 +60,9 @@ public class StageManager : MonoBehaviour, IInputLockable
             S_InputSystemManager.Instance.SetInputLock(this, true);
 
             _playerManager.Death(angleZ);
+            _cameraManager.ChangeCameraKind(CameraKind.Transition);
 
-            await UniTask.WaitForSeconds(1f, cancellationToken: destroyCancellationToken);
-            _cameraManager.ChangeCameraState(CameraState.Transition);
+            await UniTask.WaitForSeconds(0.95f, cancellationToken: destroyCancellationToken);
 
             await S_TransitionManager.Instance.OutTransition(0.3f, destroyCancellationToken);
 
@@ -69,11 +70,10 @@ public class StageManager : MonoBehaviour, IInputLockable
             _playerManager.Initialize(_savePointManager.CurrentSavePoint);
             _stageObjectManager.StageObjectInitialize();
 
-            await UniTask.WaitForSeconds(0.1f, cancellationToken: destroyCancellationToken);
+            await UniTask.WaitForSeconds(0.05f, cancellationToken: destroyCancellationToken);
             await S_TransitionManager.Instance.InTransition(0.3f, destroyCancellationToken);
 
             S_InputSystemManager.Instance.SetInputLock(this, false);
-            _cameraManager.ChangeCameraState(CameraState.Main);
             ChangeGameSceneState(GameSceneState.Sleep);
 
             _deathFirstCallChecker.Reset();
@@ -91,7 +91,7 @@ public class StageManager : MonoBehaviour, IInputLockable
         await UniTask.WaitForSeconds(0.2f, cancellationToken: destroyCancellationToken);
 
         UniTask.WaitForSeconds(0.65f, cancellationToken: destroyCancellationToken).ContinueWith(() => S_SEManager.Instance.Play("s_door")).Forget();
-        _cameraManager.ChangeCameraState(CameraState.Transition);
+        _cameraManager.ChangeCameraKind(CameraKind.Transition);
 
         await S_FadeManager.Instance.FadeOut(1f, destroyCancellationToken);
 
@@ -104,7 +104,7 @@ public class StageManager : MonoBehaviour, IInputLockable
         await S_FadeManager.Instance.FadeIn(1f, destroyCancellationToken);
 
         S_InputSystemManager.Instance.SetInputLock(this, false);
-        _cameraManager.ChangeCameraState(CameraState.Main);
+        _cameraManager.ChangeCameraKind(CameraKind.Main);
         ChangeGameSceneState(GameSceneState.Sleep);
     }
 
@@ -135,7 +135,7 @@ public class StageManager : MonoBehaviour, IInputLockable
         Time.timeScale = 1;
 
         ChangeGameSceneState(GameSceneState.Sleep);
-        _cameraManager.ChangeCameraState(CameraState.Main);
+        _cameraManager.ChangeCameraKind(CameraKind.Main);
 
         SavePointBase startPoint = _sectionManager.ChangeSection(0);
         _savePointManager.TeleportSavePoint(startPoint);

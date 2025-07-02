@@ -46,6 +46,8 @@ public class PlayerManager : MonoBehaviour
     public void Activate()
     {
         _isActivePlayer = true;
+        _playerViewManager.IsSleeping = false;
+
         S_SEManager.Instance.Play("p_activate");
     }
 

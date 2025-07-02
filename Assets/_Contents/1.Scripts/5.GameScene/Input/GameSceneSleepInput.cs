@@ -1,9 +1,11 @@
 using UnityEngine;
 
-public enum GameSceneSleepState { None, Menu, Camera }
+public enum GameSceneSleepState { Menu, Camera }
 
 public class GameSceneSleepInput : MonoBehaviour
 {
+    [SerializeField] private StageManager _stageManager;
+
     private GameSceneSleepState _gameSceneSleepState;
     private Vector2 _leftDirectionPast;
     private bool _wasPushingS;
@@ -52,7 +54,7 @@ public class GameSceneSleepInput : MonoBehaviour
         switch (_gameSceneSleepState)
         {
             case GameSceneSleepState.Menu:
-                // Handle Menu state S button press
+                _stageManager.PlayerActivate();
                 break;
             case GameSceneSleepState.Camera:
                 // Handle Camera state S button press

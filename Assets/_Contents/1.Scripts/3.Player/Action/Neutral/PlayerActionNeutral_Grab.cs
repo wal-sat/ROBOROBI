@@ -88,6 +88,8 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerMovementPropert
     }
     private void InGrab()
     {
+        _playerMovementManager.SetPlayerVelocityZero(); //他の処理と競合する場合は消すかも
+
         Vector2 differentPosition = (Vector2) _grabbedRopeTransform.position - _grabbedRopePositionPast;
         _player.transform.position += new Vector3(differentPosition.x, differentPosition.y, 0f);
 

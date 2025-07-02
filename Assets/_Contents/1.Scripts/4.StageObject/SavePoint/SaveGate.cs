@@ -4,10 +4,8 @@ public class SaveGate : SavePointBase
 {
     // ----- Life Cycle Methods -----
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
-
         _isTriggerWithPlayer.TriggerEnterCallback = TriggerEnter;
     }
 

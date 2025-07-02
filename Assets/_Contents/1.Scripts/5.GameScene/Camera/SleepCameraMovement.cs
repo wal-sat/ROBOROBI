@@ -6,21 +6,21 @@ public class SleepCameraMovement : MonoBehaviour
     [SerializeField] private GameObject _cinemachineCamera_sleep;
     [SerializeField] private float _moveSpeed;
 
-    private CinemachineConfiner2D _sleepConfiner2D;
+    private CameraConfine _cameraConfine;
 
     // ----- Life Cycle Methods -----
 
     private void Awake()
     {
-        _sleepConfiner2D = _cinemachineCamera_sleep.GetComponent<CinemachineConfiner2D>();
+        _cameraConfine = _cinemachineCamera_sleep.GetComponent<CameraConfine>();
     }
 
     // ----- Public Methods -----
 
-    public void SleepCameraInit(Vector2 initPosition, Collider2D confinerCollider)
+    public void SleepCameraInit(Vector2 initPosition, StageAreaBase sleepCameraArea)
     {
         _cinemachineCamera_sleep.transform.position = initPosition;
-        _sleepConfiner2D.BoundingShape2D = confinerCollider;
+        _cameraConfine.SetMoveRange(sleepCameraArea.MinPosition, sleepCameraArea.MaxPosition);
     }
 
     public void SleepCameraMove(Vector2 direction)
