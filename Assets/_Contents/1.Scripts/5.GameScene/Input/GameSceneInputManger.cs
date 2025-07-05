@@ -45,5 +45,20 @@ public class GameSceneInputManger : MonoBehaviour, IInputLockable
     private void ChangeGameSceneState(GameSceneState gameSceneState)
     {
         _gameSceneState = gameSceneState;
+
+        switch (_gameSceneState)
+        {
+            case GameSceneState.Playing:
+                _gameScenePlayingInput.InputInitialize();
+                break;
+            case GameSceneState.Sleep:
+                break;
+            case GameSceneState.Clear:
+                break;
+            case GameSceneState.Option:
+                break;
+            default:
+                break;
+        }
     }
 }

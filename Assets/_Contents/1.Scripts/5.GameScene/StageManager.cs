@@ -47,7 +47,7 @@ public class StageManager : MonoBehaviour, IInputLockable
         ChangeGameSceneState(GameSceneState.Playing);
         _cameraManager.ChangeCameraKind(CameraKind.Main);
 
-        _playerManager.Activate();
+        _playerManager.Activate(_savePointManager.CurrentSavePoint.AcquiredActionData);
     }
 
     /// <summary>
@@ -67,7 +67,7 @@ public class StageManager : MonoBehaviour, IInputLockable
             await S_TransitionManager.Instance.OutTransition(0.3f, destroyCancellationToken);
 
             _savePointManager.TeleportSavePoint();
-            _playerManager.Initialize(_savePointManager.CurrentSavePoint);
+            _playerManager.Initialize(_savePointManager.CurrentSavePoint.IsFacingRight);
             _stageObjectManager.StageObjectInitialize();
 
             await UniTask.WaitForSeconds(0.05f, cancellationToken: destroyCancellationToken);

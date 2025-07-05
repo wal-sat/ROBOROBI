@@ -11,16 +11,10 @@ public enum ActionKind
 
 public class PlayerActionManager : MonoBehaviour
 {
+    [SerializeField] private GameScenePlayingInput _gameScenePlayingInput;
     [SerializeField] private PlayerActionNeutralManager _playerActionNeutralManager;
     [SerializeField] private PlayerActionSManager _playerActionSManager;
     [SerializeField] private PlayerMovementManager _playerMovementManager;
-
-    private Vector2 _leftDirection;
-    private Vector2 _normalizedLeftDirection;
-    private bool _isPushingS;
-    private bool _isPushingE;
-    private bool _isPushingW;
-    private bool _isPushingN;
 
     // ----- Public Methods -----
 
@@ -33,9 +27,6 @@ public class PlayerActionManager : MonoBehaviour
     {
         if (!isActivePlayer) return;
 
-        _leftDirection = S_InputSystemManager.Instance.LeftDirection;
-        _normalizedLeftDirection = S_InputSystemManager.Instance.NormalizedLeftDirection;
-
         // Recovery Action Time
         if (_playerMovementManager.IsLanding)
         {
@@ -43,24 +34,15 @@ public class PlayerActionManager : MonoBehaviour
         }
 
         // Neutral
-        _playerActionNeutralManager.ActionUpdate(_normalizedLeftDirection);
+        _playerActionNeutralManager.ActionUpdate();
 
         // S Button
-        if (S_InputSystemManager.Instance.IsPushingS)
-        {
-            _isPushingS = true;
-            _playerActionSManager.ActionUpdate(_normalizedLeftDirection);
-        }
-        else if (_isPushingS)
-        {
-            _isPushingS = false;
-            _playerActionSManager.ActionEnd();
-        }
+        _playerActionSManager.ActionUpdate();
     }
 
-    public void SetAcquiredAction(AcquiredActionData acquiredActionDate)
+    public void SetAcquiredAction(AcquiredActionData acquiredActionData)
     {
-        foreach (var acquiredAction in acquiredActionDate.AcquiredActionDictionary)
+        foreach (var acquiredAction in acquiredActionData.AcquiredActionDictionary)
         {
             string actionKindString = acquiredAction.Key.ToString();
 
@@ -149,15 +131,5 @@ public class PlayerActionManager : MonoBehaviour
     {
         _playerActionSManager.DepleteJumpTime();
         // 他のアクションも消費する
-    }
-
-    // ----- Private Methods -----
-
-    [SerializeField] AcquiredActionData acquiredActionData;
-
-    [Button]
-    private void Start()
-    {
-        SetAcquiredAction(acquiredActionData);
     }
 }

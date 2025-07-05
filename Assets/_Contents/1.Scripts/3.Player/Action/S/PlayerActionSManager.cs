@@ -6,16 +6,16 @@ using UnityEngine.Rendering.Universal;
 
 public class PlayerActionSManager : MonoBehaviour
 {
+    [SerializeField] private GameScenePlayingInput _gameScenePlayingInput;
     [SerializeField] private PlayerActionBase[] _sActions;
 
     private const float InputBuffer = 0.05f;
 
-    private bool _isPushingNone;
-    private bool _isPushingUp;
-    private bool _isPushingDown;
-    private bool _wasJumped;
-    private float _bufferTimer;
+    private bool _wasActionGoDownPast;
+    private bool _wasActionBigJumpPast;
+    private bool _wasActionJumpPast;
 
+    private float _bufferTimer;
     private int _maxJumpTime;
     private int _jumpTime;
     private bool _isRecoveryJumpTime;
@@ -29,86 +29,90 @@ public class PlayerActionSManager : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void ActionUpdate(Vector2 leftDirection)
+    public void ActionUpdate()
     {
-        // S + Down : Go Down Action
-        if (leftDirection == Vector2.down && !_isPushingDown)
+        // Trace Input Value
+        bool isPushingS = _gameScenePlayingInput.IsPushingS;
+        Vector2 normalizedLeftDirection = _gameScenePlayingInput.NormalizedLeftDirection;
+
+        // Input Check
+        bool _isActionGoDown = false, _isActionBigJump = false, _isActionJump = false;
+        if (isPushingS && normalizedLeftDirection == Vector2.down && IsAcquiredAction(ActionKind.S_GoDown))
         {
-            _isPushingDown = true;
+            _isActionGoDown = true;
+        }
+        else if (isPushingS && normalizedLeftDirection == Vector2.up && IsAcquiredAction(ActionKind.S_BigJump))
+        {
+            _isActionBigJump = true;
+        }
+        else if (isPushingS && IsAcquiredAction(ActionKind.S_Jump))
+        {
+            _isActionJump = true;
+        }
+
+        // Count Buffer Time
+        if (_isActionJump || _isActionBigJump || _isActionGoDown)
+        {
+            _bufferTimer += Time.deltaTime;
+        }
+
+        // S + Down : Go Down Action
+        if (_isActionGoDown && !_wasActionGoDownPast)
+        {
+            _wasActionGoDownPast = true;
             CallInitAction(ActionKind.S_GoDown);
         }
-        else if (leftDirection == Vector2.down && _isPushingDown)
+        else if (_isActionGoDown && _wasActionGoDownPast)
         {
             CallInAction(ActionKind.S_GoDown);
         }
-        else if (leftDirection != Vector2.down && _isPushingDown)
+        else if (!_isActionGoDown && _wasActionGoDownPast)
         {
-            _isPushingDown = false;
-            _bufferTimer = 0f;
+            _wasActionGoDownPast = false;
             CallEndAction(ActionKind.S_GoDown);
+
+            _bufferTimer = 0f;
         }
 
-        _bufferTimer += Time.deltaTime;
+        // Buffer Time Return
         if (_bufferTimer <= InputBuffer) return;
 
         // S + Up : Big Jump Action
-        if (leftDirection == Vector2.up && !_isPushingUp && !_wasJumped && IsJumpable())
+        if (_isActionBigJump && !_wasActionBigJumpPast && IsJumpable())
         {
-            _isPushingUp = true;
-            _wasJumped = true;
+            _wasActionBigJumpPast = true;
             CallInitAction(ActionKind.S_BigJump);
         }
-        else if (leftDirection == Vector2.up && _isPushingUp)
+        else if (_isActionBigJump && _wasActionBigJumpPast)
         {
             CallInAction(ActionKind.S_BigJump);
         }
-        else if (leftDirection != Vector2.up && _isPushingUp)
+        else if (!_isActionBigJump && _wasActionBigJumpPast)
         {
-            _isPushingUp = false;
-            DecrementJumpTime();
+            _wasActionBigJumpPast = false;
             CallEndAction(ActionKind.S_BigJump);
+
+            DecrementJumpTime();
+            _bufferTimer = 0;
         }
 
         // S : Jump Action
-        if ((leftDirection == Vector2.zero || leftDirection == Vector2.left || leftDirection == Vector2.right) && !_isPushingNone && !_wasJumped && IsJumpable())
+        if (_isActionJump && !_wasActionJumpPast && IsJumpable())
         {
-            _isPushingNone = true;
-            _wasJumped = true;
+            _wasActionJumpPast = true;
             CallInitAction(ActionKind.S_Jump);
         }
-        else if ((leftDirection == Vector2.zero || leftDirection == Vector2.left || leftDirection == Vector2.right) && _isPushingNone)
+        else if (_isActionJump && _wasActionJumpPast)
         {
             CallInAction(ActionKind.S_Jump);
         }
-        else if ((leftDirection != Vector2.zero && leftDirection != Vector2.left && leftDirection != Vector2.right) && _isPushingNone)
+        else if (!_isActionJump && _wasActionJumpPast)
         {
-            _isPushingNone = false;
-            DecrementJumpTime();
+            _wasActionJumpPast = false;
             CallEndAction(ActionKind.S_Jump);
-        }
-    }
 
-    public void ActionEnd()
-    {
-        _wasJumped = false;
-        _bufferTimer = 0f;
-
-        if (_isPushingUp)
-        {
-            _isPushingUp = false;
             DecrementJumpTime();
-            CallEndAction(ActionKind.S_BigJump);
-        }
-        if (_isPushingDown)
-        {
-            _isPushingDown = false;
-            CallEndAction(ActionKind.S_GoDown);
-        }
-        if (_isPushingNone)
-        {
-            _isPushingNone = false;
-            DecrementJumpTime();
-            CallEndAction(ActionKind.S_Jump);
+            _bufferTimer = 0;
         }
     }
 
@@ -133,7 +137,7 @@ public class PlayerActionSManager : MonoBehaviour
     {
         _jumpTime = _maxJumpTime;
 
-        if (_isPushingUp || _isPushingNone)
+        if (_wasActionJumpPast || _wasActionBigJumpPast)
         {
             _isRecoveryJumpTime = true;
         }
@@ -150,7 +154,7 @@ public class PlayerActionSManager : MonoBehaviour
     {
         foreach (var action in _sActions)
         {
-            if (action == null) return;
+            if (action == null) continue;
 
             if (action.ActionKind == actionKind && action.IsAcquired)
             {
@@ -162,7 +166,7 @@ public class PlayerActionSManager : MonoBehaviour
     {
         foreach (var action in _sActions)
         {
-            if (action == null) return;
+            if (action == null) continue;
 
             if (action.ActionKind == actionKind && action.IsAcquired)
             {
@@ -174,7 +178,7 @@ public class PlayerActionSManager : MonoBehaviour
     {
         foreach (var action in _sActions)
         {
-            if (action == null) return;
+            if (action == null) continue;
 
             if (action.ActionKind == actionKind && action.IsAcquired)
             {
@@ -225,6 +229,24 @@ public class PlayerActionSManager : MonoBehaviour
     {
         if (_jumpTime == -1) return true;
         if (_jumpTime > 0) return true;
+
+        return false;
+    }
+
+    /// <summary>
+    /// 引数で与えられたアクションが習得済みであるかどうかを返す
+    /// </summary>
+    private bool IsAcquiredAction(ActionKind actionKind)
+    {
+        foreach (var action in _sActions)
+        {
+            if (action == null) continue;
+
+            if (action.ActionKind == actionKind)
+            {
+                return action.IsAcquired;
+            }
+        }
 
         return false;
     }

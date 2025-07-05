@@ -43,9 +43,10 @@ public class PlayerManager : MonoBehaviour
         _playerViewManager.ViewInitialize(isFacingRight);
     }
 
-    public void Activate()
+    public void Activate(AcquiredActionData acquiredActionData)
     {
         _isActivePlayer = true;
+        _playerActionManager.SetAcquiredAction(acquiredActionData);
         _playerViewManager.IsSleeping = false;
 
         S_SEManager.Instance.Play("p_activate");

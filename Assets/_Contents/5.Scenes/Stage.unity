@@ -739,10 +739,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b261871e991ac2242995c066fd7659e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameScenePlayingInput: {fileID: 1216628042}
   _playerActionNeutralManager: {fileID: 1353735476}
   _playerActionSManager: {fileID: 999988613}
   _playerMovementManager: {fileID: 794884801}
-  acquiredActionData: {fileID: 11400000, guid: cdd6f5a8d7a1f0842bf7b68b744fd64b, type: 2}
 --- !u!1 &142870963
 GameObject:
   m_ObjectHideFlags: 0
@@ -13924,6 +13924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b0b479662db70b4393f8ce50b53f7e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameScenePlayingInput: {fileID: 1216628042}
   _sActions:
   - {fileID: 862580159}
   - {fileID: 1860299433}
@@ -15432,6 +15433,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d02cfdb37e28a74fb5a08e0ef5da4e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeftDirection: {x: 0, y: 0}
+  NormalizedLeftDirection: {x: 0, y: 0}
+  IsPushingS: 0
+  IsPushingE: 0
+  IsPushingW: 0
+  IsPushingN: 0
+  IsPushingL1: 0
+  IsPushingR1: 0
+  IsPushingL2: 0
+  IsPushingR2: 0
 --- !u!1 &1233220515
 GameObject:
   m_ObjectHideFlags: 0
@@ -16263,6 +16274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f507ac8072813a74bb1d6bc1f67b56da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameScenePlayingInput: {fileID: 1216628042}
   _playerMovementManager: {fileID: 794884801}
   _neutralActions:
   - {fileID: 76746495}
@@ -22283,7 +22295,7 @@ MonoBehaviour:
   _isTriggerWithPlayer: {fileID: 1579076617}
   _saveGateView: {fileID: 1579076614}
   _savePointParticle: {fileID: 698366885}
-  AcquiredActionData: {fileID: 11400000, guid: cdd6f5a8d7a1f0842bf7b68b744fd64b, type: 2}
+  AcquiredActionData: {fileID: 11400000, guid: a9159715921726340a1313ab37cdd166, type: 2}
   SleepCameraArea: {fileID: 0}
   SavePointIndex: 0
   IsFacingRight: 1
