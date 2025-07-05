@@ -1,9 +1,8 @@
 using System;
-using System.Xml.Serialization;
 using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
-using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class StageManager : MonoBehaviour, IInputLockable
 {
@@ -86,7 +85,7 @@ public class StageManager : MonoBehaviour, IInputLockable
     public async UniTaskVoid PlayerEnterDoor()
     {
         S_InputSystemManager.Instance.SetInputLock(this, true);
-        _playerManager.EnterDoor();
+        _playerManager.SectionClear();
 
         await UniTask.WaitForSeconds(0.2f, cancellationToken: destroyCancellationToken);
 
@@ -111,8 +110,19 @@ public class StageManager : MonoBehaviour, IInputLockable
     /// <summary>
     /// ステージをクリアした時の処理
     /// </summary>
-    public void StageClear()
+    public async UniTaskVoid StageClear()
     {
+        S_InputSystemManager.Instance.SetInputLock(this, true);
+
+        DOVirtual.Float(1f, 0f, 0.5f, value => Time.timeScale = value).SetEase(Ease.OutCubic).SetUpdate(true);
+
+        await UniTask.WaitForSeconds(0.5f);
+
+        _playerManager.SectionClear();
+
+        await UniTask.WaitForSeconds(0.5f);
+
+        S_InputSystemManager.Instance.SetInputLock(this, false);
 
     }
 

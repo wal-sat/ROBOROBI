@@ -8,11 +8,12 @@ public class PlayerMovementLanding : MonoBehaviour
 
     private const float CapsulePositionY = -0.5f;
     private const float CapsuleSizeX = 0.2f;
-    private const float CapsuleSizeY = 0.01f;
+    private const float CapsuleSizeY = 0.005f;
     private const float LandingSEBufferTime = 0.2f;
 
     private Vector3 _capsuleSize;
     private float _landingSEBufferTimer;
+    private bool _isLandingLockable;
 
     // ----- Life Cycle Methods -----
 
@@ -26,7 +27,8 @@ public class PlayerMovementLanding : MonoBehaviour
 
     public void MovementUpdate(bool isLandingLockable)
     {
-        if (isLandingLockable) return;
+        _isLandingLockable = isLandingLockable;
+        if (_isLandingLockable) return;
 
         if (IsLanding())
         {
@@ -44,8 +46,13 @@ public class PlayerMovementLanding : MonoBehaviour
 
     public bool IsLanding()
     {
+        if (_isLandingLockable)
+        {
+            return false;
+        }
+
         if (Physics2D.OverlapCapsule(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _groundLayer) != null ||
-            Physics2D.OverlapCapsule(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _throughGroundLayer) != null)
+                Physics2D.OverlapCapsule(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _throughGroundLayer) != null)
         {
             return true;
         }

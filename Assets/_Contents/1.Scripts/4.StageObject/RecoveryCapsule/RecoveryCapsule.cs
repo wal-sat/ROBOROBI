@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class RecoveryCapsule : MonoBehaviour
 {
-    private enum RecoveryCapsuleState { Recovery, Deplete }
+    private enum RecoveryCapsuleType { Recovery, Deplete }
 
     [SerializeField] private PlayerActionManager _playerActionManager;
     [SerializeField] private RecoveryCapsuleManager _recoveryCapsuleManager;
     [SerializeField] private RecoveryCapsuleView _recoveryCapsuleView;
     [SerializeField] private IsTriggerWithPlayer _isTriggerWithPlayer;
-    [SerializeField] private RecoveryCapsuleState _recoveryCapsuleState;
+    [SerializeField] private RecoveryCapsuleType _recoveryCapsuleType;
     [SerializeField] private float _coolTime;
 
     private CancellationTokenSource _cancellationTokenSource;
@@ -30,7 +30,7 @@ public class RecoveryCapsule : MonoBehaviour
     public void RecoveryCapsuleInitialize()
     {
         _firstCallChecker.Reset();
-        _recoveryCapsuleView.SpriteChange(true);
+        _recoveryCapsuleView.ChangeSprite(true);
 
         _cancellationTokenSource?.Cancel();
         _cancellationTokenSource?.Dispose();
@@ -43,12 +43,12 @@ public class RecoveryCapsule : MonoBehaviour
     {
         if (_firstCallChecker.Check())
         {
-            _recoveryCapsuleView.SpriteChange(false);
-            if (_recoveryCapsuleState == RecoveryCapsuleState.Recovery)
+            _recoveryCapsuleView.ChangeSprite(false);
+            if (_recoveryCapsuleType == RecoveryCapsuleType.Recovery)
             {
                 _playerActionManager.RecoveryActionTime();
             }
-            else if (_recoveryCapsuleState == RecoveryCapsuleState.Deplete)
+            else if (_recoveryCapsuleType == RecoveryCapsuleType.Deplete)
             {
                 _playerActionManager.DepleteActionTime();
             }
@@ -67,7 +67,7 @@ public class RecoveryCapsule : MonoBehaviour
         await UniTask.WaitForSeconds(_coolTime, cancellationToken: cancellationToken);
 
         _firstCallChecker.Reset();
-        _recoveryCapsuleView.SpriteChange(true);
+        _recoveryCapsuleView.ChangeSprite(true);
 
         _cancellationTokenSource = null;
     }

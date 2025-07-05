@@ -18,7 +18,6 @@ public class PlayerActionSManager : MonoBehaviour
     private float _bufferTimer;
     private int _maxJumpTime;
     private int _jumpTime;
-    private bool _isRecoveryJumpTime;
 
     // ----- Life Cycle Methods -----
 
@@ -29,44 +28,50 @@ public class PlayerActionSManager : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void ActionUpdate()
+    public void ActionUpdate(bool isLanding)
     {
         // Trace Input Value
         bool isPushingS = _gameScenePlayingInput.IsPushingS;
         Vector2 normalizedLeftDirection = _gameScenePlayingInput.NormalizedLeftDirection;
 
         // Input Check
-        bool _isActionGoDown = false, _isActionBigJump = false, _isActionJump = false;
+        bool isActionGoDown = false, isActionBigJump = false, isActionJump = false;
         if (isPushingS && normalizedLeftDirection == Vector2.down && IsAcquiredAction(ActionKind.S_GoDown))
         {
-            _isActionGoDown = true;
+            isActionGoDown = true;
         }
         else if (isPushingS && normalizedLeftDirection == Vector2.up && IsAcquiredAction(ActionKind.S_BigJump))
         {
-            _isActionBigJump = true;
+            isActionBigJump = true;
         }
         else if (isPushingS && IsAcquiredAction(ActionKind.S_Jump))
         {
-            _isActionJump = true;
+            isActionJump = true;
+        }
+
+        // Recovery Jump Time
+        if (isLanding && !isActionJump && !isActionBigJump)
+        {
+            RecoveryJumpTime();
         }
 
         // Count Buffer Time
-        if (_isActionJump || _isActionBigJump || _isActionGoDown)
+        if (isActionJump || isActionBigJump || isActionGoDown)
         {
             _bufferTimer += Time.deltaTime;
         }
 
         // S + Down : Go Down Action
-        if (_isActionGoDown && !_wasActionGoDownPast)
+        if (isActionGoDown && !_wasActionGoDownPast)
         {
             _wasActionGoDownPast = true;
             CallInitAction(ActionKind.S_GoDown);
         }
-        else if (_isActionGoDown && _wasActionGoDownPast)
+        else if (isActionGoDown && _wasActionGoDownPast)
         {
             CallInAction(ActionKind.S_GoDown);
         }
-        else if (!_isActionGoDown && _wasActionGoDownPast)
+        else if (!isActionGoDown && _wasActionGoDownPast)
         {
             _wasActionGoDownPast = false;
             CallEndAction(ActionKind.S_GoDown);
@@ -78,40 +83,42 @@ public class PlayerActionSManager : MonoBehaviour
         if (_bufferTimer <= InputBuffer) return;
 
         // S + Up : Big Jump Action
-        if (_isActionBigJump && !_wasActionBigJumpPast && IsJumpable())
+        if (isActionBigJump && !_wasActionBigJumpPast && IsJumpable())
         {
             _wasActionBigJumpPast = true;
             CallInitAction(ActionKind.S_BigJump);
+
+            DecrementJumpTime();
         }
-        else if (_isActionBigJump && _wasActionBigJumpPast)
+        else if (isActionBigJump && _wasActionBigJumpPast)
         {
             CallInAction(ActionKind.S_BigJump);
         }
-        else if (!_isActionBigJump && _wasActionBigJumpPast)
+        else if (!isActionBigJump && _wasActionBigJumpPast)
         {
             _wasActionBigJumpPast = false;
             CallEndAction(ActionKind.S_BigJump);
 
-            DecrementJumpTime();
             _bufferTimer = 0;
         }
 
         // S : Jump Action
-        if (_isActionJump && !_wasActionJumpPast && IsJumpable())
+        if (isActionJump && !_wasActionJumpPast && IsJumpable())
         {
             _wasActionJumpPast = true;
             CallInitAction(ActionKind.S_Jump);
+
+            DecrementJumpTime();
         }
-        else if (_isActionJump && _wasActionJumpPast)
+        else if (isActionJump && _wasActionJumpPast)
         {
             CallInAction(ActionKind.S_Jump);
         }
-        else if (!_isActionJump && _wasActionJumpPast)
+        else if (!isActionJump && _wasActionJumpPast)
         {
             _wasActionJumpPast = false;
             CallEndAction(ActionKind.S_Jump);
 
-            DecrementJumpTime();
             _bufferTimer = 0;
         }
     }
@@ -136,11 +143,6 @@ public class PlayerActionSManager : MonoBehaviour
     public void RecoveryJumpTime()
     {
         _jumpTime = _maxJumpTime;
-
-        if (_wasActionJumpPast || _wasActionBigJumpPast)
-        {
-            _isRecoveryJumpTime = true;
-        }
     }
 
     public void DepleteJumpTime()
@@ -204,7 +206,7 @@ public class PlayerActionSManager : MonoBehaviour
 
         if (_jumpTime < _maxJumpTime)
         {
-            _jumpTime = Math.Max(newMaxJumpTime - (_maxJumpTime - _jumpTime), 0);
+            _jumpTime = Math.Max(newMaxJumpTime - _maxJumpTime + _jumpTime, 0);
         }
 
         _maxJumpTime = newMaxJumpTime;
@@ -212,13 +214,9 @@ public class PlayerActionSManager : MonoBehaviour
 
     private void DecrementJumpTime()
     {
-        if (!_isRecoveryJumpTime && _jumpTime > 0)
+        if (_jumpTime > 0)
         {
             _jumpTime--;
-        }
-        else
-        {
-            _isRecoveryJumpTime = false;
         }
     }
 

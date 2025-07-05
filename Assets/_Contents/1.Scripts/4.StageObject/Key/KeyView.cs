@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RecoveryCapsuleView : MonoBehaviour
+public class KeyView : MonoBehaviour
 {
     [SerializeField] private Sprite _defaultSprite;
     [SerializeField] private Sprite _disableSprite;

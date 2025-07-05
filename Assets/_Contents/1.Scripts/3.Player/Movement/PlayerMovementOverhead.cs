@@ -10,9 +10,9 @@ public class PlayerMovementOverhead : MonoBehaviour
     [SerializeField] private LayerMask _groundLayer;
 
     private const float CircleSize = 0.01f;
-    private const float StandCirclePositionY = 0.45f;
-    private const float CrouchCirclePositionY = 0.2f;
-    private const float CoolTime = 0.1f;
+    private const float StandCirclePositionY = 0.415f;
+    private const float CrouchCirclePositionY = 0.165f;
+    private const float CoolTime = 0.25f;
 
     private bool _isCoolTime;
 

@@ -27,17 +27,14 @@ public class PlayerActionManager : MonoBehaviour
     {
         if (!isActivePlayer) return;
 
-        // Recovery Action Time
-        if (_playerMovementManager.IsLanding)
-        {
-            RecoveryActionTime();
-        }
+        // Get IsLanding
+        bool isLanding = _playerMovementManager.IsLanding;
 
         // Neutral
         _playerActionNeutralManager.ActionUpdate();
 
         // S Button
-        _playerActionSManager.ActionUpdate();
+        _playerActionSManager.ActionUpdate(isLanding);
     }
 
     public void SetAcquiredAction(AcquiredActionData acquiredActionData)
@@ -95,7 +92,7 @@ public class PlayerActionManager : MonoBehaviour
         }
     }
 
-    public void ForgottenAction(ActionKind actionKind)
+    public void ForgetAction(ActionKind actionKind)
     {
         string actionKindString = actionKind.ToString();
 

@@ -11,7 +11,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private GameObject _player;
 
     private bool _isActivePlayer;
-    private bool _isEnteringDoor;
+    private bool _isClearSection;
 
     // ----- Life Cycle Methods -----
 
@@ -22,7 +22,7 @@ public class PlayerManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (_isEnteringDoor) return;
+        if (_isClearSection) return;
 
         _playerMovementManager.MovementUpdate(_isActivePlayer);
         _playerActionManager.ActionUpdate(_isActivePlayer);
@@ -36,7 +36,7 @@ public class PlayerManager : MonoBehaviour
         _player.SetActive(true);
 
         _isActivePlayer = false;
-        _isEnteringDoor = false;
+        _isClearSection = false;
 
         _playerMovementManager.MovementInitialize(isFacingRight);
         _playerActionManager.ActionInitialize();
@@ -62,9 +62,9 @@ public class PlayerManager : MonoBehaviour
         S_SEManager.Instance.Play("p_explosion");
     }
 
-    public void EnterDoor()
+    public void SectionClear()
     {
-        _isEnteringDoor = true;
+        _isClearSection = true;
 
         _playerActionManager.ActionInitialize();
         _playerMovementManager.SetPlayerVelocityZero();
