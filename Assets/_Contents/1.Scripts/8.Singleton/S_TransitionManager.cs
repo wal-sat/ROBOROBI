@@ -16,7 +16,7 @@ public class S_TransitionManager : Singleton<S_TransitionManager>
 
     // ----- Life Cycle Methods -----
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 

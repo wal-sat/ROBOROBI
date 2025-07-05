@@ -138,6 +138,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4682026994597431981}
   - {fileID: 1923117889450462504}
   - {fileID: 5040206927437757965}
   - {fileID: 7951224699934497729}
@@ -498,6 +499,11 @@ MonoBehaviour:
   - Name: stage
     BGMClip:
     - {fileID: 8300000, guid: e8f4501e2af441b439b3982b593da618, type: 3}
+    - {fileID: 8300000, guid: 1a07b724a2b812e4dbb8ed4398c64e57, type: 3}
+    - {fileID: 8300000, guid: e330d2ba37047ed41b19f794175f15e9, type: 3}
+    - {fileID: 8300000, guid: f1b6767c475752649813e20cbbf11a09, type: 3}
+    - {fileID: 8300000, guid: a48d5240531f0fe42bc67d7be6d82745, type: 3}
+    - {fileID: 8300000, guid: 75507824fbdbf7f45965ac531fda809a, type: 3}
     audioSource: {fileID: 0}
     bgmStatus: 0
   - Name: heartBeat
@@ -510,6 +516,52 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 9f6f8e18ce4ab854d94105d3486b47c3, type: 3}
     audioSource: {fileID: 0}
     bgmStatus: 0
+--- !u!1 &8112795975896188746
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4682026994597431981}
+  - component: {fileID: 3060053608094031167}
+  m_Layer: 0
+  m_Name: S_StageInfoManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4682026994597431981
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112795975896188746}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6333273726592545543}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3060053608094031167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8112795975896188746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d03bade49c8cd40bfaa518b1f61ac0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _stageData:
+  - {fileID: 11400000, guid: 20eccca5396b96240a77896b9f9167a0, type: 2}
 --- !u!1 &8321032200203421006
 GameObject:
   m_ObjectHideFlags: 0
@@ -620,6 +672,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _maxSEVolume: 1
   _seList:
+  - Name: ------ Player ------
+    SEClip: {fileID: 0}
+  - Name: p_activate
+    SEClip: {fileID: 8300000, guid: 7ead70e39c4287147a90c75cfd4a53e5, type: 3}
+  - Name: p_explosion
+    SEClip: {fileID: 8300000, guid: d541f4266b2d3ac40a79b486ed8c75c0, type: 3}
+  - Name: p_landing
+    SEClip: {fileID: 8300000, guid: b6d8f16604b04fc438b41a4dd7e627fd, type: 3}
+  - Name: ------ Action ------
+    SEClip: {fileID: 0}
+  - Name: a_crouch
+    SEClip: {fileID: 8300000, guid: 5c026a70e6fdfe149be0f597089e671d, type: 3}
+  - Name: a_swap
+    SEClip: {fileID: 8300000, guid: 9ea47938030d3254cb583cd0d2a54cbd, type: 3}
+  - Name: a_kick
+    SEClip: {fileID: 8300000, guid: ea4fba7df55cf504f8412897d2df2422, type: 3}
+  - Name: a_jump
+    SEClip: {fileID: 8300000, guid: 7aa15b4252ac7434e92fdf2d19575a7f, type: 3}
+  - Name: a_bigJump
+    SEClip: {fileID: 8300000, guid: 481c8ce3e7a230044a8af17e22abe8a5, type: 3}
+  - Name: a_hover
+    SEClip: {fileID: 8300000, guid: bd7c1e54ee03f8c43aa2a9aa7f9894fb, type: 3}
+  - Name: a_blink
+    SEClip: {fileID: 8300000, guid: b5263fb64be1b2a479b75cfa54e6e0e4, type: 3}
+  - Name: ------ Stage Object ------
+    SEClip: {fileID: 0}
+  - Name: s_actionCassette
+    SEClip: {fileID: 8300000, guid: 0842294660ae5b64ba93b2c4316da255, type: 3}
+  - Name: s_actionCassetteMinus
+    SEClip: {fileID: 8300000, guid: 621ce9951ca220a4a9d94b4860a86353, type: 3}
+  - Name: s_barrel
+    SEClip: {fileID: 8300000, guid: dc96f222dcdfe564da5ff859ca9e3846, type: 3}
+  - Name: s_breakableBlock
+    SEClip: {fileID: 8300000, guid: d09068c5cba2630468daa69061ddf2de, type: 3}
+  - Name: s_button
+    SEClip: {fileID: 8300000, guid: b87f4b09f6be58349980824f75efe431, type: 3}
+  - Name: s_door
+    SEClip: {fileID: 8300000, guid: d6e332131b26a7847813bfbb4d6fcb2b, type: 3}
+  - Name: s_gear
+    SEClip: {fileID: 8300000, guid: 1ec03bf13eed151449050481d469bdcc, type: 3}
+  - Name: s_hiddenArea
+    SEClip: {fileID: 8300000, guid: 727582e7f57a77546a212f314c82f1e7, type: 3}
+  - Name: s_jumpRamp
+    SEClip: {fileID: 8300000, guid: 8aaa4cceffe20a84e992d51f5d7031c6, type: 3}
+  - Name: s_key
+    SEClip: {fileID: 8300000, guid: 337b2eeac19148345abfaa91911640e3, type: 3}
+  - Name: s_movedObject
+    SEClip: {fileID: 8300000, guid: df7dcffe9b51e5148be5b1bfad1c342a, type: 3}
+  - Name: s_recoveryCapsule
+    SEClip: {fileID: 8300000, guid: 2e88c032612563b46859340118beac40, type: 3}
+  - Name: s_recoveryCapsuleMinus
+    SEClip: {fileID: 8300000, guid: 5176535c817639945aa6e7f93fcc7946, type: 3}
+  - Name: s_rope
+    SEClip: {fileID: 8300000, guid: 731d348ed0ae5ec4391c90d90c202ed5, type: 3}
+  - Name: s_saveGate
+    SEClip: {fileID: 8300000, guid: f1414ba1ed06fd44786fdeb9fe37745b, type: 3}
+  - Name: s_warpGate
+    SEClip: {fileID: 8300000, guid: 7e838a17361114b4cbbb767872468080, type: 3}
+  - Name: ------ UI ------
+    SEClip: {fileID: 0}
   - Name: u_cursor
     SEClip: {fileID: 8300000, guid: cb5f538973d35d54e976919c2f66d2cb, type: 3}
   - Name: u_submit

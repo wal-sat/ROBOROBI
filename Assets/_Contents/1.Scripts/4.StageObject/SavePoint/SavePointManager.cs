@@ -3,7 +3,7 @@ using UnityEngine;
 public class SavePointManager : MonoBehaviour
 {
     [SerializeField] private GameObject _player;
-    //[SerializeField] private GearManager _gearManager;
+    [SerializeField] private GearManager _gearManager;
 
     [HideInInspector] public SavePointBase CurrentSavePoint;
 
@@ -16,7 +16,7 @@ public class SavePointManager : MonoBehaviour
             CurrentSavePoint = newSavePoint;
         }
 
-        //_gearManager.OnSave();
+        _gearManager.OnSave();
     }
 
     public void TeleportSavePoint(SavePointBase newSavePoint = null)

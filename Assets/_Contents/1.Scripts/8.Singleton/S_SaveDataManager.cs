@@ -13,7 +13,7 @@ public class S_SaveDataManager : Singleton<S_SaveDataManager>
 
     // ----- Life Cycle Methods -----
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 

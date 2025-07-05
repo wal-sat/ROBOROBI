@@ -45,7 +45,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
     
     // ----- Life Cycle Methods -----
  
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 

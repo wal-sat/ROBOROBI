@@ -3,8 +3,6 @@ using System.Collections.Generic;
 
 public class BarrelManager : MonoBehaviour
 {
-    [SerializeField] private PlayerMovementManager _playerMovementManager;
-
     private List<Barrel> _barrelList = new List<Barrel>();
 
     // ----- Public Methods -----

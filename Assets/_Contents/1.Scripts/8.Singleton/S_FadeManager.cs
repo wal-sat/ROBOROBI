@@ -11,7 +11,7 @@ public class S_FadeManager : Singleton<S_FadeManager>
 
     // ----- Life Cycle Methods -----
 
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 

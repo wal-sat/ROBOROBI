@@ -18,7 +18,7 @@ public class S_SEManager : Singleton<S_SEManager>
     
     // ----- Life Cycle Methods -----
  
-    public override void Awake()
+    protected override void Awake()
     {
         base.Awake();
 
