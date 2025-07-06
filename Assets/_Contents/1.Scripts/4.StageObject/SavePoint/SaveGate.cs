@@ -17,6 +17,6 @@ public class SaveGate : SavePointBase
         _saveGateView.GlossSprite().Forget();
 
         _savePointParticle.Play();
-        // 効果音
+        S_SEManager.Instance.Play("s_saveGate");
     }
 }

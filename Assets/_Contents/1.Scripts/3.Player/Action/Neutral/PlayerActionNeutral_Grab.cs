@@ -84,7 +84,7 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerMovementPropert
         _grabbedRopePositionPast = _grabbedRopeTransform.position;
         _player.transform.position = new Vector3(_grabbedRopeTransform.position.x, _player.transform.position.y, _player.transform.position.z);
 
-        S_SEManager.Instance.Play("s_grabRope");
+        S_SEManager.Instance.Play("s_rope");
     }
     private void InGrab()
     {

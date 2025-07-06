@@ -27,5 +27,7 @@ public class Key : MonoBehaviour
         _savePointParticle.Play();
 
         _stageManager.StageClear().Forget();
+
+        S_SEManager.Instance.Play("s_key");
     }
 }

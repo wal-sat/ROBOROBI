@@ -680,12 +680,12 @@ MonoBehaviour:
     SEClip: {fileID: 8300000, guid: d541f4266b2d3ac40a79b486ed8c75c0, type: 3}
   - Name: p_landing
     SEClip: {fileID: 8300000, guid: b6d8f16604b04fc438b41a4dd7e627fd, type: 3}
+  - Name: p_swap
+    SEClip: {fileID: 8300000, guid: 9ea47938030d3254cb583cd0d2a54cbd, type: 3}
   - Name: ------ Action ------
     SEClip: {fileID: 0}
   - Name: a_crouch
     SEClip: {fileID: 8300000, guid: 5c026a70e6fdfe149be0f597089e671d, type: 3}
-  - Name: a_swap
-    SEClip: {fileID: 8300000, guid: 9ea47938030d3254cb583cd0d2a54cbd, type: 3}
   - Name: a_kick
     SEClip: {fileID: 8300000, guid: ea4fba7df55cf504f8412897d2df2422, type: 3}
   - Name: a_jump
@@ -702,7 +702,9 @@ MonoBehaviour:
     SEClip: {fileID: 8300000, guid: 0842294660ae5b64ba93b2c4316da255, type: 3}
   - Name: s_actionCassetteMinus
     SEClip: {fileID: 8300000, guid: 621ce9951ca220a4a9d94b4860a86353, type: 3}
-  - Name: s_barrel
+  - Name: s_barrelIn
+    SEClip: {fileID: 8300000, guid: 59046929042448c4bb0698160f4aee12, type: 3}
+  - Name: s_barrelOut
     SEClip: {fileID: 8300000, guid: dc96f222dcdfe564da5ff859ca9e3846, type: 3}
   - Name: s_breakableBlock
     SEClip: {fileID: 8300000, guid: d09068c5cba2630468daa69061ddf2de, type: 3}
@@ -718,6 +720,8 @@ MonoBehaviour:
     SEClip: {fileID: 8300000, guid: 8aaa4cceffe20a84e992d51f5d7031c6, type: 3}
   - Name: s_key
     SEClip: {fileID: 8300000, guid: 337b2eeac19148345abfaa91911640e3, type: 3}
+  - Name: s_lrObject
+    SEClip: {fileID: 8300000, guid: 786ac9a195e207147be431c0cf655d71, type: 3}
   - Name: s_movedObject
     SEClip: {fileID: 8300000, guid: df7dcffe9b51e5148be5b1bfad1c342a, type: 3}
   - Name: s_recoveryCapsule
@@ -728,8 +732,10 @@ MonoBehaviour:
     SEClip: {fileID: 8300000, guid: 731d348ed0ae5ec4391c90d90c202ed5, type: 3}
   - Name: s_saveGate
     SEClip: {fileID: 8300000, guid: f1414ba1ed06fd44786fdeb9fe37745b, type: 3}
-  - Name: s_warpGate
+  - Name: s_warpGateIn
     SEClip: {fileID: 8300000, guid: 7e838a17361114b4cbbb767872468080, type: 3}
+  - Name: s_warpGateOut
+    SEClip: {fileID: 8300000, guid: 9cecea83ac0629f4ebaffbc2e8f0f6b1, type: 3}
   - Name: ------ UI ------
     SEClip: {fileID: 0}
   - Name: u_cursor

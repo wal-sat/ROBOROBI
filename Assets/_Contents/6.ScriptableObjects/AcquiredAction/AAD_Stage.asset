@@ -18,10 +18,10 @@ MonoBehaviour:
   _neutral_Crouch: 1
   _neutral_Swap: 1
   _neutral_Kick: 0
-  _neutral_InteractL: 0
-  _neutral_InteractR: 0
+  _neutral_InteractL: 1
+  _neutral_InteractR: 1
   _s_Jump: 1
-  _s_BigJump: 0
+  _s_BigJump: 1
   _s_GoDown: 0
   _s_DoubleJump: 0
   _s_InfiniteJump: 0

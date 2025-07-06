@@ -47,10 +47,12 @@ public class RecoveryCapsule : MonoBehaviour
             if (_recoveryCapsuleType == RecoveryCapsuleType.Recovery)
             {
                 _playerActionManager.RecoveryActionTime();
+                S_SEManager.Instance.Play("s_recoveryCapsule");
             }
             else if (_recoveryCapsuleType == RecoveryCapsuleType.Deplete)
             {
                 _playerActionManager.DepleteActionTime();
+                S_SEManager.Instance.Play("s_recoveryCapsuleMinus");
             }
 
             _cancellationTokenSource?.Cancel();
@@ -58,7 +60,6 @@ public class RecoveryCapsule : MonoBehaviour
             _cancellationTokenSource = new CancellationTokenSource();
             RecoveryCapsuleCoolTime(_cancellationTokenSource.Token).Forget();
 
-            S_SEManager.Instance.Play("s_recovery");
         }
     }
 

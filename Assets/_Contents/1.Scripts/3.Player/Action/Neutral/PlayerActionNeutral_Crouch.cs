@@ -28,6 +28,8 @@ public class PlayerActionNeutral_Crouch : PlayerActionBase
         _playerMovementBackside.ChangeBacksideTransform(true);
         _playerMovementDieToGetStuck.ChangeGetStuckTransform(true);
         _playerViewManager.IsCrouching = true;
+
+        S_SEManager.Instance.Play("a_crouch");
     }
 
     public override void EndAction()

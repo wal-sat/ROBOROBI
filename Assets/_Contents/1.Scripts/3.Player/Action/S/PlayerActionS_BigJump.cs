@@ -34,7 +34,7 @@ public class PlayerActionS_BigJump : PlayerActionBase
 
         _playerRigidbody2D.linearVelocity = new Vector2(_playerRigidbody2D.linearVelocityX, _jumpForce);
 
-        S_SEManager.Instance.Play("p_bigJump");
+        S_SEManager.Instance.Play("a_bigJump");
     }
 
     public override void EndAction()

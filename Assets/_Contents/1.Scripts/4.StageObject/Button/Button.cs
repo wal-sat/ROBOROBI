@@ -9,7 +9,7 @@ public class Button : MonoBehaviour
     [SerializeField] private GameObject _movedObject;
     [SerializeField] private Vector2 _movePoint;
 
-    private const float MoveTime = 1.5f;
+    private const float MoveTime = 1f;
 
     private Tween _currentTween;
     private Vector2 _defaultPosition;
@@ -48,7 +48,7 @@ public class Button : MonoBehaviour
             _currentTween = _movedObject.transform.DOMove(pos, MoveTime).SetEase(Ease.OutQuad);
 
             S_SEManager.Instance.Play("s_button");
-            S_SEManager.Instance.Play("s_movable");
+            S_SEManager.Instance.Play("s_movedObject");
         }
     }
 }

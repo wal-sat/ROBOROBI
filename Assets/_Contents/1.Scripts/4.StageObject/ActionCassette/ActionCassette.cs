@@ -50,10 +50,12 @@ public class ActionCassette : MonoBehaviour
             if (_actionCassetteType == ActionCassetteType.Acquire)
             {
                 _actionCassetteManager.AcquireAction(_actionKind);
+                S_SEManager.Instance.Play("s_actionCassette");
             }
             else if (_actionCassetteType == ActionCassetteType.Forget)
             {
                 _actionCassetteManager.ForgetAction(_actionKind);
+                S_SEManager.Instance.Play("s_actionCassetteMinus");
             }
 
             _cancellationTokenSource?.Cancel();
@@ -61,7 +63,6 @@ public class ActionCassette : MonoBehaviour
             _cancellationTokenSource = new CancellationTokenSource();
             ActionCassetteCoolTime(_cancellationTokenSource.Token).Forget();
 
-            S_SEManager.Instance.Play("s_actionCassette");
         }
     }
 

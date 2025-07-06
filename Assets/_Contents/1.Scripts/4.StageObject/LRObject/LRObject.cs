@@ -34,7 +34,7 @@ public class LRObject : MonoBehaviour
 
         _lrObjectView.SpriteChange(lrObjectState);
     }
-    
+
     public void Initialize(LRObjectState lrObjectState)
     {
         _currentTweener.Kill();

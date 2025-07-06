@@ -6,7 +6,7 @@ public enum LRObjectState { L, R }
 
 public class LRObjectManager : MonoBehaviour
 {
-    private const float AnimationDuration = 2.5f;
+    private const float AnimationDuration = 2f;
 
     private List<LRObject> _lrObjectList = new List<LRObject>();
     private LRObjectState _lrObjectState;
@@ -30,6 +30,8 @@ public class LRObjectManager : MonoBehaviour
         {
             lrObject.PlayAnimation(_lrObjectState, AnimationDuration);
         }
+
+        S_SEManager.Instance.Play("s_lrObject");
     }
 
     public void StageObjectInitialize()

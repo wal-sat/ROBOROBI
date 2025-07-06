@@ -84,6 +84,8 @@ public class Barrel : MonoBehaviour, IPlayerMovementPropertyLockable
             _cameraManager.ChangeCameraKind(CameraKind.Transition);
         }
 
+        S_SEManager.Instance.Play("s_barrelIn");
+
         await UniTask.WaitForSeconds(StayTime, cancellationToken: cancellationToken);
 
         _barrelView.SpriteChange(true);
@@ -95,6 +97,8 @@ public class Barrel : MonoBehaviour, IPlayerMovementPropertyLockable
         {
             _cameraManager.ChangeCameraKind(CameraKind.Main);
         }
+
+        S_SEManager.Instance.Play("s_barrelOut");
 
         await UniTask.WaitForSeconds(0.1f, cancellationToken: cancellationToken);
 

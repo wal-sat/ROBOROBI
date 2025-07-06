@@ -94,6 +94,8 @@ public class WarpGate : MonoBehaviour, IPlayerMovementPropertyLockable
         warpedObject.transform.DOMove(_destinationWarpGate.transform.position, _warpTweenDuration).SetEase(Ease.Linear).SetLink(warpedObject.gameObject);
         _warpGateView.SpriteChange(false);
 
+        S_SEManager.Instance.Play("s_warpGateIn");
+
         await UniTask.WaitForSeconds(_warpTweenDuration, cancellationToken: cancellationToken);
 
         warpedObject.Rigidbody.linearVelocity = velocity;
@@ -104,5 +106,7 @@ public class WarpGate : MonoBehaviour, IPlayerMovementPropertyLockable
             _cameraManager.ChangeCameraKind(CameraKind.Main);
         }
         CoolTime(_coolTime - _warpTweenDuration, cancellationToken).Forget();
+
+        S_SEManager.Instance.Play("s_warpGateOut");
     }
 }

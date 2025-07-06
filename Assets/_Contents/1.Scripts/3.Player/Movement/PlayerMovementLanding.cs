@@ -34,7 +34,7 @@ public class PlayerMovementLanding : MonoBehaviour
         {
             if (_landingSEBufferTimer > LandingSEBufferTime)
             {
-                S_SEManager.Instance.Play("p_land");
+                S_SEManager.Instance.Play("p_landing");
             }
             _landingSEBufferTimer = 0f;
         }
