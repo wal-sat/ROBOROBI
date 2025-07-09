@@ -20,6 +20,6 @@ public class Door : MonoBehaviour
         _stageManager.PlayerEnterDoor().Forget();
 
         _savePointParticle.Play();
-        // 効果音
+        S_SEManager.Instance.Play("s_saveGate");
     }
 }

@@ -5,6 +5,8 @@ public enum GearStatus { Acquired, NotAcquired, TemporaryAcquired }
 
 public class GearManager : MonoBehaviour
 {
+    [SerializeField] private GameSceneUIManager _gameSceneUIManager;
+
     private List<Gear> _gearList = new List<Gear>();
     private SceneKind _sceneKind;
 
@@ -25,7 +27,7 @@ public class GearManager : MonoBehaviour
         }
     }
 
-    public void StageObjectInitialize()
+    public void GearInitialize()
     {
         foreach (var gear in _gearList)
         {
@@ -39,12 +41,12 @@ public class GearManager : MonoBehaviour
             }
         }
 
-        // gear数表示のUIの変更
+        _gameSceneUIManager.ChangeGearCount(GetAcquiredGearCount(), GetTemporaryAcquiredGearCount());
     }
 
     public void OnAcquired()
     {
-        // gear数表示のUIの変更
+        _gameSceneUIManager.ChangeGearCount(GetAcquiredGearCount(), GetTemporaryAcquiredGearCount());
     }
 
     public void OnSave()
@@ -58,10 +60,24 @@ public class GearManager : MonoBehaviour
             }
         }
 
-        // gear数表示のUIの変更
+        _gameSceneUIManager.ChangeGearCount(GetAcquiredGearCount(), GetTemporaryAcquiredGearCount());
     }
 
     // ----- Private Methods -----
+
+    private int GetAcquiredGearCount()
+    {
+        int count = 0;
+        foreach (var gear in _gearList)
+        {
+            if (gear.GearStatus == GearStatus.Acquired)
+            {
+                count++;
+            }
+        }
+
+        return count;
+    }
 
     private int GetTemporaryAcquiredGearCount()
     {

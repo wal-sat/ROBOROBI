@@ -9,9 +9,14 @@ public class StageManager : MonoBehaviour, IInputLockable
     [SerializeField] private PlayerManager _playerManager;
     [SerializeField] private SectionManager _sectionManager;
     [SerializeField] private SavePointManager _savePointManager;
+    [SerializeField] private GearManager _gearManager;
     [SerializeField] private StageObjectManager _stageObjectManager;
     [SerializeField] private BackgroundManager _backgroundManager;
     [SerializeField] private CameraManager _cameraManager;
+
+    [SerializeField] private DeathCountManager _deathCountManager;
+    [SerializeField] private PlayTimeManager _playTimeManager;
+    [SerializeField] private GameSceneUIManager _gameSceneUIManager;
   
     public Action<GameSceneState> ChangeGameSceneState;
 
@@ -32,7 +37,7 @@ public class StageManager : MonoBehaviour, IInputLockable
 
     private void Update()
     {
-
+        _gameSceneUIManager.UpdatePlayTime( _playTimeManager.GetPlayTimeString() );
     }
 
     // ----- Public Methods -----
@@ -45,6 +50,7 @@ public class StageManager : MonoBehaviour, IInputLockable
     {
         ChangeGameSceneState(GameSceneState.Playing);
         _cameraManager.ChangeCameraKind(CameraKind.Main);
+        _gameSceneUIManager.DisplayUI(GameSceneUIState.Playing);
 
         _playerManager.Activate(_savePointManager.CurrentSavePoint.AcquiredActionData);
     }
@@ -67,7 +73,13 @@ public class StageManager : MonoBehaviour, IInputLockable
 
             _savePointManager.TeleportSavePoint();
             _playerManager.Initialize(_savePointManager.CurrentSavePoint.IsFacingRight);
+            _gearManager.GearInitialize();
             _stageObjectManager.StageObjectInitialize();
+            _backgroundManager.BackgroundInitialize();
+            _deathCountManager.IncrementDeathCount();
+
+            _gameSceneUIManager.ChangeDeathCount( _deathCountManager.DeathCount );
+            _gameSceneUIManager.DisplayUI(GameSceneUIState.Sleep);
 
             await UniTask.WaitForSeconds(0.05f, cancellationToken: destroyCancellationToken);
             await S_TransitionManager.Instance.InTransition(0.3f, destroyCancellationToken);
@@ -86,6 +98,7 @@ public class StageManager : MonoBehaviour, IInputLockable
     {
         S_InputSystemManager.Instance.SetInputLock(this, true);
         _playerManager.SectionClear();
+        _gearManager.OnSave();
 
         await UniTask.WaitForSeconds(0.2f, cancellationToken: destroyCancellationToken);
 
@@ -97,7 +110,11 @@ public class StageManager : MonoBehaviour, IInputLockable
         SavePointBase startPoint = _sectionManager.NextSection();
         _savePointManager.TeleportSavePoint(startPoint);
         _playerManager.Initialize(startPoint.IsFacingRight);
+        _gearManager.GearInitialize();
         _stageObjectManager.StageObjectInitialize();
+        _backgroundManager.BackgroundInitialize();
+
+        _gameSceneUIManager.DisplayUI(GameSceneUIState.Sleep);
 
         await UniTask.WaitForSeconds(1f, cancellationToken: destroyCancellationToken);
         await S_FadeManager.Instance.FadeIn(1f, destroyCancellationToken);
@@ -115,6 +132,9 @@ public class StageManager : MonoBehaviour, IInputLockable
         S_InputSystemManager.Instance.SetInputLock(this, true);
 
         DOVirtual.Float(1f, 0f, 0.5f, value => Time.timeScale = value).SetEase(Ease.OutCubic).SetUpdate(true);
+
+        _playTimeManager.StopTimer();
+        _gearManager.OnSave();
 
         await UniTask.WaitForSeconds(0.5f);
 
@@ -143,6 +163,7 @@ public class StageManager : MonoBehaviour, IInputLockable
     private void Initialize()
     {
         Time.timeScale = 1;
+        S_BGMManager.Instance.Play("stage", 1.5f);
 
         ChangeGameSceneState(GameSceneState.Sleep);
         _cameraManager.ChangeCameraKind(CameraKind.Main);
@@ -150,6 +171,16 @@ public class StageManager : MonoBehaviour, IInputLockable
         SavePointBase startPoint = _sectionManager.ChangeSection(0);
         _savePointManager.TeleportSavePoint(startPoint);
         _playerManager.Initialize(startPoint.IsFacingRight);
+        _gearManager.GearInitialize();
         _stageObjectManager.StageObjectInitialize();
+        _backgroundManager.BackgroundInitialize();
+
+        _deathCountManager.ResetDeathCount();
+        _playTimeManager.ResetTimer();
+        _playTimeManager.StartTimer();
+
+        _gameSceneUIManager.ChangeStageName(_currentSceneKind);
+        _gameSceneUIManager.ChangeDeathCount(_deathCountManager.DeathCount);
+        _gameSceneUIManager.DisplayUI(GameSceneUIState.Sleep);
     }
 }

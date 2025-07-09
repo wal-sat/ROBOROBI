@@ -1,0 +1,14 @@
+:root {
+}
+
+.main__action-card {
+    align-items: center;
+    top: 2%;
+    translate: 0 -125%;
+    transition-duration: 1s;
+    transition-timing-function: ease-out-cubic;
+}
+
+.main__action-card--display {
+    translate: 0 0%;
+}

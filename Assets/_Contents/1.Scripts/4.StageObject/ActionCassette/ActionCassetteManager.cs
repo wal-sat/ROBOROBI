@@ -13,6 +13,7 @@ public class ActionCassetteManager : MonoBehaviour
     }
 
     [SerializeField] private PlayerActionManager _playerActionManager;
+    [SerializeField] private GameSceneUIManager _gameSceneUIManager;
     [SerializeField] private ActionInfo[] _actionInfos;
 
     private List<ActionCassette> _actionCassetteList = new List<ActionCassette>();
@@ -49,12 +50,12 @@ public class ActionCassetteManager : MonoBehaviour
     public void AcquireAction(ActionKind actionKind)
     {
         _playerActionManager.AcquireAction(actionKind);
-        // UI表示の処理
+        _gameSceneUIManager.MakeActionCard(true, _actionInfoDictionary[actionKind].ActionName, _actionInfoDictionary[actionKind].ActionIcon);
     }
 
     public void ForgetAction(ActionKind actionKind)
     {
         _playerActionManager.ForgetAction(actionKind);
-        // UI表示の処理
+        _gameSceneUIManager.MakeActionCard(false, _actionInfoDictionary[actionKind].ActionName, _actionInfoDictionary[actionKind].ActionIcon);
     }
 }

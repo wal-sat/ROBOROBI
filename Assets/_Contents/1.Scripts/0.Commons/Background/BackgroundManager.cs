@@ -12,7 +12,7 @@ public class BackgroundManager : MonoBehaviour
         _backgrounds.Add(background);
     }
 
-    public void Initialize()
+    public void BackgroundInitialize()
     {
         foreach (var background in _backgrounds)
         {

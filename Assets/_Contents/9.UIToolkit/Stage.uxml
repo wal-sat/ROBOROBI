@@ -1,0 +1,82 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Commons.uss?fileID=7433441132597879392&amp;guid=2d8b3200cd670f543bacaad7e554f586&amp;type=3" />
+    <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Stage__UI.uss?fileID=7433441132597879392&amp;guid=c74e9fcdcfcf8a64a91796da144d9937&amp;type=3" />
+    <ui:VisualElement name="root-element" class="root-element" style="flex-grow: 1;">
+        <ui:VisualElement name="main" class="visible" style="width: 100%; height: 100%; position: absolute; flex-direction: row; justify-content: space-between;">
+            <ui:VisualElement name="main__top-left" style="width: 33%;">
+                <ui:VisualElement name="main__gear-count" style="width: 35%; height: 75px; flex-direction: row; margin-top: 3%; margin-left: 1.5%; background-color: rgba(255, 255, 170, 0.39); align-items: center;">
+                    <ui:VisualElement name="main__gear-count__bar" style="width: 5%; height: 120%; background-color: rgb(135, 78, 110);" />
+                    <ui:VisualElement name="main__gear-count__icon" style="background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/gearDefaultIcon.png?fileID=2800000&amp;guid=829298fe30d37964e8faa65026e5e392&amp;type=3#gearDefaultIcon&quot;); -unity-background-scale-mode: scale-to-fit; height: 80%; width: 35%;" />
+                    <ui:Label text="5" name="main__gear-count__text" class="text" style="font-size: 50px; height: 70%; margin-left: 5%; flex-shrink: 1;" />
+                    <ui:Label text="(+1)" name="main__gear-count__sub-text" class="text" style="width: 30%; font-size: 28px; height: 70%; -unity-text-align: lower-right;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="main__death-count" style="width: 35%; height: 75px; flex-direction: row; margin-top: 3%; margin-left: 1.5%; background-color: rgba(255, 255, 170, 0.39); align-items: center;">
+                    <ui:VisualElement name="main__death-count__bar" style="width: 5%; height: 120%; background-color: rgb(135, 78, 110);" />
+                    <ui:VisualElement name="main__death-count__icon" style="background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/deathCountIcon.png?fileID=2800000&amp;guid=fe471fae42008b8409a8174fd9984159&amp;type=3#deathCountIcon&quot;); -unity-background-scale-mode: scale-to-fit; height: 80%; width: 35%;" />
+                    <ui:Label text="5" name="main__death-count__text" class="text" style="font-size: 50px; height: 70%; margin-left: 5%; flex-shrink: 1;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="main__top-center" style="width: 33%; align-items: center;">
+                <ui:VisualElement name="main__action-card" class="main__action-card">
+                    <ui:VisualElement name="main__action-card__bar" style="width: 105%; background-color: rgb(135, 78, 110); height: 45px;">
+                        <ui:Label text="スキルゲット" name="main__action-card__title-text" class="text" style="font-size: 35px; -unity-text-align: middle-center; color: rgb(255, 255, 255); height: 100%;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="main__action-card__content" style="height: 125px; background-color: rgba(255, 255, 170, 0.39); flex-direction: row; align-items: center;">
+                        <ui:VisualElement name="main__action-card__action-icon" style="background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/ActionIcon/ActionIcon_S_LeftRight.png?fileID=2800000&amp;guid=4fe08ff03baa59940b346599d08a90a7&amp;type=3#ActionIcon_S_LeftRight&quot;); -unity-background-scale-mode: scale-to-fit; width: 250px; margin-right: 25px; margin-left: 25px; height: 100px;" />
+                        <ui:Label text="フロントジャンプ" name="main__action-card__text" enable-rich-text="false" class="text" style="font-size: 35px; height: 100%; -unity-text-align: middle-center; margin-right: 25px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="main__top-right" style="width: 33%;">
+                <ui:VisualElement name="main__stage-name" style="width: 35%; height: 75px; flex-direction: row-reverse; margin-top: 3%; background-color: rgba(255, 255, 170, 0.39); align-items: center; margin-right: 1.5%; align-self: flex-end;">
+                    <ui:VisualElement name="main__stage-name__bar" style="width: 5%; height: 120%; background-color: rgb(135, 78, 110);" />
+                    <ui:Label text="始まりの平原&#10;地下一回裏" name="main__stage-name__text" class="text" style="font-size: 28px; height: 100%; flex-shrink: 1; width: 95%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="main__play-time" style="width: 35%; height: 75px; flex-direction: row-reverse; margin-top: 3%; background-color: rgba(255, 255, 170, 0.39); align-items: center; margin-right: 1.5%; align-self: flex-end;">
+                    <ui:VisualElement name="main__play-time__bar" style="width: 5%; height: 120%; background-color: rgb(135, 78, 110);" />
+                    <ui:VisualElement name="main__play-time__icon" style="background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/playTimeIcon.png?fileID=2800000&amp;guid=3026ec8a70519e04aa42e33fa34c60f4&amp;type=3#playTimeIcon&quot;); -unity-background-scale-mode: scale-to-fit; height: 80%; width: 35%;" />
+                    <ui:Label text="00:00:00" name="main__play-time__text" class="text" style="font-size: 30px; height: 70%; flex-shrink: 1; -unity-text-align: middle-right; width: 65%; letter-spacing: -8px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="activate" class="visible visible--disable" style="width: 100%; height: 100%; position: absolute; flex-direction: column-reverse; align-items: center;">
+            <ui:VisualElement name="activate__frame" style="background-color: rgba(255, 255, 170, 0.39); height: 100px; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 1%; align-items: center; justify-content: space-between; flex-direction: row;">
+                <ui:VisualElement name="activate__s-button" style="height: 100%; flex-direction: row; align-items: center; margin-right: 25px; margin-left: 50px;">
+                    <ui:VisualElement name="activate__s-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_btton3.png?fileID=2800000&amp;guid=5b72084a51df9cd4bbad5225fd3ad3b7&amp;type=3#UI_input_btton3&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
+                    <ui:Label text=":" name="activate__s-button__colon" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px; margin-left: 5px; margin-right: 5px;" />
+                    <ui:Label text="起動" name="activate__s-button__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="activate__e-button" style="height: 100%; flex-direction: row; align-items: center; margin-right: 25px; margin-left: 25px;">
+                    <ui:VisualElement name="activate__e-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_btton2.png?fileID=2800000&amp;guid=d663978cab5d40e4b9792d12fee96b41&amp;type=3#UI_input_btton2&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
+                    <ui:Label text=":" name="activate__e-button__colon" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px; margin-left: 5px; margin-right: 5px;" />
+                    <ui:Label text="スクラップ消去" name="activate__e-button__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="activate__left-stick" style="height: 100%; flex-direction: row; align-items: center; margin-left: 25px; margin-right: 25px;">
+                    <ui:VisualElement name="activate__left-stick__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_stick7.png?fileID=2800000&amp;guid=aaa2cd08e5d697441b69635e8dbf5c91&amp;type=3#UI_input_stick7&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
+                    <ui:Label text=":" name="activate__left-stick__colon" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px; margin-left: 5px; margin-right: 5px;" />
+                    <ui:Label text="カメラ操作" name="activate__left-stick__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="activate__option-button" style="height: 100%; flex-direction: row; align-items: center; margin-left: 25px; margin-right: 50px;">
+                    <ui:VisualElement name="activate__option-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_Input_Option.png?fileID=2800000&amp;guid=3256306de8b698045bf6ecb6ac6cf4d5&amp;type=3#UI_Input_Option&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
+                    <ui:Label text=":" name="activate__option-button__colon" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px; margin-left: 5px; margin-right: 5px;" />
+                    <ui:Label text="メニュー" name="activate__option-button__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="sleep-camera" class="visible visible--disable" style="width: 100%; height: 100%; position: absolute; flex-direction: column-reverse; align-items: center;">
+            <ui:VisualElement name="sleep-camera__pattern" style="background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/sleepCameraPattern.png?fileID=2800000&amp;guid=eba7ad7e40181d24586b105dedff510b&amp;type=3#sleepCameraPattern&quot;); width: 100%; height: 100%; -unity-background-scale-mode: scale-to-fit; position: absolute;" />
+            <ui:VisualElement name="sleep-camera__frame" style="background-color: rgba(255, 255, 170, 0.39); height: 100px; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 1%; align-items: center; flex-direction: row; justify-content: space-between;">
+                <ui:VisualElement name="sleep-camera__left-stick" style="height: 100%; flex-direction: row; align-items: center; margin-left: 50px; margin-right: 25px;">
+                    <ui:VisualElement name="sleep-camera__left-stick__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_stick7.png?fileID=2800000&amp;guid=aaa2cd08e5d697441b69635e8dbf5c91&amp;type=3#UI_input_stick7&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
+                    <ui:Label text=":" name="sleep-camera__left-stick__colon" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px; margin-left: 5px; margin-right: 5px;" />
+                    <ui:Label text="カメラ操作" name="sleep-camera__left-stick__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
+                </ui:VisualElement>
+                <ui:VisualElement name="sleep-camera__s-button" style="height: 100%; flex-direction: row; align-items: center; margin-right: 50px; margin-left: 25px;">
+                    <ui:VisualElement name="sleep-camera__s-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_btton3.png?fileID=2800000&amp;guid=5b72084a51df9cd4bbad5225fd3ad3b7&amp;type=3#UI_input_btton3&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
+                    <ui:Label text=":" name="sleep-camera__s-button__colon" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px; margin-left: 5px; margin-right: 5px;" />
+                    <ui:Label text="もどる" name="sleep-camera__s-button__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

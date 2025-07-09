@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Cysharp.Threading.Tasks;
-using NaughtyAttributes;
 
 public class TitleSceneUIToolkit : MonoBehaviour
 {
