@@ -1,5 +1,5 @@
 using UnityEngine;
-using Unity.Cinemachine;
+using DG.Tweening;
 
 public class SleepCameraMovement : MonoBehaviour
 {
@@ -7,6 +7,7 @@ public class SleepCameraMovement : MonoBehaviour
     [SerializeField] private float _moveSpeed;
 
     private CameraConfine _cameraConfine;
+    private Tween _cameraMoveTween;
 
     // ----- Life Cycle Methods -----
 
@@ -17,14 +18,27 @@ public class SleepCameraMovement : MonoBehaviour
 
     // ----- Public Methods -----
 
-    public void SleepCameraInit(Vector2 initPosition, StageAreaBase sleepCameraArea)
+    public void SetSleepCameraArea(StageAreaBase sleepCameraArea)
     {
-        _cinemachineCamera_sleep.transform.position = initPosition;
         _cameraConfine.SetMoveRange(sleepCameraArea.MinPosition, sleepCameraArea.MaxPosition);
     }
 
-    public void SleepCameraMove(Vector2 direction)
+    public void MoveSleepCameraInitPosition(Vector2 initPosition)
     {
+        _cameraMoveTween = _cinemachineCamera_sleep.transform.DOMove(new Vector3(initPosition.x, initPosition.y, _cinemachineCamera_sleep.transform.position.z), 0.5f)
+            .SetEase(Ease.OutCubic)
+            .SetLink(this.gameObject)
+            .OnComplete(() => _cameraMoveTween = null);
+    }
+
+    public void SleepCameraUpdate(Vector2 direction)
+    {
+        if (_cameraMoveTween != null)
+        {
+            _cameraMoveTween.Kill();
+            _cameraMoveTween = null;
+        }
+
         _cinemachineCamera_sleep.transform.position += new Vector3(direction.x * _moveSpeed * Time.deltaTime, direction.y * _moveSpeed * Time.deltaTime, 0f);
     }
 }

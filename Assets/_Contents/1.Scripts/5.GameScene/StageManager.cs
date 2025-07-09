@@ -165,15 +165,15 @@ public class StageManager : MonoBehaviour, IInputLockable
         Time.timeScale = 1;
         S_BGMManager.Instance.Play("stage", 1.5f);
 
-        ChangeGameSceneState(GameSceneState.Sleep);
-        _cameraManager.ChangeCameraKind(CameraKind.Main);
-
         SavePointBase startPoint = _sectionManager.ChangeSection(0);
         _savePointManager.TeleportSavePoint(startPoint);
         _playerManager.Initialize(startPoint.IsFacingRight);
         _gearManager.GearInitialize();
         _stageObjectManager.StageObjectInitialize();
         _backgroundManager.BackgroundInitialize();
+
+        ChangeGameSceneState(GameSceneState.Sleep);
+        _cameraManager.ChangeCameraKind(CameraKind.Main);
 
         _deathCountManager.ResetDeathCount();
         _playTimeManager.ResetTimer();

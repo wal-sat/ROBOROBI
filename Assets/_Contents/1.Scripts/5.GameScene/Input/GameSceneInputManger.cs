@@ -52,6 +52,7 @@ public class GameSceneInputManger : MonoBehaviour, IInputLockable
                 _gameScenePlayingInput.InputInitialize();
                 break;
             case GameSceneState.Sleep:
+                _gameSceneSleepInput.InputInitialize();
                 break;
             case GameSceneState.Clear:
                 break;

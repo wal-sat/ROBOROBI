@@ -139,9 +139,6 @@ public class GameSceneUIToolkit : MonoBehaviour
 
     // ----- Private Methods -----
 
-    /// <summary>
-    /// 透明度の変更
-    /// </summary>
     private void MakeVisible(VisualElement visualElement)
     {
         if (!visualElement.ClassListContains("visible--disable")) return;

@@ -42,12 +42,12 @@
         <ui:VisualElement name="activate" class="visible visible--disable" style="width: 100%; height: 100%; position: absolute; flex-direction: column-reverse; align-items: center;">
             <ui:VisualElement name="activate__frame" style="background-color: rgba(255, 255, 170, 0.39); height: 100px; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; margin-bottom: 1%; align-items: center; justify-content: space-between; flex-direction: row;">
                 <ui:VisualElement name="activate__s-button" style="height: 100%; flex-direction: row; align-items: center; margin-right: 25px; margin-left: 50px;">
-                    <ui:VisualElement name="activate__s-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_btton3.png?fileID=2800000&amp;guid=5b72084a51df9cd4bbad5225fd3ad3b7&amp;type=3#UI_input_btton3&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
+                    <ui:VisualElement name="activate__s-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_button3.png?fileID=2800000&amp;guid=5b72084a51df9cd4bbad5225fd3ad3b7&amp;type=3#UI_input_button3&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
                     <ui:Label text=":" name="activate__s-button__colon" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px; margin-left: 5px; margin-right: 5px;" />
                     <ui:Label text="起動" name="activate__s-button__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="activate__e-button" style="height: 100%; flex-direction: row; align-items: center; margin-right: 25px; margin-left: 25px;">
-                    <ui:VisualElement name="activate__e-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_btton2.png?fileID=2800000&amp;guid=d663978cab5d40e4b9792d12fee96b41&amp;type=3#UI_input_btton2&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
+                    <ui:VisualElement name="activate__e-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_button2.png?fileID=2800000&amp;guid=d663978cab5d40e4b9792d12fee96b41&amp;type=3#UI_input_button2&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
                     <ui:Label text=":" name="activate__e-button__colon" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px; margin-left: 5px; margin-right: 5px;" />
                     <ui:Label text="スクラップ消去" name="activate__e-button__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
                 </ui:VisualElement>
@@ -72,11 +72,46 @@
                     <ui:Label text="カメラ操作" name="sleep-camera__left-stick__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
                 </ui:VisualElement>
                 <ui:VisualElement name="sleep-camera__s-button" style="height: 100%; flex-direction: row; align-items: center; margin-right: 50px; margin-left: 25px;">
-                    <ui:VisualElement name="sleep-camera__s-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_input_btton3.png?fileID=2800000&amp;guid=5b72084a51df9cd4bbad5225fd3ad3b7&amp;type=3#UI_input_btton3&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
+                    <ui:VisualElement name="sleep-camera__s-button__icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/UI_input/UI_Input_Button5.png?fileID=2800000&amp;guid=f478257325e24c649b43254d7ef338cd&amp;type=3#UI_Input_Button5&quot;); -unity-background-scale-mode: scale-to-fit; height: 80px; width: 80px;" />
                     <ui:Label text=":" name="sleep-camera__s-button__colon" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px; margin-left: 5px; margin-right: 5px;" />
                     <ui:Label text="もどる" name="sleep-camera__s-button__text" class="text" style="font-size: 32px; height: 100%; -unity-text-align: middle-center; -unity-paragraph-spacing: 10px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="clear" class="visible visible--disable" style="width: 100%; height: 100%; position: absolute;">
+            <ui:VisualElement name="clear__top-bar" style="background-color: rgb(135, 78, 110); height: 8%;" />
+            <ui:VisualElement name="clear__middle-area" style="height: 84%; background-color: rgba(255, 255, 255, 0.39); flex-direction: row; justify-content: space-evenly; align-items: center;">
+                <ui:VisualElement name="clear__icon" style="background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/clearIcon.png?fileID=2800000&amp;guid=7c59dd7f77615544aa33296813dcaf4c&amp;type=3#clearIcon&quot;); -unity-background-scale-mode: scale-to-fit; width: 40%; height: 100%;" />
+                <ui:VisualElement name="clear__content" style="width: 55%; height: 95%;">
+                    <ui:VisualElement name="clear__title" style="height: 30%; justify-content: space-evenly;">
+                        <ui:Label text="ステージクリア" name="clear__title__text" class="text" style="font-size: 75px; height: 50%; -unity-text-align: middle-center; margin-top: 2%;" />
+                        <ui:Label text="～次なるステージのカギを手に入れた～" name="clear__title__sub-text" class="text" style="font-size: 35px; height: 30%; -unity-text-align: middle-center;" />
+                    </ui:VisualElement>
+                    <ui:VisualElement name="clear__panel" style="height: 50%; background-color: rgb(230, 230, 230); border-left-color: rgb(22, 22, 22); border-right-color: rgb(22, 22, 22); border-top-color: rgb(22, 22, 22); border-bottom-color: rgb(22, 22, 22); border-top-width: 5px; border-right-width: 5px; border-bottom-width: 5px; border-left-width: 5px; border-top-left-radius: 50px; border-top-right-radius: 50px; border-bottom-right-radius: 50px; border-bottom-left-radius: 50px; justify-content: space-evenly;">
+                        <ui:VisualElement name="clear__panel__gear" style="height: 35%; flex-direction: row; align-items: center; margin-top: 2%;">
+                            <ui:Label text="歯車：" name="clear__panel__gear__text" class="text" style="font-size: 45px; height: 30%; -unity-text-align: middle-center; margin-left: 15%;" />
+                            <ui:VisualElement name="clear__panel__gear__icon-0" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/gearDisableIcon.png?fileID=2800000&amp;guid=32455ec256b8de741961cf6722cbe739&amp;type=3#gearDisableIcon&quot;); -unity-background-scale-mode: scale-to-fit; height: 60%;" />
+                            <ui:VisualElement name="clear__panel__gear__icon-1" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/gearDisableIcon.png?fileID=2800000&amp;guid=32455ec256b8de741961cf6722cbe739&amp;type=3#gearDisableIcon&quot;); -unity-background-scale-mode: scale-to-fit; height: 60%;" />
+                            <ui:VisualElement name="clear__panel__gear__icon-2" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/gearDisableIcon.png?fileID=2800000&amp;guid=32455ec256b8de741961cf6722cbe739&amp;type=3#gearDisableIcon&quot;); -unity-background-scale-mode: scale-to-fit; height: 60%;" />
+                            <ui:VisualElement name="clear__panel__gear__icon-3" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/gearDisableIcon.png?fileID=2800000&amp;guid=32455ec256b8de741961cf6722cbe739&amp;type=3#gearDisableIcon&quot;); -unity-background-scale-mode: scale-to-fit; height: 60%;" />
+                            <ui:VisualElement name="clear__panel__gear__icon-4" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/_Contents/2.Sprites/5.UI/StageUI/gearDisableIcon.png?fileID=2800000&amp;guid=32455ec256b8de741961cf6722cbe739&amp;type=3#gearDisableIcon&quot;); -unity-background-scale-mode: scale-to-fit; height: 60%; margin-right: 15%;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="clear__panel__death-count" style="height: 30%; flex-direction: row; align-items: center; justify-content: space-around;">
+                            <ui:Label text="デス数：00000" name="clear__panel__death-count__text" class="text" style="font-size: 45px; height: 30%; -unity-text-align: middle-center;" />
+                            <ui:Label text="最小デス数：00000" name="clear__panel__death-count__minimum-text" class="text" style="font-size: 45px; height: 30%; -unity-text-align: middle-center;" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="clear__panel__play-time" style="height: 30%; flex-direction: row; align-items: center; justify-content: space-around;">
+                            <ui:Label text="タイム：00:00:00" name="clear__panel__play-time__text" class="text" style="font-size: 45px; height: 30%; -unity-text-align: middle-center;" />
+                            <ui:Label text="最速タイム：00:00:00" name="clear__panel__play-time__fastest-text" class="text" style="font-size: 45px; height: 30%; -unity-text-align: middle-center;" />
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="clear__option" style="height: 20%; flex-direction: row; align-items: center; justify-content: space-around;">
+                        <ui:Label text="ステージセレクトへ" name="clear__option__stage-select" class="text animatable option" style="font-size: 40px;" />
+                        <ui:Label text="もういちど遊ぶ" enable-rich-text="false" name="clear__option__play-again" class="text animatable option" style="font-size: 40px;" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="clear__bottom-bar" style="background-color: rgb(135, 78, 110); height: 8%;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

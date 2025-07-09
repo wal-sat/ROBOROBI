@@ -31,7 +31,7 @@ public class GameSceneUIManager : MonoBehaviour
                 break;
             case GameSceneUIState.SleepCamera:
                 _gameSceneUIToolkit.DisplayMainUI(false);
-                _gameSceneUIToolkit.DisplayActivateUI(true);
+                _gameSceneUIToolkit.DisplayActivateUI(false);
                 _gameSceneUIToolkit.DisplaySleepCameraUI(true);
                 break;
         }

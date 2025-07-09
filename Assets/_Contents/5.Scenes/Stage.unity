@@ -2518,7 +2518,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerActionManager: {fileID: 141887659}
-  _stageUIManager: {fileID: 1562766174}
+  _gameSceneUIManager: {fileID: 1562766174}
   _actionInfos:
   - ActionKind: 0
     ActionName: "\u3064\u304B\u307F"
@@ -20602,7 +20602,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c98fb146118e44a9352a9b5d235626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _playerManager: {fileID: 920735698}
   _stageManager: {fileID: 1559510324}
+  _savePointManager: {fileID: 2082157840}
+  _cameraManager: {fileID: 1408956601}
+  _sleepCameraMovement: {fileID: 1408956602}
+  _gameSceneUIManager: {fileID: 1562766174}
 --- !u!1 &1158467179
 GameObject:
   m_ObjectHideFlags: 0
@@ -20632,7 +20637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd349fd46615d194697600ad3de82ca3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stageUIManager: {fileID: 1562766174}
+  _gameSceneUIManager: {fileID: 1562766174}
 --- !u!4 &1158467181
 Transform:
   m_ObjectHideFlags: 0
@@ -22505,7 +22510,7 @@ MonoBehaviour:
   _saveGateView: {fileID: 0}
   _savePointParticle: {fileID: 0}
   AcquiredActionData: {fileID: 11400000, guid: cdd6f5a8d7a1f0842bf7b68b744fd64b, type: 2}
-  SleepCameraArea: {fileID: 0}
+  SleepCameraArea: {fileID: 1956811275}
   SavePointIndex: 0
   IsFacingRight: 1
 --- !u!61 &1380800482
@@ -22786,6 +22791,7 @@ GameObject:
   - component: {fileID: 1408956599}
   - component: {fileID: 1408956601}
   - component: {fileID: 1408956600}
+  - component: {fileID: 1408956602}
   m_Layer: 0
   m_Name: _CameraManager
   m_TagString: Untagged
@@ -22843,6 +22849,20 @@ MonoBehaviour:
   _cinemachineCameraTransition_0: {fileID: 1523517291}
   _cinemachineCameraTransition_1: {fileID: 196700021}
   _cinemachineCameraSleep: {fileID: 555988668}
+--- !u!114 &1408956602
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408956598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 926e99ad9664d2b40bdd9c1886ad089c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _cinemachineCamera_sleep: {fileID: 555988668}
+  _moveSpeed: 15
 --- !u!1 &1413083758
 GameObject:
   m_ObjectHideFlags: 0
@@ -27809,7 +27829,7 @@ MonoBehaviour:
   _cameraManager: {fileID: 1408956601}
   _deathCountManager: {fileID: 305089529}
   _playTimeManager: {fileID: 420603720}
-  _stageUIManager: {fileID: 1562766174}
+  _gameSceneUIManager: {fileID: 1562766174}
 --- !u!1 &1562766172
 GameObject:
   m_ObjectHideFlags: 0
@@ -27821,7 +27841,7 @@ GameObject:
   - component: {fileID: 1562766173}
   - component: {fileID: 1562766174}
   m_Layer: 0
-  m_Name: _StageUIManager
+  m_Name: _GameSceneUIManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27854,7 +27874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019a7d731ad4153418cd3fc8b23ea76a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _stageSceneUIToolkit: {fileID: 416158663}
+  _gameSceneUIToolkit: {fileID: 416158663}
 --- !u!1 &1564573090
 GameObject:
   m_ObjectHideFlags: 0

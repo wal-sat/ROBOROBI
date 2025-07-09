@@ -69,4 +69,9 @@ public class PlayerManager : MonoBehaviour
         _playerActionManager.ActionInitialize();
         _playerMovementManager.SetPlayerVelocityZero();
     }
+
+    public void DeleteScrap()
+    {
+        _playerScrapManager.DestroyAllScraps();
+    }
 }
