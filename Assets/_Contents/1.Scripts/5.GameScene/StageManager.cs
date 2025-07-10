@@ -135,12 +135,15 @@ public class StageManager : MonoBehaviour, IInputLockable
 
         _playTimeManager.StopTimer();
         _gearManager.OnSave();
+        _gameSceneUIManager.ChangeClearPanelInformation(_currentSceneKind, _deathCountManager.DeathCount.ToString(), _playTimeManager.GetPlayTimeString());
 
-        await UniTask.WaitForSeconds(0.5f);
+        await UniTask.WaitForSeconds(0.5f, true);
 
         _playerManager.SectionClear();
+        _gameSceneUIManager.DisplayUI(GameSceneUIState.Clear);
+        ChangeGameSceneState(GameSceneState.Clear);
 
-        await UniTask.WaitForSeconds(0.5f);
+        await UniTask.WaitForSeconds(0.5f, true);
 
         S_InputSystemManager.Instance.SetInputLock(this, false);
 

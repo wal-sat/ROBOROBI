@@ -124,7 +124,7 @@ public class TitleSceneUIToolkit : MonoBehaviour
                 break;
         }
     }
-    public void SelectSaveSlotOption(int index, bool isSelecttingBackOption = false)
+    public void SelectSaveSlotOption(int index, bool isSelectingBackOption = false)
     {
         for (int i = 0; i < _titleSaveSlots__saveSlots.Length; i++)
         {
@@ -134,7 +134,7 @@ public class TitleSceneUIToolkit : MonoBehaviour
         DeselectOption(_titleSaveSlots__backOption);
         StopAnimation(_titleSaveSlots__backOption);
 
-        if (isSelecttingBackOption)
+        if (isSelectingBackOption)
         {
             SelectOption(_titleSaveSlots__backOption);
             StartAnimation(_titleSaveSlots__backOption);

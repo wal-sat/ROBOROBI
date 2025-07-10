@@ -10132,8 +10132,9 @@ GameObject:
   - component: {fileID: 416158661}
   - component: {fileID: 416158662}
   - component: {fileID: 416158663}
+  - component: {fileID: 416158664}
   m_Layer: 0
-  m_Name: StageUIToolkit
+  m_Name: GameSceneUIToolkit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10183,6 +10184,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5ab475b1fabdc68469fd962733a9834e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &416158664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 416158660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ed9aeecfa55a24d875596e312bef6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &420603718
@@ -20602,8 +20615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19c98fb146118e44a9352a9b5d235626, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerManager: {fileID: 920735698}
   _stageManager: {fileID: 1559510324}
+  _playerManager: {fileID: 920735698}
   _savePointManager: {fileID: 2082157840}
   _cameraManager: {fileID: 1408956601}
   _sleepCameraMovement: {fileID: 1408956602}
@@ -27875,6 +27888,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gameSceneUIToolkit: {fileID: 416158663}
+  _gameSceneClearUIToolkit: {fileID: 416158664}
+  _clearKindInfos:
+  - ClearKind: 0
+    ClearIcon: {fileID: 21300000, guid: 7c59dd7f77615544aa33296813dcaf4c, type: 3}
+    ClearText: "\uFF5E\u6B21\u306A\u308B\u30B9\u30C6\u30FC\u30B8\u306E\u30AB\u30AE\u3092\u624B\u306B\u5165\u308C\u305F\uFF5E"
+  - ClearKind: 1
+    ClearIcon: {fileID: 21300000, guid: 7c59dd7f77615544aa33296813dcaf4c, type: 3}
+    ClearText: "\uFF5E\u91D1\u8272\u306E\u6B6F\u8ECA\u3092\u624B\u306B\u5165\u308C\u305F\uFF5E"
+  _defaultGearSprite: {fileID: 21300000, guid: 829298fe30d37964e8faa65026e5e392, type: 3}
+  _disableGearSprite: {fileID: 21300000, guid: 32455ec256b8de741961cf6722cbe739, type: 3}
 --- !u!1 &1564573090
 GameObject:
   m_ObjectHideFlags: 0
