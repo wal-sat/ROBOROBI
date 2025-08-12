@@ -28,6 +28,13 @@ public class ActionCassette : MonoBehaviour
         _isTriggerWithPlayer.TriggerEnterCallback += TriggerEnter;
     }
 
+    private void OnDestroy()
+    {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource = null;
+    }
+
     // ----- Public Methods -----
 
     public void ActionCassetteInitialize()

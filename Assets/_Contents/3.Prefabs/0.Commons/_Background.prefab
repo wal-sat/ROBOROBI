@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf3cd28d3597c748855285949d3c034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftTransform: {fileID: 7485545431342178942}
-  _rightTransform: {fileID: 2517805073382649197}
-  _moveSpeed: 5
+  playerMovementManager: {fileID: 0}
+  leftTransform: {fileID: 7485545431342178942}
+  rightTransform: {fileID: 2517805073382649197}
+  moveSpeed: 5
 --- !u!212 &6533771449607204
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -92,7 +93,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8893687988347410001, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
@@ -100,7 +101,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &685087139199410279
@@ -148,9 +149,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf3cd28d3597c748855285949d3c034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftTransform: {fileID: 7485545431342178942}
-  _rightTransform: {fileID: 2517805073382649197}
-  _moveSpeed: 5
+  playerMovementManager: {fileID: 0}
+  leftTransform: {fileID: 7485545431342178942}
+  rightTransform: {fileID: 2517805073382649197}
+  moveSpeed: 5
 --- !u!212 &2647372827759856860
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -195,7 +197,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8893687988347410001, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
@@ -203,7 +205,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1039633555286733012
@@ -5219,9 +5221,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf3cd28d3597c748855285949d3c034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftTransform: {fileID: 7485545431342178942}
-  _rightTransform: {fileID: 2517805073382649197}
-  _moveSpeed: 5
+  playerMovementManager: {fileID: 0}
+  leftTransform: {fileID: 7485545431342178942}
+  rightTransform: {fileID: 2517805073382649197}
+  moveSpeed: 5
 --- !u!212 &2404686964085014418
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5266,7 +5269,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8893687988347410001, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
@@ -5274,7 +5277,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6232285996016098999
@@ -5384,9 +5387,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf3cd28d3597c748855285949d3c034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftTransform: {fileID: 7485545431342178942}
-  _rightTransform: {fileID: 2517805073382649197}
-  _moveSpeed: 5
+  playerMovementManager: {fileID: 0}
+  leftTransform: {fileID: 7485545431342178942}
+  rightTransform: {fileID: 2517805073382649197}
+  moveSpeed: 5
 --- !u!212 &5695620117471817076
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5431,7 +5435,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8893687988347410001, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
@@ -5439,7 +5443,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6701992910334834120
@@ -5487,9 +5491,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf3cd28d3597c748855285949d3c034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftTransform: {fileID: 7485545431342178942}
-  _rightTransform: {fileID: 2517805073382649197}
-  _moveSpeed: 5
+  playerMovementManager: {fileID: 0}
+  leftTransform: {fileID: 7485545431342178942}
+  rightTransform: {fileID: 2517805073382649197}
+  moveSpeed: 5
 --- !u!212 &7423978817686835037
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5534,7 +5539,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8893687988347410001, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
@@ -5542,7 +5547,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &6733283477414333674
@@ -5598,10 +5603,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2b83ae7574a184b8fd27a9a7eb00a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mianCamera: {fileID: 0}
-  _backgroundManager: {fileID: 0}
-  _cameraFollowingObject: {fileID: 3576785495030204877}
-  _backgroundBars:
+  mainCamera: {fileID: 0}
+  backgroundManager: {fileID: 0}
+  cameraFollowingObject: {fileID: 3576785495030204877}
+  backgroundBars:
   - {fileID: 5094212482669482683}
   - {fileID: 8567228538800580476}
   - {fileID: 608245082211747173}
@@ -5655,9 +5660,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf3cd28d3597c748855285949d3c034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftTransform: {fileID: 7485545431342178942}
-  _rightTransform: {fileID: 2517805073382649197}
-  _moveSpeed: 5
+  playerMovementManager: {fileID: 0}
+  leftTransform: {fileID: 7485545431342178942}
+  rightTransform: {fileID: 2517805073382649197}
+  moveSpeed: 5
 --- !u!212 &2793054154779953578
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5702,7 +5708,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8893687988347410001, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
@@ -5710,7 +5716,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &7192799913732371490
@@ -5758,9 +5764,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf3cd28d3597c748855285949d3c034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftTransform: {fileID: 7485545431342178942}
-  _rightTransform: {fileID: 2517805073382649197}
-  _moveSpeed: 5
+  playerMovementManager: {fileID: 0}
+  leftTransform: {fileID: 7485545431342178942}
+  rightTransform: {fileID: 2517805073382649197}
+  moveSpeed: 5
 --- !u!212 &4758046728501714723
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5805,7 +5812,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8893687988347410001, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
@@ -5813,7 +5820,7 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &8304172052897359520
@@ -5861,9 +5868,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cf3cd28d3597c748855285949d3c034, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftTransform: {fileID: 7485545431342178942}
-  _rightTransform: {fileID: 2517805073382649197}
-  _moveSpeed: 5
+  playerMovementManager: {fileID: 0}
+  leftTransform: {fileID: 7485545431342178942}
+  rightTransform: {fileID: 2517805073382649197}
+  moveSpeed: 5
 --- !u!212 &7690407729095202277
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5908,7 +5916,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -8893687988347410001, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 52895aef12bbeaf4e89dc46384c1e47a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.78431374}
   m_FlipX: 0
   m_FlipY: 0
@@ -5916,6 +5924,6 @@ SpriteRenderer:
   m_Size: {x: 19.2, y: 10.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

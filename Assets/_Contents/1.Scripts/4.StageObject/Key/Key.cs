@@ -26,7 +26,7 @@ public class Key : MonoBehaviour
         _keyDefaultParticle.Stop();
         _savePointParticle.Play();
 
-        _stageManager.StageClear().Forget();
+        _stageManager.StageClear(ClearKind.Key).Forget();
 
         S_SEManager.Instance.Play("s_key");
     }

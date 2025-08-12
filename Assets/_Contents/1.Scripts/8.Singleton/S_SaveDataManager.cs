@@ -16,6 +16,7 @@ public class S_SaveDataManager : Singleton<S_SaveDataManager>
     protected override void Awake()
     {
         base.Awake();
+        if (!_isValid) return;
 
         for (int i = 0; i < SaveDataCount; i++)
         {

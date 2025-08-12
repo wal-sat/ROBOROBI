@@ -248,7 +248,7 @@ public class TitleSceneUIToolkit : MonoBehaviour
     {
         while (!token.IsCancellationRequested)
         {
-            await UniTask.WaitForSeconds(1f, cancellationToken: token);
+            await UniTask.WaitForSeconds(1f, true, cancellationToken: token);
 
             action();
         }

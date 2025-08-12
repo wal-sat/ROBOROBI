@@ -89,12 +89,12 @@ public class GameSceneUIManager : MonoBehaviour
         _gameSceneUIToolkit.MakeActionCard(isAcquired, actionName, ActionIcon).Forget();
     }
 
-    public void ChangeClearPanelInformation(SceneKind sceneKind, string deathCountText, string playTimeText)
+    public void ChangeClearPanelInformation(SceneKind sceneKind, ClearKind clearKind, string deathCountText, string playTimeText)
     {
         StageData stageData = S_StageInfoManager.Instance.StageDataDictionary[sceneKind];
 
-        _gameSceneClearUIToolkit.ChangeClearIcon(_clearKindInfoDictionary[stageData.ClearKind].ClearIcon);
-        _gameSceneClearUIToolkit.ChangeClearSubText(_clearKindInfoDictionary[stageData.ClearKind].ClearText);
+        _gameSceneClearUIToolkit.ChangeClearIcon(_clearKindInfoDictionary[clearKind].ClearIcon);
+        _gameSceneClearUIToolkit.ChangeClearSubText(_clearKindInfoDictionary[clearKind].ClearText);
         for (int i = 0; i < 5; i++)
         {
             _gameSceneClearUIToolkit.ChangeGearIcons(i, stageData.IsAcquiredGears[i] ? _defaultGearSprite : _disableGearSprite);
@@ -103,5 +103,10 @@ public class GameSceneUIManager : MonoBehaviour
         _gameSceneClearUIToolkit.ChangeMinimumDeathCountText(stageData.GetMinimumDeathCountString());
         _gameSceneClearUIToolkit.ChangePlayTimeText(playTimeText);
         _gameSceneClearUIToolkit.ChangeFastestPlayTimeText(stageData.GetFastestClearTimeString());
+    }
+
+    public void SelectClearOption(int index)
+    {
+        _gameSceneClearUIToolkit.SelectClearOption(index);
     }
 }

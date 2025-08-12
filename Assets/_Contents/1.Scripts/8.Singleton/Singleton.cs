@@ -5,12 +5,15 @@ public abstract class Singleton<T> : MonoBehaviour where T : Singleton<T>
 {
 	public static T Instance = default;
 
+	protected bool _isValid = true;
+
 	// ----- Life Cycle Methods -----
 
 	protected virtual void Awake()
 	{
 		if (Instance)
 		{
+			_isValid = false;
 			Destroy(this.gameObject);
 			return;
 		}

@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class BackgroundBar : MonoBehaviour
 {
-    // [SerializeField] private PlayerMovement playerMovement;
-    [SerializeField] private Transform _leftTransform;
-    [SerializeField] private Transform _rightTransform;
-    [SerializeField] private float _moveSpeed;
+    [SerializeField] private PlayerMovementManager playerMovementManager;
+    [SerializeField] private Transform leftTransform;
+    [SerializeField] private Transform rightTransform;
+    [SerializeField] private float moveSpeed;
 
     private float _LeftRightDistance;
 
@@ -13,28 +13,27 @@ public class BackgroundBar : MonoBehaviour
 
     private void Start()
     {
-        _LeftRightDistance = _rightTransform.position.x - _leftTransform.position.x;
+        _LeftRightDistance = rightTransform.position.x - leftTransform.position.x;
     }
 
     // ----- Public Methods -----
 
     public void BarUpdate(float mainCameraPositionY)
     {
-        // if (playerMovement == null)
+        if (playerMovementManager == null || playerMovementManager.IsFacingRight)
         {
-            this.gameObject.transform.position += new Vector3(-_moveSpeed * Time.deltaTime, 0f, 0f);
+            this.gameObject.transform.position += new Vector3(-moveSpeed * Time.deltaTime, 0f, 0f);
         }
-        // else
+        else
         {
-            // if (playerMovement.isFacingRight) this.gameObject.transform.position += new Vector3(-SPEED * Time.deltaTime, 0f ,0f); 
-            // else this.gameObject.transform.position += new Vector3(SPEED * Time.deltaTime, 0f ,0f); 
+            this.gameObject.transform.position += new Vector3(moveSpeed * Time.deltaTime, 0f, 0f);
         }
 
-        if (this.gameObject.transform.position.x < _leftTransform.position.x)
+        if (this.gameObject.transform.position.x < leftTransform.position.x)
         {
             this.gameObject.transform.position += new Vector3(_LeftRightDistance, 0f, 0f);
         }
-        if (_rightTransform.position.x < this.gameObject.transform.position.x)
+        if (this.gameObject.transform.position.x > rightTransform.position.x)
         {
             this.gameObject.transform.position += new Vector3(-_LeftRightDistance, 0f, 0f);
         }

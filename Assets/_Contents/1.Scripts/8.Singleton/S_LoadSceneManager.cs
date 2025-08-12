@@ -19,7 +19,7 @@ public class S_LoadSceneManager : Singleton<S_LoadSceneManager>, IInputLockable
 
         SceneManager.LoadScene(sceneKind.ToString());
 
-        await UniTask.WaitForSeconds(FadeTime, cancellationToken: destroyCancellationToken);
+        await UniTask.WaitForSeconds(FadeTime, true, cancellationToken: destroyCancellationToken);
 
         S_InputSystemManager.Instance.SetInputLock(this, false);
 

@@ -19,6 +19,7 @@ public class S_TransitionManager : Singleton<S_TransitionManager>
     protected override void Awake()
     {
         base.Awake();
+        if (!_isValid) return;
 
         var root = this.gameObject.GetComponent<UIDocument>().rootVisualElement;
 
@@ -38,11 +39,11 @@ public class S_TransitionManager : Singleton<S_TransitionManager>
 
         MakePanelTransitions(_transitionPanel__white, PanelPosition.Center);
 
-        await UniTask.WaitForSeconds(PanelDelay, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(PanelDelay, true, cancellationToken: cancellationToken);
 
         MakePanelTransitions(_transitionPanel__blue, PanelPosition.Center);
 
-        await UniTask.WaitForSeconds(duration - PanelDelay, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(duration - PanelDelay, true, cancellationToken: cancellationToken);
     }
 
     public async UniTask InTransition(float duration, CancellationToken cancellationToken)
@@ -52,11 +53,11 @@ public class S_TransitionManager : Singleton<S_TransitionManager>
 
         MakePanelTransitions(_transitionPanel__blue, PanelPosition.Left);
 
-        await UniTask.WaitForSeconds(PanelDelay, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(PanelDelay, true, cancellationToken: cancellationToken);
 
         MakePanelTransitions(_transitionPanel__white, PanelPosition.Left);
 
-        await UniTask.WaitForSeconds(duration - PanelDelay, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(duration - PanelDelay, true, cancellationToken: cancellationToken);
 
         Initialize().Forget();
     }
@@ -88,7 +89,7 @@ public class S_TransitionManager : Singleton<S_TransitionManager>
         _transitionPanel__white.style.display = DisplayStyle.None;
         _transitionPanel__blue.style.display = DisplayStyle.None;
 
-        await UniTask.WaitForSeconds(0.25f); // Display.Noneが反映されるまでの待機
+        await UniTask.WaitForSeconds(0.25f, true); // Display.Noneが反映されるまでの待機
 
         _transitionPanel__white.style.transitionDuration = new List<TimeValue> { new(0.1f, TimeUnit.Second) };
         _transitionPanel__blue.style.transitionDuration = new List<TimeValue> { new(0.1f, TimeUnit.Second) };

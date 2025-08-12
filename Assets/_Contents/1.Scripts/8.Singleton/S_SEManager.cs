@@ -21,6 +21,7 @@ public class S_SEManager : Singleton<S_SEManager>
     protected override void Awake()
     {
         base.Awake();
+        if (!_isValid) return;
 
         for (var i = 0; i < _audioSourceList.Length; ++i)
         {

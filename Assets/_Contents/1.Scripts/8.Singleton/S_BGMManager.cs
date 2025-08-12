@@ -42,12 +42,13 @@ public class S_BGMManager : Singleton<S_BGMManager>
     private AudioSource[] _audioSourceList = new AudioSource[5];
     private Dictionary<string, BGMInfo> _bgmDictionary = new Dictionary<string, BGMInfo>();
     private float _volume;
-    
+
     // ----- Life Cycle Methods -----
- 
+
     protected override void Awake()
     {
         base.Awake();
+        if (!_isValid) return;
 
         for (int i = 0; i < _bgmList.Count; ++i)
         {
@@ -61,6 +62,8 @@ public class S_BGMManager : Singleton<S_BGMManager>
             _audioSourceList[i].priority = 1;
             _audioSourceList[i].volume = 0;
         }
+        
+        ChangeVolume(0.8f);
     }
     public void Update()
     {
@@ -97,6 +100,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
             if (BGMInfo.cancellationTokenSource != null)
             {
                 BGMInfo.cancellationTokenSource.Cancel();
+                BGMInfo.cancellationTokenSource.Dispose();
             }
             BGMInfo.cancellationTokenSource = new CancellationTokenSource();
 
@@ -128,7 +132,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
                 BGMInfo.audioSource.volume = _volume;
             }
 
-            try { await UniTask.Delay(TimeSpan.FromSeconds(fadeTime / 100), cancellationToken: token); }
+            try { await UniTask.WaitForSeconds(fadeTime / 100, true, cancellationToken: token); }
             catch { return; }
         }
         BGMInfo.audioSource.volume = _volume;
@@ -145,7 +149,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
         {
             BGMInfo.audioSource.volume += ( _volume - currentVolume ) / 100;
 
-            try { await UniTask.Delay(TimeSpan.FromSeconds(fadeTime / 100), cancellationToken: token); }
+            try { await UniTask.WaitForSeconds(fadeTime / 100, true, cancellationToken: token); }
             catch { return; }
         }
         BGMInfo.audioSource.volume = _volume;
@@ -165,6 +169,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
             if (BGMInfo.cancellationTokenSource != null)
             {
                 BGMInfo.cancellationTokenSource.Cancel();
+                BGMInfo.cancellationTokenSource.Dispose();
             }    
             BGMInfo.cancellationTokenSource = new CancellationTokenSource();
 
@@ -180,7 +185,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
         {
             BGMInfo.audioSource.volume -= currentVolume / 100;
 
-            try { await UniTask.Delay(TimeSpan.FromSeconds(fadeTime / 100), cancellationToken: token); }
+            try { await UniTask.WaitForSeconds(fadeTime / 100, true, cancellationToken: token); }
             catch { return; }
         }
         BGMInfo.audioSource.volume = 0;
@@ -202,6 +207,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
             if (BGMInfo.cancellationTokenSource != null)
             {
                 BGMInfo.cancellationTokenSource.Cancel();
+                BGMInfo.cancellationTokenSource.Dispose();
             }
             BGMInfo.cancellationTokenSource = new CancellationTokenSource();
 
@@ -217,7 +223,7 @@ public class S_BGMManager : Singleton<S_BGMManager>
         {
             BGMInfo.audioSource.volume -= currentVolume / 100;
             
-            try { await UniTask.Delay(TimeSpan.FromSeconds(fadeTime / 100), cancellationToken: token); }
+            try { await UniTask.WaitForSeconds(fadeTime / 100, true, cancellationToken: token); }
             catch { return; }
         }
         BGMInfo.audioSource.volume = 0;

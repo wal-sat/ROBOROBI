@@ -17,3 +17,4 @@ MonoBehaviour:
   StageIndex: 0
   WorldName: "\u5B58\u5728\u3057\u306A\u3044\u7A7A\u9593"
   StageName: "\u30C7\u30D9\u30ED\u30C3\u30D7\u30E1\u30F3\u30C8"
+  IsAcquiredGears: 0000000000

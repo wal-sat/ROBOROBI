@@ -484,7 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e33368352fbc50847b7ac98a6d2b3b54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _maxBGMVolume: 0.5
+  _maxBGMVolume: 0.3
   _bgmList:
   - Name: title
     BGMClip:

@@ -15,6 +15,7 @@ public class S_StageInfoManager : Singleton<S_StageInfoManager>
     protected override void Awake()
     {
         base.Awake();
+        if (!_isValid) return;
 
         for (int i = 0; i < _stageData.Length; i++)
         {

@@ -14,6 +14,7 @@ public class S_FadeManager : Singleton<S_FadeManager>
     protected override void Awake()
     {
         base.Awake();
+        if (!_isValid) return;
 
         var root = this.gameObject.GetComponent<UIDocument>().rootVisualElement;
         _blackPanel = root.Q<VisualElement>("black-panel");
@@ -26,7 +27,7 @@ public class S_FadeManager : Singleton<S_FadeManager>
         _blackPanel.style.transitionDuration = new List<TimeValue> { new(duration, TimeUnit.Second) };
         _blackPanel.AddToClassList("visible--disable");
 
-        await UniTask.WaitForSeconds(duration, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(duration, true, cancellationToken: cancellationToken);
     }
 
     public async UniTask FadeOut(float duration, CancellationToken cancellationToken)
@@ -34,7 +35,7 @@ public class S_FadeManager : Singleton<S_FadeManager>
         _blackPanel.style.transitionDuration = new List<TimeValue> { new(duration, TimeUnit.Second) };
         _blackPanel.RemoveFromClassList("visible--disable");
 
-        await UniTask.WaitForSeconds(duration, cancellationToken: cancellationToken);
+        await UniTask.WaitForSeconds(duration, true, cancellationToken: cancellationToken);
     }
 }
 

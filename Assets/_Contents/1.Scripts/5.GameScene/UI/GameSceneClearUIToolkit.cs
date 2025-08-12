@@ -76,22 +76,22 @@ public class GameSceneClearUIToolkit : MonoBehaviour
 
     public void ChangeDeathCountText(string text)
     {
-        _clear__panel__deathCount__text.text = text;
+        _clear__panel__deathCount__text.text = "デス数：" + text;
     }
 
     public void ChangeMinimumDeathCountText(string text)
     {
-        _clear__panel__deathCount__minimumText.text = text;
+        _clear__panel__deathCount__minimumText.text = "最小デス数：" + text;
     }
 
     public void ChangePlayTimeText(string text)
     {
-        _clear__panel__playTime__text.text = text;
+        _clear__panel__playTime__text.text = "タイム：" +  text;
     }
 
     public void ChangeFastestPlayTimeText(string text)
     {
-        _clear__panel__playTime__fastestText.text = text;
+        _clear__panel__playTime__fastestText.text = "最速タイム：" + text;
     }
 
     public void SelectClearOption(int index)
@@ -168,7 +168,7 @@ public class GameSceneClearUIToolkit : MonoBehaviour
     {
         while (!token.IsCancellationRequested)
         {
-            await UniTask.WaitForSeconds(1f, cancellationToken: token);
+            await UniTask.WaitForSeconds(1f, true, cancellationToken: token);
 
             action();
         }

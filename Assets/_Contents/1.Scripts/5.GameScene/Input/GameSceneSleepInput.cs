@@ -96,6 +96,7 @@ public class GameSceneSleepInput : MonoBehaviour
         {
             case GameSceneSleepState.Menu:
                 _playerManager.DeleteScrap();
+                S_SEManager.Instance.Play("u_submit");
                 break;
             case GameSceneSleepState.Camera:
                 _gameSceneSleepState = GameSceneSleepState.Menu;

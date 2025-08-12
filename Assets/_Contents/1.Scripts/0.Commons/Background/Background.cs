@@ -2,10 +2,10 @@ using UnityEngine;
 
 public class Background : MonoBehaviour
 {
-    [SerializeField] private Camera _mianCamera;
-    [SerializeField] private BackgroundManager _backgroundManager;
-    [SerializeField] private GameObject _cameraFollowingObject;
-    [SerializeField] private BackgroundBar[] _backgroundBars;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private BackgroundManager backgroundManager;
+    [SerializeField] private GameObject cameraFollowingObject;
+    [SerializeField] private BackgroundBar[] backgroundBars;
 
     private Vector3[] _initBarPositions;
     
@@ -13,33 +13,33 @@ public class Background : MonoBehaviour
 
     private void Awake()
     {
-        if (_backgroundManager != null) _backgroundManager.Register(this);
+        if (backgroundManager != null) backgroundManager.Register(this);
 
-        _initBarPositions = new Vector3[_backgroundBars.Length];
+        _initBarPositions = new Vector3[backgroundBars.Length];
 
-        for (int i = 0; i < _backgroundBars.Length; i++)
+        for (int i = 0; i < backgroundBars.Length; i++)
         {
-            _initBarPositions[i] = _backgroundBars[i].transform.position;
+            _initBarPositions[i] = backgroundBars[i].transform.position;
         }
     }
 
     private void Update()
     {
-        for (int i = 0; i < _backgroundBars.Length; i++)
+        for (int i = 0; i < backgroundBars.Length; i++)
         {
-            _backgroundBars[i].BarUpdate(_mianCamera.transform.position.y);
+            backgroundBars[i].BarUpdate(mainCamera.transform.position.y);
         }  
 
-        _cameraFollowingObject.gameObject.transform.position = new Vector3(_mianCamera.transform.position.x, _mianCamera.transform.position.y, _cameraFollowingObject.gameObject.transform.position.z);
+        cameraFollowingObject.gameObject.transform.position = new Vector3(mainCamera.transform.position.x, mainCamera.transform.position.y, cameraFollowingObject.gameObject.transform.position.z);
     }
     
     // ----- Public Methods -----
 
     public void Initialize()
     {
-        for (int i = 0; i < _backgroundBars.Length; i++)
+        for (int i = 0; i < backgroundBars.Length; i++)
         {
-            _backgroundBars[i].transform.position = new Vector3(_initBarPositions[i].x + _cameraFollowingObject.transform.position.x, _cameraFollowingObject.transform.position.y, _initBarPositions[i].z);
+            backgroundBars[i].transform.position = new Vector3(_initBarPositions[i].x + cameraFollowingObject.transform.position.x, cameraFollowingObject.transform.position.y, _initBarPositions[i].z);
         }
     }
 }

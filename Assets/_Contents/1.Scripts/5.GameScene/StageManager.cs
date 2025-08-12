@@ -69,6 +69,8 @@ public class StageManager : MonoBehaviour, IInputLockable
 
             await UniTask.WaitForSeconds(0.95f, cancellationToken: destroyCancellationToken);
 
+            S_SEManager.Instance.Play("u_restartTransition");
+
             await S_TransitionManager.Instance.OutTransition(0.3f, destroyCancellationToken);
 
             _savePointManager.TeleportSavePoint();
@@ -127,7 +129,7 @@ public class StageManager : MonoBehaviour, IInputLockable
     /// <summary>
     /// ステージをクリアした時の処理
     /// </summary>
-    public async UniTaskVoid StageClear()
+    public async UniTaskVoid StageClear(ClearKind clearKind)
     {
         S_InputSystemManager.Instance.SetInputLock(this, true);
 
@@ -135,7 +137,9 @@ public class StageManager : MonoBehaviour, IInputLockable
 
         _playTimeManager.StopTimer();
         _gearManager.OnSave();
-        _gameSceneUIManager.ChangeClearPanelInformation(_currentSceneKind, _deathCountManager.DeathCount.ToString(), _playTimeManager.GetPlayTimeString());
+        S_StageInfoManager.Instance.AddDeathCount(_currentSceneKind, _deathCountManager.DeathCount, true);
+        S_StageInfoManager.Instance.AddPlayTime(_currentSceneKind, _playTimeManager.GetPlayTimeInt(), true);
+        _gameSceneUIManager.ChangeClearPanelInformation(_currentSceneKind, clearKind, _deathCountManager.DeathCount.ToString(), _playTimeManager.GetPlayTimeString());
 
         await UniTask.WaitForSeconds(0.5f, true);
 

@@ -1,0 +1,9 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Commons.uss?fileID=7433441132597879392&amp;guid=2d8b3200cd670f543bacaad7e554f586&amp;type=3#Commons" />
+    <Style src="project://database/Assets/_Contents/9.UIToolkit/StyleSheet/Setting.uss?fileID=7433441132597879392&amp;guid=b24bf05888b2570408f84079d0d179b9&amp;type=3#Setting" />
+    <ui:VisualElement name="root-element" class="root-element">
+        <ui:VisualElement name="setting-panel" class="panel panel--open">
+            <ui:VisualElement style="flex-grow: 1;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

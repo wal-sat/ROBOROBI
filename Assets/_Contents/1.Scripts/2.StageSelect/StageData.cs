@@ -10,7 +10,6 @@ public class StageData : ScriptableObject
     [SerializeField] public int StageIndex;
     [SerializeField] public string WorldName;
     [SerializeField] public string StageName;
-    [SerializeField] public ClearKind ClearKind;
 
     [HideInInspector] public bool IsClear { get; set; }
     [HideInInspector] public bool[] IsAcquiredGears = new bool[5];
