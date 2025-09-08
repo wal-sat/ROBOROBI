@@ -19,7 +19,11 @@ PrefabInstance:
     - target: {fileID: 2685830993915381231, guid: a83328d2851682a438cdc2c845406769, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -356268516, guid: 5488a2bdf94bfb246b2b18b38a5fab10, type: 3}
+      objectReference: {fileID: 1274421497, guid: 5488a2bdf94bfb246b2b18b38a5fab10, type: 3}
+    - target: {fileID: 2685830993915381231, guid: a83328d2851682a438cdc2c845406769, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5133450790851214844, guid: a83328d2851682a438cdc2c845406769, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
@@ -34,7 +38,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6070802015583611279, guid: a83328d2851682a438cdc2c845406769, type: 3}
       propertyPath: m_Name
-      value: RopeEdge
+      value: Rope_edge
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

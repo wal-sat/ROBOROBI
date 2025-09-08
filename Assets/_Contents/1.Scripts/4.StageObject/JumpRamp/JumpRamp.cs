@@ -2,32 +2,43 @@ using UnityEngine;
 
 public class JumpRamp : MonoBehaviour
 {
-    [SerializeField] private Rigidbody2D _playerRigidbody2D;
-    [SerializeField] private Transform _landingCheckerTransform;
+    [SerializeField] private OnCollisionWithRigidbodyObject _onCollisionWithRigidbodyObject;
     [SerializeField] private float _JumpPower;
 
     private const float OffsetY = 0.2f;
-    private FirstCallChecker _firstCallChecker = new FirstCallChecker();
-    
+    private BoolDictionary<RigidbodyObject> _rigidbodyDictionary = new BoolDictionary<RigidbodyObject>();
+
+    // ----- Life Cycle Methods -----
+
+    private void Awake()
+    {
+        _onCollisionWithRigidbodyObject.CollisionEnterCallback += CollisionEnter;
+        _onCollisionWithRigidbodyObject.CollisionExitCallback += CollisionExit;
+    }
+
+    private void OnDestroy()
+    {
+        _onCollisionWithRigidbodyObject.CollisionEnterCallback -= CollisionEnter;
+        _onCollisionWithRigidbodyObject.CollisionExitCallback -= CollisionExit;
+    }
+
     // ----- Private Methods -----
 
-    private void OnCollisionStay2D(Collision2D other)
+    private void CollisionEnter(RigidbodyObject rigidbodyObject)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (this.transform.position.y + this.gameObject.transform.localScale.y / 2 - OffsetY <= rigidbodyObject.GetBoundsBottomY())
         {
-            if (this.transform.position.y + this.gameObject.transform.localScale.y / 2 - OffsetY <= _landingCheckerTransform.position.y)
+            if (_rigidbodyDictionary.CheckValue(rigidbodyObject))
             {
-                if (_firstCallChecker.Check())
-                {
-                    _playerRigidbody2D.linearVelocity = new Vector3(_playerRigidbody2D.linearVelocityX, _JumpPower, 0);
+                rigidbodyObject.Rigidbody.linearVelocity = new Vector3(rigidbodyObject.Rigidbody.linearVelocityX, _JumpPower, 0);
 
-                    S_SEManager.Instance.Play("s_jumpRamp");
-                }
+                S_SEManager.Instance.Play("s_jumpRamp");
             }
         }
     }
-    private void OnCollisionExit2D(Collision2D other)
+
+    private void CollisionExit(RigidbodyObject rigidbodyObject)
     {
-        _firstCallChecker.Reset();
+        _rigidbodyDictionary.ResetValue(rigidbodyObject);
     }
 }

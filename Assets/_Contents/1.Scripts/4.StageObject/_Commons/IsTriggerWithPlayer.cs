@@ -10,14 +10,14 @@ public class IsTriggerWithPlayer : MonoBehaviour
     {
         if (collider.CompareTag("Player"))
         {
-            if (TriggerEnterCallback != null) TriggerEnterCallback();
+            TriggerEnterCallback?.Invoke();
         }
     }
     private void OnTriggerExit2D(Collider2D collider)
     {
         if (collider.CompareTag("Player"))
         {
-            if (TriggerExitCallback != null) TriggerExitCallback();
+            TriggerExitCallback?.Invoke();
         }
     }
 }
