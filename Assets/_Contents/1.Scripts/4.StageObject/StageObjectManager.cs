@@ -4,7 +4,6 @@ public class StageObjectManager : MonoBehaviour
 {
     [SerializeField] private ActionCassetteManager _actionCassetteManager;
     [SerializeField] private BarrelManager _barrelManager;
-    [SerializeField] private BreakableBlockManager _breakableBlockManager;
     [SerializeField] private ButtonManager _buttonManager;
     [SerializeField] private ConveyorManager _conveyorManager;
     [SerializeField] private GeneratorManager _generatorManager;
@@ -12,7 +11,6 @@ public class StageObjectManager : MonoBehaviour
     [SerializeField] private MovableObjectManager _movableObjectManager;
     [SerializeField] private OneWayFloorManager _oneWayFloorManager;
     [SerializeField] private RecoveryCapsuleManager _recoveryCapsuleManager;
-    [SerializeField] private RopeManager _ropeManager;
     [SerializeField] private WarpGateManager _warpGateManager;
 
     // ----- Public Methods -----
@@ -21,7 +19,6 @@ public class StageObjectManager : MonoBehaviour
     {
         _actionCassetteManager.StageObjectInitialize();
         _barrelManager.StageObjectInitialize();
-        _breakableBlockManager.StageObjectInitialize();
         _buttonManager.StageObjectInitialize();
         _conveyorManager.StageObjectInitialize();
         _generatorManager.StageObjectInitialize();

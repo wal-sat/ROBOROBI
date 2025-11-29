@@ -14,7 +14,7 @@ public class PlayerMovementSwap : MonoBehaviour
     private const float CrouchCapsulePositionY = -0.175f;
     private const float CapsuleSizeX = 0.1f;
     private const float StandCapsuleSizeY = 0.35f;
-    private const float CrouchCapsuleSizeY = 0.225f;
+    private const float CrouchCapsuleSizeY = 0.1f;
 
     private Vector3 _swapCapsuleSize;
 

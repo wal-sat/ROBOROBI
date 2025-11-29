@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
 
@@ -6,8 +7,10 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private PlayerMovementManager _playerMovementManager;
     [SerializeField] private PlayerActionManager _playerActionManager;
     [SerializeField] private PlayerViewManager _playerViewManager;
+    [SerializeField] private PlayerStageObjectManager _playerStageObjectManager;
     [SerializeField] private PlayerScrapManager _playerScrapManager;
     [SerializeField] private PlayerExplosionAnimation _playerExplosionAnimation;
+    [SerializeField] private PlayerCameraOut _playerCameraOut;
     [SerializeField] private GameObject _player;
 
     private bool _isActivePlayer;
@@ -27,6 +30,7 @@ public class PlayerManager : MonoBehaviour
         _playerMovementManager.MovementUpdate(_isActivePlayer);
         _playerActionManager.ActionUpdate(_isActivePlayer);
         _playerViewManager.ViewUpdate(_isActivePlayer);
+        _playerCameraOut.CameraUpdate(_isActivePlayer);
     }
 
     // ----- Public Methods -----
@@ -41,6 +45,8 @@ public class PlayerManager : MonoBehaviour
         _playerMovementManager.MovementInitialize(isFacingRight);
         _playerActionManager.ActionInitialize();
         _playerViewManager.ViewInitialize(isFacingRight);
+        _playerStageObjectManager.StageObjectInitialize();
+        _playerScrapManager.ScrapInitialize();
     }
 
     public void Activate(AcquiredActionData acquiredActionData)

@@ -4,24 +4,28 @@ using UnityEngine;
 public class CameraArea : StageAreaBase
 {
     [SerializeField] private CameraAreaManager _cameraAreaManager;
+    [SerializeField] private OnTriggerWithRigidbodyObject _onTriggerWithRigidbodyObject;
     
     [SerializeField] public int CameraAreaPriority;
     [SerializeField] public float CameraSize;
 
+    // ----- Life Cycle Methods -----
+
+    protected override void Awake()
+    {
+        base.Awake();
+        _onTriggerWithRigidbodyObject.TriggerEnterCallback += TriggerEnter;
+        _onTriggerWithRigidbodyObject.TriggerExitCallback += TriggerExit;
+    }
+
     // ----- Private Methods -----
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void TriggerEnter(RigidbodyObject rigidbodyObject)
     {
-        if (collision.CompareTag("PlayerStageAreaChecker"))
-        {
-            _cameraAreaManager.Register(this);
-        }
+        _cameraAreaManager.Register(this);
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    private void TriggerExit(RigidbodyObject rigidbodyObject)
     {
-        if (collision.CompareTag("PlayerStageAreaChecker"))
-        {
-            _cameraAreaManager.Unregister(this);
-        }
+        _cameraAreaManager.Unregister(this);
     }
 }

@@ -1,7 +1,9 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class PlayerMovementLanding : MonoBehaviour
 {
+    [SerializeField] private Rigidbody2D _rigidbody2D;
     [SerializeField] private Transform _landingCheckerTransform;
     [SerializeField] private LayerMask _groundLayer;
     [SerializeField] private LayerMask _throughGroundLayer;
@@ -10,6 +12,7 @@ public class PlayerMovementLanding : MonoBehaviour
     private const float CapsuleSizeX = 0.2f;
     private const float CapsuleSizeY = 0.005f;
     private const float LandingSEBufferTime = 0.2f;
+    private const float VelocityYThreshold = 0.005f;
 
     private Vector3 _capsuleSize;
     private float _landingSEBufferTimer;
@@ -51,12 +54,37 @@ public class PlayerMovementLanding : MonoBehaviour
             return false;
         }
 
-        if (Physics2D.OverlapCapsule(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _groundLayer) != null ||
-                Physics2D.OverlapCapsule(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _throughGroundLayer) != null)
+        if ((IsLandGround() || IsLandThroughGround()) && _rigidbody2D.linearVelocityY <= VelocityYThreshold)
         {
+            _rigidbody2D.linearVelocityY = 0;
             return true;
         }
 
+        return false;
+    }
+
+    // ----- Private Methods -----
+
+    private bool IsLandGround()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCapsuleAll(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _groundLayer);
+        if (hitColliders.Length > 0)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private bool IsLandThroughGround()
+    {
+        Collider2D[] hitColliders = Physics2D.OverlapCapsuleAll(_landingCheckerTransform.position, _capsuleSize, CapsuleDirection2D.Horizontal, 0, _throughGroundLayer);
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.GetComponentInParent<OneWayFloor>()?.IsEnableLandingCheck ?? false)
+            {
+                return true;
+            }
+        }
         return false;
     }
 }

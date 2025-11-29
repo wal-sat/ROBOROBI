@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: JumpRamp_red_0
+  m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.Tilemaps.AnimatedTile
+  m_AnimatedSprites:
+  - {fileID: -1237317073, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: -1436913709, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: -848486112, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: 2032862916, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: 1962345593, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: 454766866, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: 636204506, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: 920142948, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: 816818315, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: -1440635190, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: -488110945, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: -190030037, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: -972646471, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: -1978892621, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: 64051486, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  - {fileID: -2037964153, guid: 16ba3e6b644f5204292e6fb3c5dab80a, type: 3}
+  m_MinSpeed: 15
+  m_MaxSpeed: 15
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 1
+  m_TileAnimationFlags: 0

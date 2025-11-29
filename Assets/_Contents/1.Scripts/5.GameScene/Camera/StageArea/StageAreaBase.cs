@@ -1,13 +1,13 @@
 using UnityEngine;
 
-public class StageAreaBase : MonoBehaviour
+public abstract class StageAreaBase : MonoBehaviour
 {
     [HideInInspector] public Vector2 MinPosition;
     [HideInInspector] public Vector2 MaxPosition;
 
     // ----- Life Cycle Methods -----
 
-    private void Awake()
+    protected virtual void Awake()
     {
         SpriteRenderer sr = GetComponent<SpriteRenderer>();
         Bounds bounds = sr.bounds;

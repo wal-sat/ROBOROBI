@@ -4,6 +4,7 @@ using UnityEngine;
 public class PlayerActionNeutral_Accelerate : PlayerActionBase
 {
     [SerializeField] private PlayerMovementManager _playerMovementManager;
+    [SerializeField] PlayerViewManager _playerViewManager;
     [SerializeField] private float _accelerateSpeed;
 
     // ----- Public Methods -----
@@ -13,6 +14,7 @@ public class PlayerActionNeutral_Accelerate : PlayerActionBase
         base.InitAction();
 
         _playerMovementManager.SubscribeSpeedAdjustCallback(Accelerate);
+        _playerViewManager.IsAccelerate = true;
     }
 
     public override void EndAction()
@@ -20,6 +22,7 @@ public class PlayerActionNeutral_Accelerate : PlayerActionBase
         base.EndAction();
 
         _playerMovementManager.UnsubscribeSpeedAdjustCallback(Accelerate);
+        _playerViewManager.IsAccelerate = false;
     }
 
     public override void InitializeAction()
@@ -27,6 +30,7 @@ public class PlayerActionNeutral_Accelerate : PlayerActionBase
         base.InitializeAction();
 
         _playerMovementManager.UnsubscribeSpeedAdjustCallback(Accelerate);
+        _playerViewManager.IsAccelerate = false;
     }
 
     // ----- Private Methods -----

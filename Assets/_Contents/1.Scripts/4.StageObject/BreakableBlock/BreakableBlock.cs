@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class BreakableBlock : MonoBehaviour
 {
-    [SerializeField] private BreakableBlockManager _breakableBlockManager;
     [SerializeField] private BreakableBlockView _breakableBlockView;
-    [SerializeField] private Transform _landingCheckerTransform;
+    [SerializeField] private OnCollisionWithRigidbodyObject _onCollisionWithRigidbodyObject;
 
     private const float BreakTime = 0.25f;
     private const float OffsetY = 0.2f;
 
     private Collider2D _breakableBlockCollider;
     private FirstCallChecker _firstCallChecker = new FirstCallChecker();
-    private bool _isEnable;
+    private CancellationTokenSource _cancellationTokenSource;
 
 
     // ----- Life Cycle Methods -----
@@ -22,30 +21,39 @@ public class BreakableBlock : MonoBehaviour
     {
         _breakableBlockCollider = this.gameObject.GetComponent<Collider2D>();
 
-        _breakableBlockManager.Register(this);
+        _onCollisionWithRigidbodyObject.CollisionStayCallback += CollisionStay;
     }
 
     // ----- Public Methods -----
 
     public void BreakableBlockInitialize()
     {
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource = null;
+
         _breakableBlockCollider.enabled = true;
         _breakableBlockView.ChangeView(true);
-
         _firstCallChecker.Reset();
     }
 
     // ----- Private Methods -----
 
-    private void OnCollisionStay2D(Collision2D collision)
+    private void CollisionStay(RigidbodyObject rigidbodyObject)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        IBreakBlock breakBlock = rigidbodyObject.GetComponent<IBreakBlock>();
+        if (breakBlock != null)
         {
-            if (this.transform.position.y + this.gameObject.transform.localScale.y / 2 - OffsetY <= _landingCheckerTransform.position.y) 
+            if (this.transform.position.y + this.gameObject.transform.localScale.y / 2 - OffsetY <= rigidbodyObject.GetBoundsBottomY()) 
             {
                 if (_firstCallChecker.Check())
                 {
-                    Break(destroyCancellationToken).Forget();
+                    breakBlock.Register(this);
+
+                    _cancellationTokenSource?.Cancel();
+                    _cancellationTokenSource?.Dispose();
+                    _cancellationTokenSource = new CancellationTokenSource();
+                    Break(_cancellationTokenSource.Token).Forget();
                 }
             }
         }
@@ -57,7 +65,8 @@ public class BreakableBlock : MonoBehaviour
 
         _breakableBlockCollider.enabled = false;
         _breakableBlockView.ChangeView(false);
-
         S_SEManager.Instance.Play("s_breakableBlock");
+        
+        _cancellationTokenSource = null;
     }
 }

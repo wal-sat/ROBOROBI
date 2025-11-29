@@ -5,7 +5,7 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerMovementPropert
     [SerializeField] private GameObject _player;
     [SerializeField] private PlayerMovementManager _playerMovementManager;
     [SerializeField] private PlayerViewManager _playerViewManager;
-    [SerializeField] private RopeManager _ropeManager;
+    [SerializeField] private PlayerOverlapRope _playerOverlapRope;
 
     private Transform _grabbedRopeTransform;
     private Vector2 _grabbedRopePositionPast;
@@ -19,7 +19,7 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerMovementPropert
 
         _playerViewManager.IsGrabbing = true;
 
-        if (_ropeManager.IsOverlapRope() && !_wasGrabRope)
+        if (_playerOverlapRope.IsOverlapRope() && !_wasGrabRope)
         {
             _wasGrabRope = true;
             InitGrab();
@@ -30,16 +30,16 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerMovementPropert
     {
         base.InAction();
 
-        if (_ropeManager.IsOverlapRope() && !_wasGrabRope)
+        if (_playerOverlapRope.IsOverlapRope() && !_wasGrabRope)
         {
             _wasGrabRope = true;
             InitGrab();
         }
-        else if (_ropeManager.IsOverlapRope() && _wasGrabRope)
+        else if (_playerOverlapRope.IsOverlapRope() && _wasGrabRope)
         {
             InGrab();
         }
-        else if (!_ropeManager.IsOverlapRope() && _wasGrabRope)
+        else if (!_playerOverlapRope.IsOverlapRope() && _wasGrabRope)
         {
             _wasGrabRope = false;
             EndGrab();
@@ -80,7 +80,7 @@ public class PlayerActionNeutral_Grab : PlayerActionBase, IPlayerMovementPropert
         _playerMovementManager.SetPlayerMovementPropertyLock(this, true);
         _playerMovementManager.SetPlayerVelocityZero();
 
-        _grabbedRopeTransform = _ropeManager.GetRopeTransform();
+        _grabbedRopeTransform = _playerOverlapRope.GetRopeTransform();
         _grabbedRopePositionPast = _grabbedRopeTransform.position;
         _player.transform.position = new Vector3(_grabbedRopeTransform.position.x, _player.transform.position.y, _player.transform.position.z);
 

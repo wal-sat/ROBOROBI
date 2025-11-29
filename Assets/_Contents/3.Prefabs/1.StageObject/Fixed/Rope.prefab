@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5133450790851214844}
   - component: {fileID: 7360354993352125636}
-  - component: {fileID: 3882954490989625428}
+  - component: {fileID: 2000241154993143471}
   - component: {fileID: 2685830993915381231}
   - component: {fileID: 2482923519879551667}
   m_Layer: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6070802015583611279}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -16}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -47,10 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96145274a74442e4889c43b910d9d4ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ropeManager: {fileID: 0}
-  _isTriggerWithPlayer: {fileID: 3882954490989625428}
-  IsOverlapPlayer: 0
---- !u!114 &3882954490989625428
+  _onTriggerWithRigidbodyObject: {fileID: 2000241154993143471}
+  _positionZ: -16
+--- !u!114 &2000241154993143471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -59,9 +58,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6070802015583611279}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea6b4f958866abd4ca25c6aa3c59f41d, type: 3}
+  m_Script: {fileID: 11500000, guid: dabdd42dd34bdbc41b9dcf60e2acb933, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnTriggerWithRigidbodyObject
+  isOnlyTriggerWithPlayer: 1
 --- !u!212 &2685830993915381231
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -82,6 +82,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -103,6 +105,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0

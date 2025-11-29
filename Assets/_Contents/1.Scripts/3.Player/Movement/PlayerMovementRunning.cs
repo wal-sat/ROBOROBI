@@ -24,7 +24,7 @@ public class PlayerMovementRunning : MonoBehaviour
             _runSpeed += speedAdjustCallback();
         }
 
-        _playerRigidbody2D.linearVelocity = new Vector2(_runSpeed * Time.fixedDeltaTime, _playerRigidbody2D.linearVelocityY);
+        _playerRigidbody2D.linearVelocity = new Vector2(_runSpeed, _playerRigidbody2D.linearVelocityY);
     }
 }
 

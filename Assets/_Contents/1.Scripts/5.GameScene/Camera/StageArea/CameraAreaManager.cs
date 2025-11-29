@@ -63,6 +63,11 @@ public class CameraAreaManager : MonoBehaviour
         }
     }
 
+    public int GetCameraAreaCount()
+    {
+        return _cameraAreaList.Count;
+    }
+
     // ----- Private Methods -----
 
     private void ChangeCameraArea(CameraArea removedCameraArea = null)
@@ -71,6 +76,7 @@ public class CameraAreaManager : MonoBehaviour
 
         CameraArea cameraArea = _cameraAreaList.AsEnumerable().Reverse().OrderByDescending(item => item.CameraAreaPriority).FirstOrDefault();
         if (cameraArea == null) return;
+
 
         if (_currentCameraArea == null || _currentCameraArea != cameraArea)
         {

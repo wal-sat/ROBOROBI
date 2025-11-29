@@ -2,35 +2,46 @@ using UnityEngine;
 
 public class JumpRamp : MonoBehaviour
 {
+    private enum JumpRampPower
+    {
+        Small = 15,
+        Medium = 20,
+        Large = 25
+    }
+
+    [SerializeField] private Collider2D _collider2D;
     [SerializeField] private OnCollisionWithRigidbodyObject _onCollisionWithRigidbodyObject;
-    [SerializeField] private float _JumpPower;
+    [SerializeField] private JumpRampPower _jumpRampPower;
 
     private const float OffsetY = 0.2f;
     private BoolDictionary<RigidbodyObject> _rigidbodyDictionary = new BoolDictionary<RigidbodyObject>();
+    private float _boundMaxY;
 
     // ----- Life Cycle Methods -----
 
     private void Awake()
     {
-        _onCollisionWithRigidbodyObject.CollisionEnterCallback += CollisionEnter;
+        _onCollisionWithRigidbodyObject.CollisionStayCallback += CollisionStay;
         _onCollisionWithRigidbodyObject.CollisionExitCallback += CollisionExit;
+
+        _boundMaxY = _collider2D.bounds.max.y;
     }
 
     private void OnDestroy()
     {
-        _onCollisionWithRigidbodyObject.CollisionEnterCallback -= CollisionEnter;
+        _onCollisionWithRigidbodyObject.CollisionStayCallback -= CollisionStay;
         _onCollisionWithRigidbodyObject.CollisionExitCallback -= CollisionExit;
     }
 
     // ----- Private Methods -----
 
-    private void CollisionEnter(RigidbodyObject rigidbodyObject)
+    private void CollisionStay(RigidbodyObject rigidbodyObject)
     {
-        if (this.transform.position.y + this.gameObject.transform.localScale.y / 2 - OffsetY <= rigidbodyObject.GetBoundsBottomY())
+        if (_boundMaxY - OffsetY <= rigidbodyObject.GetBoundsBottomY())
         {
             if (_rigidbodyDictionary.CheckValue(rigidbodyObject))
             {
-                rigidbodyObject.Rigidbody.linearVelocity = new Vector3(rigidbodyObject.Rigidbody.linearVelocityX, _JumpPower, 0);
+                rigidbodyObject.Rigidbody.linearVelocity = new Vector3(rigidbodyObject.Rigidbody.linearVelocityX, (float)_jumpRampPower, 0);
 
                 S_SEManager.Instance.Play("s_jumpRamp");
             }
@@ -40,5 +51,6 @@ public class JumpRamp : MonoBehaviour
     private void CollisionExit(RigidbodyObject rigidbodyObject)
     {
         _rigidbodyDictionary.ResetValue(rigidbodyObject);
+        _rigidbodyDictionary.RemoveKey(rigidbodyObject);
     }
 }

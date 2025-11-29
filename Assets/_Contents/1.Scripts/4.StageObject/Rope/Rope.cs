@@ -2,30 +2,39 @@ using UnityEngine;
 
 public class Rope : MonoBehaviour
 {
-    [SerializeField] private RopeManager _ropeManager;
-    [SerializeField] private IsTriggerWithPlayer _isTriggerWithPlayer;
-    
-    [HideInInspector] public bool IsOverlapPlayer;
+    [SerializeField] private OnTriggerWithRigidbodyObject _onTriggerWithRigidbodyObject;
+    [SerializeField] private float _positionZ;
 
     // ----- Life Cycle Methods -----
 
     private void Awake()
     {
-        _ropeManager.Register(this);
+        _onTriggerWithRigidbodyObject.TriggerEnterCallback = TriggerEnter;
+        _onTriggerWithRigidbodyObject.TriggerExitCallback = TriggerExit;
+    }
 
-        _isTriggerWithPlayer.TriggerEnterCallback = TriggerEnter;
-        _isTriggerWithPlayer.TriggerExitCallback = TriggerExit;
+    private void Start()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, _positionZ);
     }
 
     // ----- Private Methods -----
 
-    private void TriggerEnter()
+    private void TriggerEnter(RigidbodyObject rigidbodyObject = null)
     {
-        IsOverlapPlayer = true;
+        IOverlapRope overlapRope = rigidbodyObject.GetComponent<IOverlapRope>();
+        if (overlapRope != null)
+        {
+            overlapRope.Register(this);
+        }
     }
 
-    private void TriggerExit()
+    private void TriggerExit(RigidbodyObject rigidbodyObject = null)
     {
-        IsOverlapPlayer = false;
+        IOverlapRope overlapRope = rigidbodyObject.GetComponent<IOverlapRope>();
+        if (overlapRope != null)
+        {
+            overlapRope.Unregister(this);
+        }
     }
 }

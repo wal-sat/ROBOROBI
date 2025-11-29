@@ -16,11 +16,11 @@ public class OneWayFloorManager : MonoBehaviour
         }
     }
 
-    public void SetColliderEnable(bool isEnable)
+    public void PlayerGoDown(bool isEnable)
     {
         foreach (var oneWayFloor in _oneWayFloorList)
         {
-            oneWayFloor.IsColliderEnable = isEnable;
+            oneWayFloor.PlayerGoDown(isEnable);
         }
     }
 }

@@ -10,20 +10,20 @@ public class PlayerActionS_GoDown : PlayerActionBase
     {
         base.InitAction();
 
-        _oneWayFloorManager.SetColliderEnable(false);
+        _oneWayFloorManager.PlayerGoDown(true);
     }
 
     public override void EndAction()
     {
         base.EndAction();
 
-        _oneWayFloorManager.SetColliderEnable(true);
+        _oneWayFloorManager.PlayerGoDown(false);
     }
 
     public override void InitializeAction()
     {
         base.InitializeAction();
 
-        _oneWayFloorManager.SetColliderEnable(true);
+        _oneWayFloorManager.PlayerGoDown(false);
     }
 }

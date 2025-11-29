@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Conveyor_left_Rred_0
+  m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.Tilemaps.AnimatedTile
+  m_AnimatedSprites:
+  - {fileID: -393645559, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 873922171, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 831396903, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: -782340458, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 1171668750, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 1597531291, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: -1681678386, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 1864613292, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: -1980559157, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 933469719, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 2030417753, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: -1650864943, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 493140338, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 219741723, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: 963872984, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  - {fileID: -1961812391, guid: c641b50b73c2cfe4e9415703d2822824, type: 3}
+  m_MinSpeed: 15
+  m_MaxSpeed: 15
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 1
+  m_TileAnimationFlags: 0

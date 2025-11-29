@@ -1,18 +1,23 @@
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using NUnit.Framework;
 using UnityEngine;
 
 public class OneWayFloor : MonoBehaviour
 {
     [SerializeField] private OneWayFloorManager _oneWayFloorManager;
-    [SerializeField] private Transform _landingCheckerTransform;
-    [SerializeField] private Collider2D _collider2D;
-    [SerializeField] private float _offsetY;
-    [SerializeField] private float _bufferTime;
+    [SerializeField] private Collider2D _playerCollider2D;
+    [SerializeField] private Collider2D _selfCollider2D;
 
-    [HideInInspector] public bool IsColliderEnable;
+    private const float BoundsSizeOffset = 2f;
+    private const float ThresholdOffset = 0.25f;
 
-    private CancellationTokenSource _cancellationTokenSource;
+    public bool IsEnableLandingCheck { get; private set; }
+
+    private Vector2 _boundsCenter;
+    private Vector2 _boundsSize;
+    private bool _isPlayerGoDown;
+
 
     // ----- Life Cycle Methods -----
 
@@ -20,30 +25,49 @@ public class OneWayFloor : MonoBehaviour
     {
         _oneWayFloorManager.Register(this);
 
-        IsColliderEnable = true;
+        _boundsCenter = _selfCollider2D.bounds.center;
+        _boundsSize = new Vector2(_selfCollider2D.bounds.size.x + BoundsSizeOffset, _selfCollider2D.bounds.size.y + BoundsSizeOffset);
     }
 
     private void Update()
     {
-        if (_landingCheckerTransform.position.y < this.transform.position.y + _offsetY || !IsColliderEnable)
+        if (_isPlayerGoDown) return;
+
+        Collider2D[] hitColliders = Physics2D.OverlapBoxAll(_boundsCenter, _boundsSize, 0f);
+
+        foreach (var hitCollider in hitColliders)
         {
-            _cancellationTokenSource?.Cancel();
-            _cancellationTokenSource = null;
-            _collider2D.enabled = false;
-        }
-        else if (_cancellationTokenSource == null)
-        {
-            _cancellationTokenSource = new CancellationTokenSource();
-            EnableCollider(_cancellationTokenSource.Token).Forget();
+            RigidbodyObject rigidbodyObject = hitCollider.GetComponent<RigidbodyObject>();
+            if (rigidbodyObject != null)
+            {
+                if (_selfCollider2D.bounds.max.y - ThresholdOffset > rigidbodyObject.GetBoundsBottomY())
+                {
+                    Physics2D.IgnoreCollision(_selfCollider2D, rigidbodyObject.Collider, true);
+                    if (rigidbodyObject.CompareTag("Player"))
+                    {
+                        IsEnableLandingCheck = false;
+                    }
+                }
+                else
+                {
+                    Physics2D.IgnoreCollision(_selfCollider2D, rigidbodyObject.Collider, false);
+                    if (rigidbodyObject.CompareTag("Player"))
+                    {
+                        IsEnableLandingCheck = true;
+                    }
+                }
+            }
         }
     }
 
-    // ----- Private Methods ----
+    // ----- Public Methods -----
 
-    private async UniTaskVoid EnableCollider(CancellationToken cancellationToken)
+    public void PlayerGoDown(bool isGoDown)
     {
-        await UniTask.WaitForSeconds(_bufferTime, cancellationToken: cancellationToken);
+        _isPlayerGoDown = isGoDown;
+        if (_selfCollider2D.bounds.max.y - ThresholdOffset > _playerCollider2D.bounds.min.y) return;
 
-        _collider2D.enabled = true;
+        Physics2D.IgnoreCollision(_selfCollider2D, _playerCollider2D, _isPlayerGoDown);
+        IsEnableLandingCheck = !_isPlayerGoDown;
     }
 }

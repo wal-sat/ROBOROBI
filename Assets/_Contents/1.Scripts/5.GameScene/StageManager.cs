@@ -83,10 +83,11 @@ public class StageManager : MonoBehaviour, IInputLockable
             _gameSceneUIManager.ChangeDeathCount( _deathCountManager.DeathCount );
             _gameSceneUIManager.DisplayUI(GameSceneUIState.Sleep);
 
+            S_InputSystemManager.Instance.SetInputLock(this, false);
+            
             await UniTask.WaitForSeconds(0.05f, cancellationToken: destroyCancellationToken);
             await S_TransitionManager.Instance.InTransition(0.3f, destroyCancellationToken);
 
-            S_InputSystemManager.Instance.SetInputLock(this, false);
             ChangeGameSceneState(GameSceneState.Sleep);
 
             _deathFirstCallChecker.Reset();

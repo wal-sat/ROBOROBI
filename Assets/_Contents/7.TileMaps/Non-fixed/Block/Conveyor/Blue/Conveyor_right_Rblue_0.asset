@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
+  m_Name: Conveyor_right_Rblue_0
+  m_EditorClassIdentifier: Unity.2D.Tilemap.Extras::UnityEngine.Tilemaps.AnimatedTile
+  m_AnimatedSprites:
+  - {fileID: -1565095678, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 58693959, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 834678308, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 1202183227, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 478886392, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: -537462791, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 474620183, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 2131488833, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: -1906271451, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 1163907044, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 880185535, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 1556604381, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 772453522, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: -1830746242, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 1502607852, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  - {fileID: 1050713199, guid: cb885a091244c5d449878ddb8bf267e5, type: 3}
+  m_MinSpeed: 15
+  m_MaxSpeed: 15
+  m_AnimationStartTime: 0
+  m_AnimationStartFrame: 0
+  m_TileColliderType: 1
+  m_TileAnimationFlags: 0

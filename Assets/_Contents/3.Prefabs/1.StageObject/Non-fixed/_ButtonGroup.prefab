@@ -118,6 +118,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -139,6 +141,7 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -150,7 +153,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!61 &4127779886793576487
@@ -264,8 +267,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cfb3caf0f78df849bba39cad42742a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _defaultSprite: {fileID: 674834167, guid: fcdabd2e609c5894ebac1609d139367e, type: 3}
-  _disableSprite: {fileID: -280684180, guid: fcdabd2e609c5894ebac1609d139367e, type: 3}
+  _defaultSprite: {fileID: 764881880, guid: e58fcbe87ce6764478bdd1c9de670eea, type: 3}
+  _disableSprite: {fileID: -1907082729, guid: e58fcbe87ce6764478bdd1c9de670eea, type: 3}
 --- !u!114 &4538787959575528771
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +301,8 @@ SpriteRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -319,10 +324,11 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 674834167, guid: fcdabd2e609c5894ebac1609d139367e, type: 3}
+  m_Sprite: {fileID: 764881880, guid: e58fcbe87ce6764478bdd1c9de670eea, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -1,13 +1,17 @@
 using System.Collections.Generic;
+using UnityEditor.Localization.Plugins.XLIFF.V20;
 using UnityEngine;
 
 public class PlayerScrapManager : MonoBehaviour
 {
-    [SerializeField] private GameObject[] _scraps;
+    [SerializeField] private GameObject[] _scrapPrefabs;
 
+    private const int ScrapPoolCount = 10;
     private const float ScrapOffsetZ = 5f;
 
-    private List<GameObject> _scrapList = new List<GameObject>();
+    private List<Queue<PlayerScrap>> _scrapPoolList = new List<Queue<PlayerScrap>>();
+    private List<Queue<PlayerScrap>> _scrapList = new List<Queue<PlayerScrap>>();
+
     private int[] _scrapLayerIntArray = new int[3];
     private int _layerIndex;
 
@@ -19,20 +23,33 @@ public class PlayerScrapManager : MonoBehaviour
         {
             _scrapLayerIntArray[i] = LayerMask.NameToLayer("PlayerScrap_" + i);
         }
+
+        SetUpScrapPool();
     }
 
     // ----- Public Methods -----
 
+    public void ScrapInitialize()
+    {
+        for (int i = 0; i < _scrapPrefabs.Length; i++)
+        {
+            if (_scrapPoolList[i].Count == 0)
+            {
+                PlayerScrap scrap = _scrapList[i].Dequeue();
+                scrap.gameObject.SetActive(false);
+                _scrapPoolList[i].Enqueue(scrap);
+            }
+        }
+    }
+
     public void DeathExplosion(Vector3 playerDeathPosition, float angleZ)
     {
-        foreach (GameObject scrap in _scraps)
+        for (int i = 0; i < _scrapPrefabs.Length; i++)
         {
-            GameObject newScrap = Instantiate(scrap, new Vector3(playerDeathPosition.x, playerDeathPosition.y, ScrapOffsetZ + _layerIndex), Quaternion.identity);
-            newScrap.layer = _scrapLayerIntArray[_layerIndex];
-            newScrap.SetActive(true);
-            newScrap.GetComponent<PlayerScrap>().Explosion(angleZ, RemoveScrapFromList);
-
-            AddScrapToList(newScrap);
+            PlayerScrap scrap = GetScrapFromPool(i);
+            scrap.transform.position = new Vector3(playerDeathPosition.x, playerDeathPosition.y, ScrapOffsetZ + _layerIndex);
+            scrap.gameObject.layer = _scrapLayerIntArray[_layerIndex];
+            scrap.Explosion(angleZ);
 
             if (++_layerIndex >= _scrapLayerIntArray.Length)
             {
@@ -43,22 +60,69 @@ public class PlayerScrapManager : MonoBehaviour
 
     public void DestroyAllScraps()
     {
-        foreach (GameObject scrap in _scrapList)
+        for (int i = 0; i < _scrapPrefabs.Length; i++)
         {
-            Destroy(scrap);
+            int count = _scrapList[i].Count;
+            for (int j = 0; j < count; j++)
+            {
+                PlayerScrap scrap = _scrapList[i].Dequeue();
+                scrap.gameObject.SetActive(false);
+                _scrapPoolList[i].Enqueue(scrap);
+            }
         }
-        _scrapList.Clear();
     }
 
     // ----- Private Methods -----
 
-    private void AddScrapToList(GameObject scrap)
+    private void SetUpScrapPool()
     {
-        _scrapList.Add(scrap);
+        for (int i = 0; i < _scrapPrefabs.Length; i++)
+        {
+            _scrapPoolList.Add(new Queue<PlayerScrap>());
+            _scrapList.Add(new Queue<PlayerScrap>());
+        }
+
+        for (int i = 0; i < _scrapPrefabs.Length; i++)
+        {
+            for (int j = 0; j < ScrapPoolCount; j++)
+            {
+                PlayerScrap newScrap = Instantiate(_scrapPrefabs[i], Vector3.zero, Quaternion.identity).GetComponent<PlayerScrap>();
+                newScrap.OnDestroyCallBack += ReturnScrapToPool;
+                newScrap.ScrapIndex = i;
+                newScrap.transform.SetParent(this.transform);
+                newScrap.gameObject.SetActive(false);
+                _scrapPoolList[i].Enqueue(newScrap);
+            }
+        }
     }
 
-    private void RemoveScrapFromList(GameObject scrap)
+    private PlayerScrap GetScrapFromPool(int scrapIndex)
     {
-        _scrapList.Remove(scrap);
+        PlayerScrap scrap = _scrapPoolList[scrapIndex].Dequeue();
+        scrap.gameObject.SetActive(true);
+        _scrapList[scrapIndex].Enqueue(scrap);
+
+        return scrap;
+    }
+
+    private void ReturnScrapToPool(int scrapIndex, PlayerScrap scrap)
+    {
+        Queue<PlayerScrap> tempScrapQueue = new Queue<PlayerScrap>(_scrapList[scrapIndex]);
+        _scrapList[scrapIndex].Clear();
+        int count = tempScrapQueue.Count;
+        for (int i = 0; i < count; i++)
+        {
+            PlayerScrap playerScrap = tempScrapQueue.Dequeue();
+            if (playerScrap == scrap)
+            {
+                playerScrap.gameObject.SetActive(false);
+                playerScrap.transform.position = new Vector3(0f, 0f, playerScrap.transform.position.z);
+                _scrapPoolList[scrapIndex].Enqueue(playerScrap);
+            }
+            else
+            {
+                _scrapList[scrapIndex].Enqueue(playerScrap);
+            }
+        }
     }
 }
